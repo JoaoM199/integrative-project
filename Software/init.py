@@ -12,30 +12,42 @@ import scipy as scp
 import matplotlib.pyplot as plt
 from pHcalc import Acid, Inert, System
 
-def main():
-    app = Tk()
-    gui = main_window(app)
-    gui.app.mainloop()
-    return None
+# Apagar esta função quando finalizar
+def Nulo():
+    print("")
 
-class main_window:
-    def Nulo():
-        print("")
+app = Tk()
+app.title("Advanced Calculator for Quantitative Analytical Calculations")
+app.geometry('500x700')
 
-    def __init__(self, app, menubar):
-        self.app = app
-        self.app.title("Advanced Calculator for Quantitative Analytical Calculations")
-        self.app.geometry('500x700')
-        self.app(Menu = menubar)
+menubar = Menu(app)
+mfile = Menu(menubar, tearoff=0)
+mfile.add_command(label='Save as', command=Nulo)
+mfile.add_command(label='print', command=Nulo)
+mfile.add_command(label='print', command=Nulo)
+mfile.add_command(label='clear', command=Nulo)
+mfile.add_separator()
+mfile.add_command(label='exit', command=app.quit)
+menubar.add_cascade(label="File",menu=mfile)
 
-    def menu(self, app, Nulo):
-        menubar = Menu(self.app)
-        mfile = Menu(menubar, tearoff=0)
-        mfile.add_command(label='New',command=Nulo)
-        mfile.add_command(label='Save as',command=Nulo)
-        mfile.add_command(label='Clear',command=Nulo)
-        mfile.add_command(label='Print',command=Nulo)
-        mfile.add_separator()
-        mfile.add_command(label='exit',command=self.app.quit)
+mcalc = Menu(menubar, tearoff=0)
+m_analytical = Menu(mcalc, tearoff=0)
+m_analytical.add_command(label='Mean', command=Nulo)
+m_analytical.add_command(label='Deviation of a Measurement', command=Nulo)
+m_analytical.add_command(label='SD', command=Nulo) # Standard deviation
+m_analytical.add_command(label='RSD', command=Nulo) # Relative Standard deviation
+m_analytical.add_command(label='trust threshold', command=Nulo) # Limite de confiança
+mcalc.add_cascade(label='Analytical',menu=m_analytical)
+mcalc.add_command(label="Command", command=Nulo)
+menubar.add_cascade(label="Calculate",menu=mcalc)
 
-main()
+settings = Menu(menubar, tearoff=0)
+settings.add_command(label='Preferences', command=Nulo)
+menubar.add_cascade(label='settings', menu=settings)
+
+help = Menu(menubar, tearoff=0)
+help.add_command(label='about', command=Nulo)
+menubar.add_cascade(label='help', menu=help)
+
+app.config(menu=menubar)
+app.mainloop()
