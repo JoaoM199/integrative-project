@@ -1,36 +1,37 @@
 from math import *
 from tkinter import *
 
-class operations():
+class cmean():
     n = 0
     mean = 0
     uinput = ""
     val = 0
 
-    def mean():
-        uinput = input("Digite os valores separados por vírgula: ")
-        val = [float(i) for i in uinput.split(',')]
-        print(type(val))
-        print(val)
+    def __init__(self):
+        self = Tk()
+        self.title("Calculate mean")
+        self.geometry("500x400")
+        
+        Label(self, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=10, width=300, height=20)
+        uentry = Entry(self)
+        uentry.place(x=10,y=30,width=300, height=20)
+
+        def calc_mean():
+            rval = uentry.get()
+            val = rval.split(',')
             
-        n = len(val)
-        print(n)
+            fval = [float(i) for i in val]
             
-        mean = sum(val)/n
-        print(mean)
+            n = len(fval)
+            print(n)
+                        
+            mean = sum(fval)/n
+            print(mean)
+            Label(self, text=mean,anchor=W, foreground="#00a", font="Bold").place(x=10,y=80, width=300, height=20)
 
-    def md():
-        uinput = input("Digite os valores separados por vírgula: ")
+        calculate = Button(self, text="Calculate", command=calc_mean)
+        calculate.place(x=10,y=100,width=300, height=20)
+        exit = Button(self, text="exit", command=self.quit)
+        exit.place(x=10,y=130,width=300, height=20)
 
-
-
-    #def sd():
-
-
-mean_window = Tk()
-mean_window.title("Calculate mean")
-mean_window.geometry("500x400")
-
-# Inserir
-
-mean_window.mainloop()
+        self.mainloop()
