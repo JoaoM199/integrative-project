@@ -13,7 +13,8 @@ import matplotlib.pyplot as plt
 from pHcalc import Acid, Inert, System
 
 # components
-from cmean import cmean
+import cmean
+import csd
 
 # Apagar esta função quando finalizar
 def Nulo():
@@ -35,9 +36,9 @@ menubar.add_cascade(label="File",menu=mfile)
 
 mcalc = Menu(menubar, tearoff=0)
 m_analytical = Menu(mcalc, tearoff=0)
-m_analytical.add_command(label='Mean', command=cmean)
+m_analytical.add_command(label='Mean', command=cmean.cmean)
 m_analytical.add_command(label='Deviation of a Measurement', command=Nulo)
-m_analytical.add_command(label='SD', command=Nulo) # Standard deviation
+m_analytical.add_command(label='SD', command=csd.csd) # Standard deviation
 m_analytical.add_command(label='RSD', command=Nulo) # Relative Standard deviation
 m_analytical.add_command(label='trust threshold', command=Nulo) # Limite de confiança
 mcalc.add_cascade(label='Analytical',menu=m_analytical)
