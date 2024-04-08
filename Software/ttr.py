@@ -26,31 +26,17 @@ class ttr():
 
             rt = tinput.get()
             t = float(rt)
-            print(t)
-            print(type(t))
-
             mean = np.mean(fval)
-            print(mean)
-
             sd = np.std(fval)
-            print(sd)
-
             n = len(fval)
-            print(n)
-
             dof = n - 1
-            print(dof)
 
             critical_value = scp.stats.t.ppf((1 + t/100) / 2.0, dof)
-            print(critical_value)
-
             error_margin = critical_value * (sd/np.sqrt(n))
-            print(error_margin)
+            u = (mean - error_margin, mean + error_margin)
 
-            ttr = (mean - error_margin, mean + error_margin)
-            print(ttr)
-
-            Label(self, text='Ttr = {}'.format(ttr), anchor=W, foreground="#00a", font="Bold").place(x=10,y=110, width=450, height=20)
+            Label(self, text = 'The trust threshold of {},\n with t = {} is equal to:'.format(fval,t/100), anchor=W).place(x=10,y=110,width=450,height=20)
+            Label(self, text='u = {}'.format(u), anchor=W, foreground="#00a", font="Bold").place(x=10,y=140, width=450, height=20)
 
         calculate = Button(self, text="Calculate", command=calc_ttr)
         calculate.place(x=10,y=90,width=300, height=20)
