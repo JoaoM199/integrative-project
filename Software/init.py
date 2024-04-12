@@ -122,42 +122,58 @@ def ttr():
     calculate.place(x=10,y=90,width=300, height=20)
 
 def phc():
+    def error_non_numeric():
+        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=150,width=450,height=20)
+
     Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
     input_Ac_vol = Entry(tab_ph)
     input_Ac_vol.place(x=10,y=50,width=50,height=20)
-    try:
-        Ac_vol = float(input_Ac_vol).get()
-    except ValueError:
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=150,width=450,height=20)
 
+    
     Label(tab_ph, text="Enter the Base volume (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
     input_B_vol = Entry(tab_ph)
     input_B_vol.place(x=300,y=50,width=50,height=20)
-    try:
-        B_vol = float(input_B_vol).get()
-    except ValueError:
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=150,width=450,height=20)
 
     Label(tab_ph, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
     input_Ac_con = Entry(tab_ph)
     input_Ac_con.place(x=10,y=90,width=50,height=20)
-    try:
-        Ac_con = float(input_Ac_con).get()
-    except ValueError:
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=150,width=450,height=20)
 
     Label(tab_ph, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
     input_B_con = Entry(tab_ph)
     input_B_con.place(x=300,y=90,width=50,height=20)
-    try: 
-        B_con = float(input_B_con).get()
-    except ValueError:
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=150,width=450,height=20)
+            
 
     def calc_ph():
+        # Variáveis de entrada
+        try:
+            # Entrada
+            Ac_vol = float(input_Ac_vol.get())
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        try:
+            # Entrada
+            B_vol = float(input_B_vol.get())
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        try:
+            # Entrada
+            Ac_con = float(input_Ac_con.get())
+        except ValueError:
+            error_non_numeric()
+
+        try:
+            # Entrada
+            B_con = float(input_B_con.get())
+        except ValueError:
+            error_non_numeric()
+
         # Quantidade de substânicia
-        n_Ac = Ac_con - Ac_vol
-        n_B = B_con - B_vol
+        n_Ac = Ac_con * Ac_vol
+        n_B = B_con * B_vol
 
         # Valores de H+ e OH-
         n_H = n_Ac - n_B
