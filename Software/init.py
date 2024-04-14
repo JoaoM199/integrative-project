@@ -11,7 +11,7 @@ from math import *
 import numpy as np
 import scipy as scp
 import matplotlib.pyplot as plt
-#from pHcalc import Acid, Inert, System
+#from pHcalc import Acid, Inert, System # By Ryan Nelson
             
 def cmean():
     Label(tab_mean, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
@@ -171,38 +171,37 @@ def phc():
         except ValueError:
             error_non_numeric()
 
-        # Quantidade de substânicia
+        # Converter volue para litros
+        Ac_vol = Ac_vol/1000
+        B_vol = B_vol/1000
+        # Quantidade de substância
+        # n = C * V
         n_Ac = Ac_con * Ac_vol
         n_B = B_con * B_vol
 
-        # Valores de H+ e OH-
-        n_H = n_Ac - n_B
-        n_OH = n_B - n_Ac
-
-        # Verificar se os valores são negativos
-        if n_H < 0:
-            n_H = n_H * -1
+        # Substância em excesso
+        if n_Ac > n_B:
+            qn = n_Ac - n_B
         else:
-            n_H = n_H
+            qn = n_B - n_Ac
 
-        if n_OH < 0:
-            n_OH = n_OH * -1
+        # Concentração da espécie em excesso
+        n_con = qn/(Ac_vol + B_vol)
+
+        # Calcular pH e pOH
+        if n_Ac > n_B:
+            pH = -np.log10(n_con)
         else:
-            n_OH = n_OH
+            pOH = -np.log10(n_con)
 
-        # Volume total da solução
-        total_vol = Ac_vol + B_vol
+        # Calcular pOH a partir de pH ou vice-versa
+        if n_Ac > n_B:
+            pOH = 14 - pH
+        else:
+            pH = 14 - pOH
 
-        # Concentração de H+ e OH-
-        c_H = n_H/total_vol
-        c_OH = n_OH/total_vol
-
-        # Calculando pH e pOH
-        pH = -np.log10(c_H)
-        pOH = -np.log10(c_OH)
-
-        # Solução em equilíbrio
-        if (Ac_vol == B_vol):
+        # Volumes em equilíbrio
+        if Ac_vol == B_vol:
             pH = 7
             pOH = 7
         else:
@@ -210,8 +209,8 @@ def phc():
             pOH = pOH
 
         # Imprimindo valores
-        Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol), anchor=W).place(x=100,y=150,width=450,height=20)
-        Label(tab_ph, text='Volume of base: {}'.format(B_vol), anchor=W).place(x=100,y=170,width=450,height=20)
+        Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=150,width=450,height=20)
+        Label(tab_ph, text='Volume of base: {}'.format(B_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
         Label(tab_ph, text='Concentration of acid: {}'.format(Ac_con), anchor=W).place(x=100,y=190,width=450,height=20)
         Label(tab_ph, text='Concentration of acid: {}'.format(B_con), anchor=W).place(x=100,y=210,width=450,height=20)
         # Resultado
