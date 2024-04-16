@@ -8,6 +8,7 @@
 from tkinter import *
 from tkinter import ttk
 from math import *
+from scipy.optimize import fsolve
 import numpy as np
 import scipy as scp
 import matplotlib.pyplot as plt
@@ -218,7 +219,6 @@ def phc():
         # Botão
         calculate = Button(tab_ph, text="Calculate", command=calc_ph)
         calculate.place(x=100,y=130,width=300, height=20)
-
     def phc_weak_acid():
         Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_Ac_vol = Entry(tab_ph)
@@ -450,14 +450,150 @@ def phc():
 
         calculate = Button(tab_ph, text="Calculate", command=calc_ph_wb)
         calculate.place(x=100,y=170,width=300, height=20)
-    
+    def phc_wab():
+        # Ácido fraco e base fraca
+        Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        input_Ac_vol = Entry(tab_ph)
+        input_Ac_vol.place(x=10,y=50,width=50,height=20)
+
+        Label(tab_ph, text="Enter the Base volume (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
+        input_B_vol = Entry(tab_ph)
+        input_B_vol.place(x=300,y=50,width=50,height=20)
+
+        Label(tab_ph, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        input_Ac_con = Entry(tab_ph)
+        input_Ac_con.place(x=10,y=90,width=50,height=20)
+
+        Label(tab_ph, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        input_B_con = Entry(tab_ph)
+        input_B_con.place(x=300,y=90,width=50,height=20)
+
+        Label(tab_ph, text="Enter acid constaint (Ka):", anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
+        Label(tab_ph, text=" * 10^ -", anchor=W).place(x=150,y=130, width=300, height=20)
+        input_ka_significant_digits = Entry(tab_ph)
+        input_ka_significant_digits.place(x=100,y=130,width=50,height=20)
+        input_ka_exponent = Entry(tab_ph)
+        input_ka_exponent.place(x=210,y=130,width=50,height=20)
+
+        Label(tab_ph, text="Enter base constaint (Kb):", anchor=W).place(x=100,y=150, width=300, height=20) # Constante do ácido
+        Label(tab_ph, text=" * 10^ -", anchor=W).place(x=150,y=170, width=300, height=20)
+        input_kb_significant_digits = Entry(tab_ph)
+        input_kb_significant_digits.place(x=100,y=170,width=50,height=20)
+        input_kb_exponent = Entry(tab_ph)
+        input_kb_exponent.place(x=210,y=170,width=50,height=20)
+
+        def calc_ph_wab():
+            # Variáveis de entrada
+            try:
+                # Entrada
+                Ac_vol = float(input_Ac_vol.get())
+            except ValueError:
+                # Erro
+                error_non_numeric()
+
+            try:
+                # Entrada
+                B_vol = float(input_B_vol.get())
+            except ValueError:
+                # Erro
+                error_non_numeric()
+
+            try:
+                # Entrada
+                Ac_con = float(input_Ac_con.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                # Entrada
+                B_con = float(input_B_con.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                # Valores significativos da constante
+                ka_sd = float(input_ka_significant_digits.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                # Expoente da constante
+                ka_ex = float(input_ka_exponent.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                # Valores significativos da constante
+                kb_sd = float(input_kb_significant_digits.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                # Expoente da constante
+                kb_ex = float(input_kb_exponent.get())
+            except ValueError:
+                error_non_numeric()
+
+            # Valor da constante do ácido e da base
+            def get_ka():
+                ka = ka_sd * 10 ** (-ka_ex)
+                return ka
+            def get_kb():
+                kb = kb_sd * 10 ** (-kb_ex)
+                return kb
+            ka = get_ka()
+            kb = get_kb()
+
+            # Converter volume para litros
+            Ac_vol = Ac_vol/1000
+            B_vol = B_vol/1000
+
+            # Calcular número de moles inicial
+            init_acid = Ac_con * Ac_vol
+            init_base = B_con * B_vol
+
+            # Calcular número de moles nal
+            final_acid = max(0, init_acid - init_base)
+            final_base = max(0, init_base - init_acid)
+
+            # Volume final
+            final_volume = Ac_vol + B_vol
+
+            # Concentrações finais de ácido e base
+            final_Ac_con = final_acid / final_volume
+            final_B_con = final_base / final_volume
+
+            # Realizando equações do equilíbrio
+            def eq(vars):
+                H, OH = vars
+                eq1 = ka - H*(final_Ac_con + H)/(final_B_con + OH)
+                eq2 = kb - OH*(final_B_con + OH)/(final_Ac_con + H)
+                return [eq1, eq2]
+            H, OH = fsolve(eq, (1e-7, 1e-7))
+
+            # Resultado
+            Label(tab_ph, text = 'pH = {}'.format(H), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {}'.format(OH), anchor=W, foreground='#00a').place(x=100,y=340,width=450,height=20)
+
+            # Imprimindo valores
+            Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
+            Label(tab_ph, text='Volume of base: {}'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {}'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {}'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
+            Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=280,width=450,height=20)
+            Label(tab_ph, text='Kb: {}'.format(kb), anchor=W).place(x=100,y=300,width=450,height=20)
+
+        calculate = Button(tab_ph, text="Calculate", command=calc_ph_wab)
+        calculate.place(x=100,y=210,width=300, height=20)
+        
     # Opções
     Options_frame = Frame(tab_ph)
     Options_frame.place(x=10,y=10, width=300, height=20, anchor=W)
     Options_list = [
         "Strong acid & strong base",
         "Weak acid & strong base",
-        "Strong acid & weak base"
+        "Strong acid & weak base",
+        "Weak acid & weak base"
     ]
     SelOption = StringVar()
 
@@ -475,6 +611,8 @@ def phc():
             phc_weak_acid()
         elif SelOption.get() == "Strong acid & weak base":
             phc_weak_base()
+        elif SelOption.get() == "Weak acid & weak base":
+            phc_wab()
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0]) # Valor padrão
 
