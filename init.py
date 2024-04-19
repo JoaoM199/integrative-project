@@ -785,16 +785,17 @@ def tcurve():
                     n_Base = C_base * V_Base - C_Acid * V
                     V_total = V_Base + V
                     if n_Base > 0:
-                        pH.append(-np.log10(n_Base/V_total))
+                        pOH = -np.log10(n_Base/V_total)
+                        pH.append(14 - pOH)
                     else:
-                        pH.append(0)
+                        pH.append(14)
                 elif V == V_Acid:
                     pH.append(7) # Ponto de equivalência
                 else:
                     n_Base = C_Acid * V - C_base * V_Base
                     V_total = V_Base + V
                     pOH = -np.log10(n_Base/V_total)
-                    pH.append(14 - pOH)
+                    pH.append(pOH)
 
             # Imprimindo valores inseridos
             Label(tab_tcurve, text='Concentration of acid: {}'.format(C_Acid), anchor=W).place(x=100,y=170,width=450,height=20)
@@ -946,8 +947,123 @@ def tcurve():
         calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_wasb)
         calculate.place(x=100,y=150,width=300, height=20)
     def tcurve_wbsa():
-        pass
-    def tcurve_wab():
+        # Titulação de base fraca
+        Label(tab_tcurve, text="Enter the initial volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        input_in_vol = Entry(tab_tcurve)
+        input_in_vol.place(x=10,y=50,width=50,height=20)
+
+        Label(tab_tcurve, text="Enter the base constant dossolution (mL): ", anchor=W).place(x=300,y=30, width=300, height=20) # Constante de dissolução do ácido fraco
+        Label(tab_tcurve, text=" * 10^- ", anchor=W).place(x=350,y=50,width=50,height=20)
+        input_Kb_significant_digits = Entry(tab_tcurve)
+        input_Kb_significant_digits.place(x=300,y=50,width=50,height=20)
+        input_Kb_exponent = Entry(tab_tcurve)
+        input_Kb_exponent.place(x=400,y=50,width=50,height=20)
+
+        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        input_Ac_con = Entry(tab_tcurve)
+        input_Ac_con.place(x=10,y=90,width=50,height=20)
+
+        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        input_B_con = Entry(tab_tcurve)
+        input_B_con.place(x=300,y=90,width=50,height=20)
+
+        Label(tab_tcurve, text="Number of acid valence: ", anchor=W).place(x=10,y=110, width=300, height=20) # Acid concentration
+        input_Ac_val = Entry(tab_tcurve)
+        input_Ac_val.place(x=10,y=130,width=50,height=20)
+                
+
+        def generate_tcurve_wasb():
+            # Variáveis de entrada
+            try:
+                Vo = float(input_in_vol.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Kb_ex = float(input_Kb_exponent.get())
+            except ValueError:
+                error_non_numeric()
+            try:
+                Kb_sd =float(input_Kb_significant_digits.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Ca = float(input_Ac_con.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Cb = float(input_B_con.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Ac_val = float(input_Ac_val.get())
+            except ValueError:
+                error_non_numeric()
+
+            # Valor de Ka e pKa
+            Kb = Kb_sd * 10 ** -Kb_ex
+            pKb = -log10(Kb)
+            # pH = 1/2 * pKa - 1/2 * log(Ca)
+
+            # Expressão logarítima para valores do gráfico
+            V_Acid = (Ca * Vo)/Cb
+            V_Acid_add = np.linspace(0, 2*V_Acid, 500)
+            # Constantes de titulação
+            pH = []
+            for V in V_Acid_add:
+                if (V == 0):
+                    V_total = Vo
+                    pOH = 1/2 * pKb - log(Cb)
+                    pH.append(14 - pOH)
+                elif (V < Vo):
+                    V_total = Vo + V
+                    OH = -log(Ca * Kb) * 1/2
+                    Cs = Ac_val/(OH/(V_total))
+                    pOH = pKb + log(Cb/Cs)
+                    pH.append(14 - pOH)
+                elif (V == Vo): # Ponto de equivalência
+                    pOH = (1/2) * pKb - (1/2) * log(Cs)
+                    pH.append(7 - pOH)
+                else:
+                    V_exc = (V - Vo)
+                    V_total = Vo + V_exc
+                    H = Cb * V_exc/V_total
+                    pH.append(-log(H))
+                print(pH)
+
+            # Gerando gráfico
+            def show_graph():
+                plt.figure(figsize=(8,6))
+                plt.plot(V_Acid_add, pH, label = 'Titration curve')
+                plt.xlabel('Base volume added (mL)')
+                plt.ylabel('pH')
+                plt.title('Titration curve')
+                plt.legend()
+                plt.grid(True)
+                plt.show()
+            
+            # Gráfico dentro de janela
+            fig = plt.figure(figsize=(8,8))
+            plt.plot(V_Acid_add, pH, label = 'Titration curve')
+            plt.xlabel('Base volume added (mL)')
+            plt.ylabel('pH')
+            plt.title('Titration curve')
+            plt.legend()
+            plt.grid(True)
+                
+            graph = FigureCanvasTkAgg(fig, master=tab_tcurve)
+            graph.draw()
+            graph.get_tk_widget().place(x=10,y=250, width=600, height=250)
+            # Botão para mostrar gráfico mais detalhado
+            showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+            showmore.place(x=300,y=210,width=100, height=20)
+        # Botão para calcular
+        calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_wasb)
+        calculate.place(x=100,y=150,width=300, height=20)
+
         pass
     def tcurve_p():
         pass
@@ -961,8 +1077,6 @@ def tcurve():
         "titration of strong base",
         "titration of weak acid to strong base",
         "titration of weak base to strong acid",
-        "titration of strong acid to weak base",
-        "titration of strong base to weak acid",
         "precipitation titration"
     ]
     SelOption = StringVar()
@@ -983,8 +1097,6 @@ def tcurve():
             tcurve_wasb()
         elif SelOption.get() == "titration of weak base to strong acid":
             tcurve_wbsa()
-        elif SelOption.get() == "titration of weak acid to weak base":
-            tcurve_wab()
         elif SelOption.get() == "precipitation titration":
             tcurve_p()
 
