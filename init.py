@@ -11,115 +11,145 @@ from math import *
 from scipy.optimize import fsolve
 import numpy as np
 import scipy as scp
+from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 from matplotlib import figure
-            
-def cmean():
-    Label(tab_mean, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
-    uentry = Entry(tab_mean)
-    uentry.place(x=10,y=50,width=300, height=20)
 
-    n = 0
-    mean = 0
-    val = 0
+def descritive():
+    def cmean():
+        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
+        uentry = Entry(tab_desc)
+        uentry.place(x=10,y=50,width=300, height=20)
 
-    def calc_mean():
-        rval = uentry.get()
-        val = rval.split(',')
-        fval = [float(i) for i in val]
+        n = 0
+        mean = 0
+        val = 0
+
+        def calc_mean():
+            rval = uentry.get()
+            val = rval.split(',')
+            fval = [float(i) for i in val]
                     
-        n = len(fval)
-        print(n)
+            n = len(fval)
+            print(n)
                 
-        mean = np.mean(fval)
-        print(mean)
+            mean = np.mean(fval)
+            print(mean)
                 
-        Label(tab_mean, text='x = {}'.format(val),anchor=W).place(x=10,y=70, width=300, height=20)
-        Label(tab_mean, text='n = {}'.format(n),anchor=W).place(x=10,y=90, width=300, height=20)
-        Label(tab_mean, text='mean = {}'.format(mean),anchor=W, foreground="#00a").place(x=10,y=110, width=300, height=20)
+            Label(tab_desc, text='x = {}'.format(val),anchor=W).place(x=10,y=70, width=300, height=20)
+            Label(tab_desc, text='n = {}'.format(n),anchor=W).place(x=10,y=90, width=300, height=20)
+            Label(tab_desc, text='mean = {}'.format(mean),anchor=W, foreground="#00a").place(x=10,y=110, width=300, height=20)
 
-    calculate = Button(tab_mean, text="Calculate", command=calc_mean)
-    calculate.place(x=10,y=130,width=300, height=20)
-def cdev():        
-    Label(tab_dev, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
-    uentry = Entry(tab_dev)
-    uentry.place(x=10,y=50,width=300, height=20)
+        calculate = Button(tab_desc, text="Calculate", command=calc_mean)
+        calculate.place(x=10,y=130,width=300, height=20)
+    def cdev():        
+        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
+        uentry = Entry(tab_desc)
+        uentry.place(x=10,y=50,width=300, height=20)
 
-    def calc_devitation():
-        # Get Mean
-        rval = uentry.get()
-        val = rval.split(',')
-        fval = [float(i) for i in val]
-        mean = np.mean(fval)
+        def calc_devitation():
+            # Get Mean
+            rval = uentry.get()
+            val = rval.split(',')
+            fval = [float(i) for i in val]
+            mean = np.mean(fval)
 
-        devitation_values = np.abs(fval - mean)
-        devitation_mean = np.mean(devitation_values)
+            devitation_values = np.abs(fval - mean)
+            devitation_mean = np.mean(devitation_values)
 
-        Label(tab_dev, text='x = {}'.format(val), anchor=W).place(x=10, y=110, width=300, height=20)
-        Label(tab_dev, text='d = {}'.format(devitation_values), anchor=W).place(x=10,y=130, width=450, height=20)
-        Label(tab_dev, text='mean of d = {}'.format(devitation_mean), anchor=W, foreground='#00a').place(x=10,y=160,width=300, height=20)
-    calculate = Button(tab_dev, text="Calculate", command=calc_devitation)
-    calculate.place(x=10,y=90,width=300, height=20)
-def csd():
-    Label(tab_csd, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=10, width=300, height=20)
-    uentry = Entry(tab_csd)
-    uentry.place(x=10,y=30,width=300, height=20)
+            Label(tab_desc, text='x = {}'.format(val), anchor=W).place(x=10, y=110, width=300, height=20)
+            Label(tab_desc, text='d = {}'.format(devitation_values), anchor=W).place(x=10,y=130, width=450, height=20)
+            Label(tab_desc, text='mean of d = {}'.format(devitation_mean), anchor=W, foreground='#00a').place(x=10,y=160,width=300, height=20)
+        calculate = Button(tab_desc, text="Calculate", command=calc_devitation)
+        calculate.place(x=10,y=90,width=300, height=20)
+    def csd():
+        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
+        uentry = Entry(tab_desc)
+        uentry.place(x=10,y=50,width=300, height=20)
 
-    def calc_sd():
-        # Get Mean
-        rval = uentry.get()
-        val = rval.split(',')
-        fval = [float(i) for i in val]
-        n = len(fval)
-        mean = np.mean(fval)
+        def calc_sd():
+            # Get Mean
+            rval = uentry.get()
+            val = rval.split(',')
+            fval = [float(i) for i in val]
+            n = len(fval)
+            mean = np.mean(fval)
 
-         # Standard Deviation
-        sd = np.std(fval)
+            # Standard Deviation
+            sd = np.std(fval)
 
-        # Relative Standard Deviation
-        rsd = (sd/mean)*100
+            # Relative Standard Deviation
+            rsd = (sd/mean)*100
 
-        Label(tab_csd, text='x = {}'.format(val), anchor=W).place(x=10, y=90, width=300, height=20)
-        Label(tab_csd, text='n = {}'.format(n), anchor=W).place(x=10,y=120, width=300, height=20)
-        Label(tab_csd, text='mean = {}'.format(mean), anchor=W).place(x=10,y=150,width=300, height=20)
+            Label(tab_desc, text='x = {}'.format(val), anchor=W).place(x=10, y=90, width=300, height=20)
+            Label(tab_desc, text='n = {}'.format(n), anchor=W).place(x=10,y=120, width=300, height=20)
+            Label(tab_desc, text='mean = {}'.format(mean), anchor=W).place(x=10,y=150,width=300, height=20)
 
-        # Values
-        Label(tab_csd, text='sd = {}'.format(sd), anchor=W, foreground='#00a').place(x=10,y=170, width=300, height=20)
-        Label(tab_csd, text='rsd = {}'.format(rsd), anchor=W, foreground='#00a').place(x=10,y=190, width=300, height=20)
+            # Values
+            Label(tab_desc, text='sd = {}'.format(sd), anchor=W, foreground='#00a').place(x=10,y=170, width=300, height=20)
+            Label(tab_desc, text='rsd = {}'.format(rsd), anchor=W, foreground='#00a').place(x=10,y=190, width=300, height=20)
 
-    calculate = Button(tab_csd, text="Calculate", command=calc_sd)
-    calculate.place(x=10,y=50,width=300, height=20)
-def ttr():
-    Label(tab_ttr, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=10, width=300, height=20) # Valores inseridos pelo usuário
-    uentry = Entry(tab_ttr)
-    uentry.place(x=10,y=30,width=300, height=20)
+        calculate = Button(tab_desc, text="Calculate", command=calc_sd)
+        calculate.place(x=10,y=70,width=300, height=20)
+    def ttr():
+        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20) # Valores inseridos pelo usuário
+        uentry = Entry(tab_desc)
+        uentry.place(x=10,y=50,width=300, height=20)
 
-    Label(tab_ttr, text="Enter the probability percentage (%): ", anchor=W).place(x=10,y=50, width=50, height=20) # Parâmetro t do limite de confiança
-    tinput = Entry(tab_ttr)
-    tinput.place(x=10,y=70,width=50,height=20)
+        Label(tab_desc, text="Enter the probability percentage (%): ", anchor=W).place(x=10,y=70, width=50, height=20) # Parâmetro t do limite de confiança
+        tinput = Entry(tab_desc)
+        tinput.place(x=10,y=90,width=50,height=20)
 
-    def calc_ttr():
-        rval = uentry.get()
-        val = rval.split(',')
-        fval = [float(i) for i in val]
+        def calc_ttr():
+            rval = uentry.get()
+            val = rval.split(',')
+            fval = [float(i) for i in val]
 
-        rt = tinput.get()
-        t = float(rt)
-        mean = np.mean(fval)
-        sd = np.std(fval)
-        n = len(fval)
-        dof = n - 1
+            rt = tinput.get()
+            t = float(rt)
+            mean = np.mean(fval)
+            sd = np.std(fval)
+            n = len(fval)
+            dof = n - 1
 
-        critical_value = scp.stats.t.ppf((1 + t/100) / 2.0, dof)
-        error_margin = critical_value * (sd/np.sqrt(n))
-        u = (mean - error_margin, mean + error_margin)
+            critical_value = scp.stats.t.ppf((1 + t/100) / 2.0, dof)
+            error_margin = critical_value * (sd/np.sqrt(n))
+            u = (mean - error_margin, mean + error_margin)
 
-        Label(tab_ttr, text = 'The trust threshold of {},\n with t = {} is equal to:'.format(fval,t/100), anchor=W).place(x=10,y=110,width=450,height=20)
-        Label(tab_ttr, text='u = {}'.format(u), anchor=W, foreground="#00a").place(x=10,y=140, width=450, height=20)
+            Label(tab_desc, text = 'The trust threshold of {},\n with t = {} is equal to:'.format(fval,t/100), anchor=W).place(x=10,y=130,width=450,height=20)
+            Label(tab_desc, text='u = {}'.format(u), anchor=W, foreground="#00a").place(x=10,y=150, width=450, height=20)
+        calculate = Button(tab_desc, text="Calculate", command=calc_ttr)
+        calculate.place(x=10,y=110,width=300, height=20)
+    Options_frame = Frame(tab_desc)
+    Options_frame.pack()
+    Options_list = [
+        "Mean",
+        "Devitation of a Measument",
+        "Standard deviation",
+        "trust threshold"
+    ]
+    SelOption = StringVar()
+    Options = OptionMenu(Options_frame,SelOption,*Options_list)
+    Options.pack()
 
-    calculate = Button(tab_ttr, text="Calculate", command=calc_ttr)
-    calculate.place(x=10,y=90,width=300, height=20)
+    def clear_tab_descrive():
+        for widget in tab_desc.winfo_children():
+            if widget != Options_frame:
+                widget.destroy()
+    def option_changed(*args):
+        clear_tab_descrive()
+        if SelOption.get() == "Mean":
+            cmean()
+        if SelOption.get() == "Devitation of a Measument":
+            cdev()
+        elif SelOption.get() == "Standard deviation":
+            csd()
+        elif SelOption.get() == "trust threshold":
+            ttr()
+
+    SelOption.trace("w", option_changed)
+    SelOption.set(Options_list[0])
 def phc():
     def error_non_numeric():
         Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
@@ -662,7 +692,7 @@ def tcurve():
             pH = []
             for V in V_Base_add:
                 if V < V_Base:
-                    n_Acid = C_Acid - C_base * V
+                    n_Acid = C_Acid * V_acid - C_base * V
                     V_total = V_acid + V
                     if n_Acid > 0:
                         pH.append(-np.log10(n_Acid/V_total))
@@ -751,8 +781,8 @@ def tcurve():
             # Cálculo de pH para cada volume adicionado
             pH = []
             for V in V_Acid_add:
-                if V < V_Base:
-                    n_Base = C_Acid - C_base * V
+                if V < V_Acid:
+                    n_Base = C_base * V_Base - C_Acid * V
                     V_total = V_Base + V
                     if n_Base > 0:
                         pH.append(-np.log10(n_Base/V_total))
@@ -800,9 +830,122 @@ def tcurve():
         # Botão para calcular
         calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_sb)
         calculate.place(x=100,y=130,width=300, height=20)
-    def tcurve_wa():
-        pass
-    def tcurve_wb():
+    def tcurve_wasb():
+        # Titulação de ácido fraco
+        Label(tab_tcurve, text="Enter the initial volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        input_in_vol = Entry(tab_tcurve)
+        input_in_vol.place(x=10,y=50,width=50,height=20)
+
+        Label(tab_tcurve, text="Enter the acid constant dossolution (mL): ", anchor=W).place(x=300,y=30, width=300, height=20) # Constante de dissolução do ácido fraco
+        Label(tab_tcurve, text=" * 10^- ", anchor=W).place(x=350,y=50,width=50,height=20)
+        input_Ka_significant_digits = Entry(tab_tcurve)
+        input_Ka_significant_digits.place(x=300,y=50,width=50,height=20)
+        input_Ka_exponent = Entry(tab_tcurve)
+        input_Ka_exponent.place(x=400,y=50,width=50,height=20)
+
+        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        input_Ac_con = Entry(tab_tcurve)
+        input_Ac_con.place(x=10,y=90,width=50,height=20)
+
+        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        input_B_con = Entry(tab_tcurve)
+        input_B_con.place(x=300,y=90,width=50,height=20)
+
+        Label(tab_tcurve, text="Number of acid valence: ", anchor=W).place(x=10,y=110, width=300, height=20) # Acid concentration
+        input_Ac_val = Entry(tab_tcurve)
+        input_Ac_val.place(x=10,y=130,width=50,height=20)
+                
+
+        def generate_tcurve_wasb():
+            # Variáveis de entrada
+            try:
+                Vo = float(input_in_vol.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Ka_ex = float(input_Ka_exponent.get())
+            except ValueError:
+                error_non_numeric()
+            try:
+                Ka_sd =float(input_Ka_significant_digits.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Ca = float(input_Ac_con.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Cb = float(input_B_con.get())
+            except ValueError:
+                error_non_numeric()
+
+            try:
+                Ac_val = float(input_Ac_val.get())
+            except ValueError:
+                error_non_numeric()
+
+            # Valor de Ka e pKa
+            Ka = Ka_sd * 10 ** -Ka_ex
+            pKa = -log10(Ka)
+            # pH = 1/2 * pKa - 1/2 * log(Ca)
+
+            # Expressão logarítima para valores do gráfico
+            V_Base = (Ca * Vo)/Cb
+            V_Base_add = np.linspace(0, 2*V_Base, 500)
+            # Constantes de titulação
+            pH = []
+            for V in V_Base_add:
+                if (V == 0):
+                    V_total = Vo
+                    pH.append(1/2 * pKa - log(Ca))
+                elif (V < Vo):
+                    V_total = Vo + V
+                    H = -log(Ca * Ka) * 1/2
+                    Cs = Ac_val/(H/(V_total))
+                    pH.append(pKa + log(Ca/Cs))
+                elif (V == Vo): # Ponto de equivalência
+                    pH.append(7)
+                else:
+                    V_exc = (V - Vo)
+                    V_total = Vo + V_exc
+                    OH = Cb * V_exc/V_total
+                    pOH = -log(OH)
+                    pH.append(14 - pOH)
+                print(pH)
+
+            # Gerando gráfico
+            def show_graph():
+                plt.figure(figsize=(8,6))
+                plt.plot(V_Base_add, pH, label = 'Titration curve')
+                plt.xlabel('Base volume added (mL)')
+                plt.ylabel('pH')
+                plt.title('Titration curve')
+                plt.legend()
+                plt.grid(True)
+                plt.show()
+            
+            # Gráfico dentro de janela
+            fig = plt.figure(figsize=(8,8))
+            plt.plot(V_Base_add, pH, label = 'Titration curve')
+            plt.xlabel('Base volume added (mL)')
+            plt.ylabel('pH')
+            plt.title('Titration curve')
+            plt.legend()
+            plt.grid(True)
+                
+            graph = FigureCanvasTkAgg(fig, master=tab_tcurve)
+            graph.draw()
+            graph.get_tk_widget().place(x=10,y=250, width=600, height=250)
+            # Botão para mostrar gráfico mais detalhado
+            showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+            showmore.place(x=300,y=210,width=100, height=20)
+        # Botão para calcular
+        calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_wasb)
+        calculate.place(x=100,y=150,width=300, height=20)
+    def tcurve_wbsa():
         pass
     def tcurve_wab():
         pass
@@ -819,6 +962,7 @@ def tcurve():
         "titration of weak acid to strong base",
         "titration of weak base to strong acid",
         "titration of strong acid to weak base",
+        "titration of strong base to weak acid",
         "precipitation titration"
     ]
     SelOption = StringVar()
@@ -836,10 +980,10 @@ def tcurve():
         if SelOption.get() == "titration of strong base":
             tcurve_sb()
         elif SelOption.get() == "titration of weak acid to strong base":
-            tcurve_wa()
+            tcurve_wasb()
         elif SelOption.get() == "titration of weak base to strong acid":
-            tcurve_wb()
-        elif SelOption.get() == "titration of strong acid to weak base":
+            tcurve_wbsa()
+        elif SelOption.get() == "titration of weak acid to weak base":
             tcurve_wab()
         elif SelOption.get() == "precipitation titration":
             tcurve_p()
@@ -862,25 +1006,10 @@ app.geometry('700x900')
 tabs = ttk.Notebook(app)
 tabs.pack()
 
-tab_mean = Frame(tabs, width=500, height=300)
-tab_mean.pack(fill="both", expand=1)
-cmean()
-tabs.add(tab_mean, text='Mean')
-
-tab_dev = Frame(tabs, width=500, height=500)
-tab_dev.pack(fill="both", expand=1)
-cdev()
-tabs.add(tab_dev, text="Devitation of a Measument")
-
-tab_csd = Frame(tabs, width=500, height=600)
-tab_csd.pack(fill="both")
-csd()
-tabs.add(tab_csd, text="Standard deviation")
-
-tab_ttr = Frame(tabs, width=500, height=600)
-tab_ttr.pack(fill="both", expand=1)
-ttr()
-tabs.add(tab_ttr, text="trust threshold")
+tab_desc = Frame(tabs, width=500, height=300)
+tab_desc.pack()
+descritive()
+tabs.add(tab_desc, text="Descriptive measures")
 
 tab_ph = Frame(tabs, width=600, height=600)
 tab_ph.pack(fill='both', expand=1)
