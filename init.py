@@ -1065,8 +1065,6 @@ def tcurve():
         calculate.place(x=100,y=150,width=300, height=20)
 
         pass
-    def tcurve_p():
-        pass
 
     
     # Opções
@@ -1077,7 +1075,6 @@ def tcurve():
         "titration of strong base",
         "titration of weak acid to strong base",
         "titration of weak base to strong acid",
-        "precipitation titration"
     ]
     SelOption = StringVar()
     Options = OptionMenu(Options_frame,SelOption,*Options_list)
@@ -1097,8 +1094,6 @@ def tcurve():
             tcurve_wasb()
         elif SelOption.get() == "titration of weak base to strong acid":
             tcurve_wbsa()
-        elif SelOption.get() == "precipitation titration":
-            tcurve_p()
 
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0])
@@ -1107,12 +1102,18 @@ def tcurve():
 # Apagar esta função quando finalizar
 def Nulo():
     print("")
+######################################### About Page ##################################################################
+def about():
+    about = Tk()
+    about.title("About")
+    about.geometry('420x340')
 
+    about.mainloop()
 
 ######################################### Main Window #################################################################
 app = Tk()
 app.title("Advanced Calculator for Quantitative Analytical Calculations")
-app.geometry('700x900')
+app.geometry('700x600')
 
 # Add tabs
 tabs = ttk.Notebook(app)
@@ -1149,7 +1150,7 @@ settings.add_command(label='Preferences', command=Nulo)
 menubar.add_cascade(label='settings', menu=settings)
 
 help = Menu(menubar, tearoff=0)
-help.add_command(label='about', command=Nulo)
+help.add_command(label='about', command=about)
 menubar.add_cascade(label='help', menu=help)
 
 app.config(menu=menubar)
