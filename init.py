@@ -14,7 +14,6 @@ import scipy as scp
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
-from matplotlib import figure
 
 def descritive():
     def cmean():
