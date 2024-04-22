@@ -95,9 +95,9 @@ def descritive():
     def ttr():
         Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20) # Valores inseridos pelo usuário
         uentry = Entry(tab_desc)
-        uentry.place(x=10,y=50,width=300, height=20)
+        uentry.place(x=10,y=60,width=300, height=20)
 
-        Label(tab_desc, text="Enter the probability percentage (%): ", anchor=W).place(x=10,y=70, width=50, height=20) # Parâmetro t do limite de confiança
+        Label(tab_desc, text="Enter the probability percentage (%): ", anchor=W).place(x=10,y=90, width=300, height=20) # Parâmetro t do limite de confiança
         tinput = Entry(tab_desc)
         tinput.place(x=10,y=90,width=50,height=20)
 
@@ -117,8 +117,8 @@ def descritive():
             error_margin = critical_value * (sd/np.sqrt(n))
             u = (mean - error_margin, mean + error_margin)
 
-            Label(tab_desc, text = 'The trust threshold of {},\n with t = {} is equal to:'.format(fval,t/100), anchor=W).place(x=10,y=130,width=450,height=20)
-            Label(tab_desc, text='u = {}'.format(u), anchor=W, foreground="#00a").place(x=10,y=150, width=450, height=20)
+            Label(tab_desc, text = 'The trust threshold of {}, with t = {} is equal to:'.format(fval,t/100), anchor=W).place(x=10,y=140,width=450,height=20)
+            Label(tab_desc, text='u = {}'.format(u), anchor=W, foreground="#00a").place(x=10,y=170, width=450, height=20)
         calculate = Button(tab_desc, text="Calculate", command=calc_ttr)
         calculate.place(x=10,y=110,width=300, height=20)
     Options_frame = Frame(tab_desc)
@@ -355,7 +355,7 @@ def phc():
                 Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
                 Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
             else:
-                Label(tab_ph, text = 'The concentratio of hydrogen ions is equals to 0 or is\n a negative value. It is not possible to calculate the pH and pOH', anchor=W, foreground='#a00').place(x=10,y=300,width=500,height=30)
+                Label(tab_ph, text = 'The concentration of hydrogen ions is equals to 0 or is\n a negative value. It is not possible to calculate the pH and pOH', anchor=W, foreground='#a00').place(x=10,y=300,width=500,height=30)
 
             # Imprimindo valores
             Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
@@ -444,7 +444,7 @@ def phc():
             init_acid = Ac_con * Ac_vol
             init_base = B_con * B_vol
 
-            # Calcular número de moles nal
+            # Calcular número de moles final
             final_acid = max(0, init_acid - init_base)
             final_base = max(0, init_base - init_acid)
 
@@ -466,7 +466,7 @@ def phc():
                 Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
                 Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
             else:
-                Label(tab_ph, text = 'The concentratio of hydroxyl ions is equals to 0 or is\n a negative value. It is not possible to calculate the pOH and pH', anchor=W, foreground='#a00').place(x=10,y=300,width=500,height=30)
+                Label(tab_ph, text = 'The concentration of hydroxyl ions is equals to 0 or is\n a negative value. It is not possible to calculate the pOH and pH', anchor=W, foreground='#a00').place(x=10,y=300,width=500,height=30)
                 
 
             # Imprimindo valores
@@ -1115,6 +1115,8 @@ app = Tk()
 app.title("Advanced Calculator for Quantitative Analytical Calculations")
 app.geometry('700x600')
 
+app.iconbitmap(r'icon.ico')
+
 # Add tabs
 tabs = ttk.Notebook(app)
 tabs.pack()
@@ -1137,11 +1139,13 @@ tabs.add(tab_tcurve, text="Titration curve")
 # Menubar
 menubar = Menu(app)
 mfile = Menu(menubar, tearoff=0)
+'''
 mfile.add_command(label='Save as', command=Nulo)
 mfile.add_command(label='print', command=Nulo)
 mfile.add_command(label='print', command=Nulo)
 mfile.add_command(label='clear', command=Nulo)
 mfile.add_separator()
+'''
 mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
 
