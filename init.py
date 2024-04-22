@@ -4,10 +4,11 @@
     RGM: 23163054
     Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
 '''
-
+import webbrowser as web
 from tkinter import *
 from tkinter import ttk
 from math import *
+from PIL import ImageTk, Image
 from scipy.optimize import fsolve
 import numpy as np
 import scipy as scp
@@ -1063,8 +1064,6 @@ def tcurve():
         calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_wasb)
         calculate.place(x=100,y=150,width=300, height=20)
 
-        pass
-
     
     # Opções
     Options_frame = Frame(tab_tcurve)
@@ -1103,10 +1102,26 @@ def Nulo():
     print("")
 ######################################### About Page ##################################################################
 def about():
+    global img
     about = Tk()
     about.title("About")
     about.geometry('420x340')
+    # Textos e imagens
+    name1 = Label(about, text="A.C.Q.A.C",font={"bold"})
+    name2 = Label(about, text="Advanced Calculator for Quantitative Analytical Calculations")
+    version = Label(about, text="Version 0.1")
+    author = Label(about, text="by João Marcelo Coelho Pacheco")
 
+    name1.pack()
+    name2.pack()
+    version.pack()
+    author.pack()
+
+    def web_doc():
+        web.open("https://github.com/JoaoM199/integrative-project")
+
+    doc_page = Button(about, text="Documentation", command=web_doc)
+    doc_page.pack(anchor="s")
     about.mainloop()
 
 ######################################### Main Window #################################################################
@@ -1148,9 +1163,11 @@ mfile.add_separator()
 mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
 
+'''
 settings = Menu(menubar, tearoff=0)
 settings.add_command(label='Preferences', command=Nulo)
 menubar.add_cascade(label='settings', menu=settings)
+'''
 
 help = Menu(menubar, tearoff=0)
 help.add_command(label='about', command=about)
