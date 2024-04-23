@@ -713,7 +713,7 @@ def tcurve():
             # Gerando gráfico
             def show_graph():
                 plt.figure(figsize=(8,6))
-                plt.plot(V_Base_add, pH, label = 'Titration curve')
+                plt.plot(V_Base_add, pH, label = 'Titration curve', color='green')
                 plt.xlabel('Base volume added (mL)')
                 plt.ylabel('pH')
                 plt.title('Titration curve')
@@ -723,7 +723,7 @@ def tcurve():
             
             # Gráfico dentro de janela
             fig = plt.figure(figsize=(8,8))
-            plt.plot(V_Base_add, pH, label = 'Titration curve')
+            plt.plot(V_Base_add, pH, label = 'Titration curve', color='green')
             plt.xlabel('Base volume added (mL)')
             plt.ylabel('pH')
             plt.title('Titration curve')
@@ -804,7 +804,7 @@ def tcurve():
             # Gerando gráfico
             def show_graph():
                 plt.figure(figsize=(8,6))
-                plt.plot(V_Acid_add, pH, label = 'Titration curve')
+                plt.plot(V_Acid_add, pH, label = 'Titration curve', color='blue')
                 plt.xlabel('Base volume added (mL)')
                 plt.ylabel('pH')
                 plt.title('Titration curve')
@@ -814,7 +814,7 @@ def tcurve():
             
             # Gráfico dentro de janela
             fig = plt.figure(figsize=(8,8))
-            plt.plot(V_Acid_add, pH, label = 'Titration curve')
+            plt.plot(V_Acid_add, pH, label = 'Titration curve', color='blue')
             plt.xlabel('Base volume added (mL)')
             plt.ylabel('pH')
             plt.title('Titration curve')
@@ -919,7 +919,7 @@ def tcurve():
             # Gerando gráfico
             def show_graph():
                 plt.figure(figsize=(8,6))
-                plt.plot(V_Base_add, pH, label = 'Titration curve')
+                plt.plot(V_Base_add, pH, label = 'Titration curve', color='green')
                 plt.xlabel('Base volume added (mL)')
                 plt.ylabel('pH')
                 plt.title('Titration curve')
@@ -929,7 +929,7 @@ def tcurve():
             
             # Gráfico dentro de janela
             fig = plt.figure(figsize=(8,8))
-            plt.plot(V_Base_add, pH, label = 'Titration curve')
+            plt.plot(V_Base_add, pH, label = 'Titration curve', color='green')
             plt.xlabel('Base volume added (mL)')
             plt.ylabel('pH')
             plt.title('Titration curve')
@@ -1036,7 +1036,7 @@ def tcurve():
             # Gerando gráfico
             def show_graph():
                 plt.figure(figsize=(8,6))
-                plt.plot(V_Acid_add, pH, label = 'Titration curve')
+                plt.plot(V_Acid_add, pH, label = 'Titration curve', color='blue')
                 plt.xlabel('Base volume added (mL)')
                 plt.ylabel('pH')
                 plt.title('Titration curve')
@@ -1046,7 +1046,7 @@ def tcurve():
             
             # Gráfico dentro de janela
             fig = plt.figure(figsize=(8,8))
-            plt.plot(V_Acid_add, pH, label = 'Titration curve')
+            plt.plot(V_Acid_add, pH, label = 'Titration curve', color='blue')
             plt.xlabel('Base volume added (mL)')
             plt.ylabel('pH')
             plt.title('Titration curve')
@@ -1095,6 +1095,90 @@ def tcurve():
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0])
 
+def agcurve():
+    def error_non_numeric():
+        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    Label(tab_agcurve, text="Enter the ananlyte volume (L): ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
+    input_V_Analyte = Entry(tab_agcurve)
+    input_V_Analyte.place(x=10,y=50,width=50,height=20)
+
+    Label(tab_agcurve, text="Enter the analityte concentration (mols/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+    input_C_Analyte = Entry(tab_agcurve)
+    input_C_Analyte.place(x=10,y=90,width=50,height=20)
+
+    Label(tab_agcurve, text="Enter the maximum volume of titrant used (L)", anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
+    input_Titrant_Vol = Entry(tab_agcurve)
+    input_Titrant_Vol.place(x=300,y=50,width=50,height=20)
+
+    Label(tab_agcurve, text="Enter concentration of titrant (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+    input_Titrant_Con = Entry(tab_agcurve)
+    input_Titrant_Con.place(x=300,y=90,width=50,height=20)
+    def agcalc():
+        try:
+            # Entrada
+            V_Analyte = float(input_V_Analyte.get())
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        try:
+            # Entrada
+            C_Analyte = float(input_C_Analyte.get())
+        except ValueError:
+            error_non_numeric()
+
+        try:
+            # Entrada
+            Vmax_Titrant = float(input_Titrant_Vol.get())
+        except ValueError:
+            error_non_numeric()
+
+        try:
+            # Entrada
+            C_Titrant = float(input_Titrant_Con.get())
+        except ValueError:
+            error_non_numeric()
+
+        # Imprimindo valores inseridos
+        Label(tab_agcurve, text='Volume of analyte: {} L'.format(V_Analyte), anchor=W).place(x=100,y=170,width=450,height=20)
+        Label(tab_agcurve, text='Concentration of analyte: {} mols/L'.format(C_Analyte), anchor=W).place(x=100,y=190,width=450,height=20)
+        Label(tab_agcurve, text='Maximum volume of titrant: {} L'.format(Vmax_Titrant), anchor=W).place(x=100,y=210,width=450,height=20)
+        Label(tab_agcurve, text="Concentration of titrant: {} mols/L".format(C_Titrant), anchor=W).place(x=100,y=230,width=450,height=20)
+
+        # Calcular o pAg e gerar gráfico
+        def calc_pAg(concentration, volume):
+            return -np.log10(concentration * volume)
+        V_Titrant = np.linspace(0.001,Vmax_Titrant,100)
+        pAg = [calc_pAg(C_Titrant, volume) for volume in V_Titrant]
+                
+        def show_graph():
+            plt.figure(figsize=(8,6))
+            plt.plot(V_Titrant, pAg, label = 'Titration curve', color='orange')
+            plt.xlabel('Volume of titrant (L)')
+            plt.ylabel('pAg')
+            plt.title('Argetometric Titration curve')
+            plt.legend()
+            plt.grid(True)
+            plt.show()
+                
+        #Gráfico dentro de janela
+        fig = plt.figure(figsize=(8,8))
+        plt.plot(V_Titrant, pAg, label = 'Titration curve', color='orange')
+        plt.xlabel('Volume of titrant (L)')
+        plt.ylabel('pAg')
+        plt.title('Argetometric Titration curve')
+        plt.legend()
+        plt.grid(True)
+                    
+        graph = FigureCanvasTkAgg(fig, master=tab_agcurve)
+        graph.draw()
+        graph.get_tk_widget().place(x=10,y=270, width=600, height=250)
+        # Botão para mostrar gráfico mais detalhado
+        showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+        showmore.place(x=500,y=210,width=100, height=20)
+    # Botão para calcular
+    calculate = Button(tab_agcurve, text="Calculate", command=agcalc)
+    calculate.place(x=100,y=130,width=300, height=20)
 
 # Apagar esta função quando finalizar
 def Nulo():
@@ -1148,6 +1232,11 @@ tab_tcurve = Frame(tabs, width=700, height=900)
 tab_tcurve.pack(fill="both",expand=1)
 tcurve()
 tabs.add(tab_tcurve, text="Titration curve")
+
+tab_agcurve = Frame(tabs, width=600, height=600)
+tab_agcurve.pack(fill='both',expand=1)
+agcurve()
+tabs.add(tab_agcurve, text="Argetometric Titration curve")
 
 # Menubar
 menubar = Menu(app)
