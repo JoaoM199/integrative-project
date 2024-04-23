@@ -1,4 +1,4 @@
-# Advanced Calculator for Quantitative Analytical Calculations
+# Integrative Project
 Version 0.1 beta
 
 ### Resources
