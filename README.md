@@ -1,12 +1,16 @@
-# Advanced Calculator for Quantitative Analytical Calculations
+# Integrative Project
 Version 0.1 beta
+
+<!--multilanguage v0 en:README.md pt-br:README-BR.md-->
+[!--lang:en--]
+[!--lang:pt-br--]
 
 ### Resources
 * Mean
-* Desvio de uma média
-* Desvio padrão
-* Desvio padrão relativo
-* Limite de confiança
+* Deviation from an average
+* Standard deviation
+* Relative standard deviation
+* Confidence Threshold
 * Calculate pH and pOH
 * Generate titration curves of acid-base reactions
 
