@@ -13,10 +13,3 @@ Version 0.1 beta
 ### Pending Resources
 * Generate tritration curves of preciptation reactions
 * Dark mode
-
-
-## How to install
-### Microsoft Windows
-1. Download the file on releases
-2. Extract files
-3. Run qacalc.exe

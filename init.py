@@ -8,7 +8,6 @@ import webbrowser as web
 from tkinter import *
 from tkinter import ttk
 from math import *
-from PIL import ImageTk, Image
 from scipy.optimize import fsolve
 import numpy as np
 import scipy as scp
@@ -1129,7 +1128,7 @@ app = Tk()
 app.title("Advanced Calculator for Quantitative Analytical Calculations")
 app.geometry('700x600')
 
-app.iconbitmap(r'icon.ico')
+#app.iconbitmap(r'icon.ico')
 
 # Add tabs
 tabs = ttk.Notebook(app)
