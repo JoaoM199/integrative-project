@@ -1,9 +1,9 @@
-# Integrative Project
+# Integrative-Project
 Version 0.1 beta
 
 #### Languages
-[English](# Integrative Project)
-[Português](# Projeto integrador)
+[English](# Integrative-Project)
+[Português](# Projeto-integrador)
 
 ## Resources
 ### Finished
@@ -20,7 +20,7 @@ Version 0.1 beta
 * Portuguese language translation
 * Dark mode
 
-# Projeto integrador
+# Projeto-integrador
 Versão 0.1 beta
 
 ## Recursos
