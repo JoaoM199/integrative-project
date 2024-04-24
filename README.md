@@ -54,7 +54,7 @@ Este software está sob licença <a href='https://www.gnu.org/licenses/gpl-3.0.e
 ### Pendente
 * Tradução para o idioma português
 * Modo escuro
-
+## Como instalar
 ### Microsoft Windows
 1.	Baixar o arquivo de instalação na seção packages
 2.	Extrair os arquivos para a pasta desejada
