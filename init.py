@@ -345,16 +345,22 @@ def phc():
 
             # Concentração de H+
             H_con = sqrt(ka * final_Ac_con)
+            H_con = max(1e-14, H_con)
             print(H_con)
 
-            if H_con > 0:
+            if B_vol == Ac_vol:
+                pH = 7
+                pOH = 7
+            elif B_vol > Ac_vol:
+                OH_con = (B_con * B_vol - Ac_con * Ac_vol)/(Ac_vol + B_vol)
+                pOH = -log10(OH_con)
+                pH = 14 - pOH
+            else:
                 pH = -log10(H_con)
                 pOH = 14 - pH
                 # Resultado
-                Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
-                Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
-            else:
-                Label(tab_ph, text = 'The concentration of hydrogen ions is equals to 0 or is\n a negative value. It is not possible to calculate the pH and pOH', anchor=W, foreground='#a00').place(x=10,y=300,width=500,height=30)
+            Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
 
             # Imprimindo valores
             Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
@@ -455,18 +461,24 @@ def phc():
             final_B_con = final_base / final_volume
 
             # Concentração de H+
-            OH_con = sqrt(kb * final_B_con)
+            H_con = sqrt(kb * final_B_con)
+            H_con = max(1e-14,H_con)
 
             # Calcular pH e pOH
-            if OH_con > 0:
-                pOH = -log10(OH_con)
+            if Ac_vol == B_vol:
+                pH = 7
+                pOH = 7
+            elif Ac_vol > B_vol:
+                H_con = (Ac_con * Ac_vol - B_con * B_vol)/(B_vol + Ac_vol)
+                pH = -log10(H_con)
+                pOH = 14 - pH
+
+            else:
+                pOH = -log10(H_con)
                 pH = 14 - pOH
                 # Resultado
-                Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
-                Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
-            else:
-                Label(tab_ph, text = 'The concentration of hydroxyl ions is equals to 0 or is\n a negative value. It is not possible to calculate the pOH and pH', anchor=W, foreground='#a00').place(x=10,y=300,width=500,height=30)
-                
+            Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
 
             # Imprimindo valores
             Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
