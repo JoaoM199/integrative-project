@@ -1,4 +1,4 @@
-![Icon](https://github.com/JoaoM199/integrative-project/assets/63198292/eb734cf4-ac15-4487-b9e4-fd1c37c4259
+[Icon](https://github.com/JoaoM199/integrative-project/assets/63198292/eb734cf4-ac15-4487-b9e4-fd1c37c4259
 # Integrative Project
 Version 0.1 beta
 
