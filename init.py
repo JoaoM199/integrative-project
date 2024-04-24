@@ -161,11 +161,11 @@ def phc():
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
                 
@@ -236,13 +236,13 @@ def phc():
                 pOH = pOH
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {}'.format(B_vol*1000), anchor=W).place(x=100,y=190,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(Ac_con), anchor=W).place(x=100,y=210,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(B_con), anchor=W).place(x=100,y=230,width=450,height=20)
+            Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
+            Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=190,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=210,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=230,width=450,height=20)
             # Resultado
-            Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=250,width=450,height=20)
-            Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=270,width=450,height=20)
+            Label(tab_ph, text = 'pH = {:.1f}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=250,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {:.1f}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=270,width=450,height=20)
         # Botão
         calculate = Button(tab_ph, text="Calculate", command=calc_ph)
         calculate.place(x=100,y=130,width=300, height=20)
@@ -255,11 +255,11 @@ def phc():
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
@@ -359,14 +359,14 @@ def phc():
                 pH = -log10(H_con)
                 pOH = 14 - pH
                 # Resultado
-            Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
-            Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
+            Label(tab_ph, text = 'pH = {:.1f}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {:.1f}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {}'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
+            Label(tab_ph, text='Volume of acid: {} ml'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
+            Label(tab_ph, text='Volume of base: {} ml'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
             Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=280,width=450,height=20)
 
         calculate = Button(tab_ph, text="Calculate", command=calc_ph_wac)
@@ -380,11 +380,11 @@ def phc():
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
@@ -477,14 +477,14 @@ def phc():
                 pOH = -log10(H_con)
                 pH = 14 - pOH
                 # Resultado
-            Label(tab_ph, text = 'pH = {}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
-            Label(tab_ph, text = 'pOH = {}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
+            Label(tab_ph, text = 'pH = {:.1f}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=300,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {:.1f}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {}'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
+            Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
+            Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
             Label(tab_ph, text='Kb: {}'.format(kb), anchor=W).place(x=100,y=280,width=450,height=20)
 
         calculate = Button(tab_ph, text="Calculate", command=calc_ph_wb)
@@ -499,11 +499,11 @@ def phc():
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
@@ -610,15 +610,18 @@ def phc():
                 return [eq1, eq2]
             H, OH = fsolve(eq, (1e-7, 1e-7))
 
+            pH = -log10(H)
+            pOH = -log(OH)
+
             # Resultado
-            Label(tab_ph, text = 'pH = {}'.format(H), anchor=W, foreground='#00a').place(x=100,y=350,width=450,height=20)
-            Label(tab_ph, text = 'pOH = {}'.format(OH), anchor=W, foreground='#00a').place(x=100,y=370,width=450,height=20)
+            Label(tab_ph, text = 'pH = {:.1f}'.format(round(pH), 2), anchor=W, foreground='#00a').place(x=100,y=350,width=450,height=20)
+            Label(tab_ph, text = 'pOH = {:.1f}'.format(round(pOH), 2), anchor=W, foreground='#00a').place(x=100,y=370,width=450,height=20)
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {}'.format(Ac_vol*1000), anchor=W).place(x=100,y=230,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {}'.format(B_vol*1000), anchor=W).place(x=100,y=250,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(Ac_con), anchor=W).place(x=100,y=270,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {}'.format(B_con), anchor=W).place(x=100,y=290,width=450,height=20)
+            Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=230,width=450,height=20)
+            Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=250,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=270,width=450,height=20)
+            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=290,width=450,height=20)
             Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=310,width=450,height=20)
             Label(tab_ph, text='Kb: {}'.format(kb), anchor=W).place(x=100,y=330,width=450,height=20)
 
