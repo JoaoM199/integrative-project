@@ -1,9 +1,9 @@
 # Integrative Project
 Version 0.1 beta
 
-<!--multilanguage v0 en:README.md pt-br:README-BR.md-->
-#### Você não sabe inglês?, clique no botão abaixo:
-[![pt-br](https://img.shields.io/badge/lang-ptbr-green)](https://github.com/JoaoM199/integrative-project/blob/master/README-BR.md)
+#### Languages
+[English](# Integrative Project)
+[Português](# Projeto integrador)
 
 ## Resources
 ### Finished
@@ -14,7 +14,26 @@ Version 0.1 beta
 * Confidence Threshold
 * Calculate pH and pOH
 * Generate titration curves of acid-base reactions
+* Generate titration curves of preciptation reactions
 
 ### Pending
-* Generate tritration curves of preciptation reactions
+* Portuguese language translation
 * Dark mode
+
+# Projeto integrador
+Versão 0.1 beta
+
+## Recursos
+### Finalizado
+* Média aritimética
+* Desvio de uma média
+* Desvio padrão
+* Desvio padrão relativo
+* Limite de confiança
+* Cálculo de pH and pOH
+* Geração de curva de titulação para reações ácido-base
+* Gerar curvas de titulação para reações de precipitação
+
+### Pendente
+* Tradução para o idioma português
+* Modo escuro

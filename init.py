@@ -1174,7 +1174,7 @@ def agcurve():
         graph.draw()
         graph.get_tk_widget().place(x=10,y=270, width=600, height=250)
         # Botão para mostrar gráfico mais detalhado
-        showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+        showmore = Button(tab_agcurve, text="Show more", command=show_graph)
         showmore.place(x=500,y=210,width=100, height=20)
     # Botão para calcular
     calculate = Button(tab_agcurve, text="Calculate", command=agcalc)
@@ -1190,13 +1190,11 @@ def about():
     about.title("About")
     about.geometry('420x340')
     # Textos e imagens
-    name1 = Label(about, text="A.C.Q.A.C",font={"bold"})
-    name2 = Label(about, text="Advanced Calculator for Quantitative Analytical Calculations")
+    name1 = Label(about, text="Aqcalc",font={"bold"})
     version = Label(about, text="Version 0.1")
     author = Label(about, text="by João Marcelo Coelho Pacheco")
 
     name1.pack()
-    name2.pack()
     version.pack()
     author.pack()
 
@@ -1209,7 +1207,7 @@ def about():
 
 ######################################### Main Window #################################################################
 app = Tk()
-app.title("Advanced Calculator for Quantitative Analytical Calculations")
+app.title("Aqcalc 0.1")
 app.geometry('700x600')
 
 #app.iconbitmap(r'icon.ico')
