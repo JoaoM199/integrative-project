@@ -1,5 +1,6 @@
 '''
     Projeto Integrador Transdisciplinar em Ciência da Computação II
+    Nome do projeto: AQCALC
     Aluno: João Marcelo Coelho Pacheco
     RGM: 23163054
     Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
@@ -1203,9 +1204,10 @@ def about():
     global img
     about = Tk()
     about.title("About")
-    about.geometry('420x340')
+    about.geometry('300x400')
+    about.resizable(False,False)
     # Textos e imagens
-    name1 = Label(about, text="Aqcalc",font={"bold"})
+    name1 = Label(about, text="Aqcalc",font={"bold",16})
     version = Label(about, text="Version 0.1")
     author = Label(about, text="by João Marcelo Coelho Pacheco")
 
