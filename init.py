@@ -242,7 +242,10 @@ def phc():
             else:
                 pH = pH
                 pOH = pOH
-
+            # Volume em excesso
+            if n_Ac < n_B:
+                pH = pH + qn
+                pOH = 14 - pH
             # Imprimindo valores
             Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
             Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=190,width=450,height=20)
