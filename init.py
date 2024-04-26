@@ -16,6 +16,12 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 
+# Versioner
+version = "0.1"
+version_channel = "beta"
+Author = "João Marcelo Coelho Pacheco"
+AppName = "Aqcalc"
+
 def descritive():
     def cmean():
         Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
@@ -1203,11 +1209,11 @@ def Nulo():
 def about():
     global img
     about = Tk()
-    about.title("About")
+    about.title(AppName)
     about.geometry('300x400')
     about.resizable(False,False)
     # Textos e imagens
-    name1 = Label(about, text="Aqcalc",font={"bold",16})
+    name1 = Label(about, text=AppName,font={"bold",16})
     version = Label(about, text="Version 0.1")
     author = Label(about, text="by João Marcelo Coelho Pacheco")
 
@@ -1224,7 +1230,7 @@ def about():
 
 ######################################### Main Window #################################################################
 app = Tk()
-app.title("Aqcalc 0.1")
+app.title("{} {} {} version".format(AppName,version,version_channel))
 app.geometry('700x600')
 
 #app.iconbitmap(r'icon.ico')
