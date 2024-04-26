@@ -1128,7 +1128,7 @@ def agcurve():
     input_V_Analyte = Entry(tab_agcurve)
     input_V_Analyte.place(x=10,y=50,width=50,height=20)
 
-    Label(tab_agcurve, text="Enter the analityte concentration (mols/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+    Label(tab_agcurve, text="Enter the analityte concentration (mols/mL): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
     input_C_Analyte = Entry(tab_agcurve)
     input_C_Analyte.place(x=10,y=90,width=50,height=20)
 
