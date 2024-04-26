@@ -16,11 +16,12 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 
-# Versioner
-version = "0.1"
-version_channel = "beta"
-Author = "João Marcelo Coelho Pacheco"
-AppName = "Aqcalc"
+Versioner = {
+    "version": "0.1",
+    "version_channel": "beta",
+    "Author": "João Marcelo Coelho Pacheco",
+    "AppName": "Aqcalc"
+}
 
 def descritive():
     def cmean():
@@ -1207,15 +1208,14 @@ def Nulo():
     print("")
 ######################################### About Page ##################################################################
 def about():
-    global img
     about = Tk()
-    about.title(AppName)
-    about.geometry('300x400')
+    about.title(Versioner["AppName"])
+    about.geometry('400x200')
     about.resizable(False,False)
     # Textos e imagens
-    name1 = Label(about, text=AppName,font={"bold",16})
-    version = Label(about, text="Version 0.1")
-    author = Label(about, text="by João Marcelo Coelho Pacheco")
+    name1 = Label(about, text=Versioner['AppName'],font={"bold",16})
+    version = Label(about, text="Version {} {}".format(Versioner['version'],Versioner['version_channel']))
+    author = Label(about, text="Developed By {}".format(Versioner['Author']))
 
     name1.pack()
     version.pack()
@@ -1230,10 +1230,8 @@ def about():
 
 ######################################### Main Window #################################################################
 app = Tk()
-app.title("{} {} {} version".format(AppName,version,version_channel))
+app.title("{} {} {} version".format(Versioner['AppName'],Versioner['version'],Versioner['version_channel']))
 app.geometry('700x600')
-
-#app.iconbitmap(r'icon.ico')
 
 # Add tabs
 tabs = ttk.Notebook(app)
