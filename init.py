@@ -17,10 +17,9 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 
 Versioner = {
-    "version": "0.1",
-    "version_channel": "beta",
-    "Author": "João Marcelo Coelho Pacheco",
-    "AppName": "Aqcalc"
+    "name":"aqcalc",
+    "version":"0.1",
+    "status":"beta"
 }
 
 def descritive():
@@ -28,10 +27,6 @@ def descritive():
         Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
         uentry = Entry(tab_desc)
         uentry.place(x=10,y=50,width=300, height=20)
-
-        n = 0
-        mean = 0
-        val = 0
 
         def calc_mean():
             rval = uentry.get()
@@ -1124,7 +1119,7 @@ def tcurve():
 def agcurve():
     def error_non_numeric():
         Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
-    Label(tab_agcurve, text="Enter the ananlyte volume (L): ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
+    Label(tab_agcurve, text="Enter the ananlyte volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
     input_V_Analyte = Entry(tab_agcurve)
     input_V_Analyte.place(x=10,y=50,width=50,height=20)
 
@@ -1132,7 +1127,7 @@ def agcurve():
     input_C_Analyte = Entry(tab_agcurve)
     input_C_Analyte.place(x=10,y=90,width=50,height=20)
 
-    Label(tab_agcurve, text="Enter the maximum volume of titrant used (L)", anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
+    Label(tab_agcurve, text="Enter the maximum volume of titrant used (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
     input_Titrant_Vol = Entry(tab_agcurve)
     input_Titrant_Vol.place(x=300,y=50,width=50,height=20)
 
@@ -1142,7 +1137,7 @@ def agcurve():
     def agcalc():
         try:
             # Entrada
-            V_Analyte = float(input_V_Analyte.get())
+            V_Analyte = float(input_V_Analyte.get()) / 1000
         except ValueError:
             # Erro
             error_non_numeric()
@@ -1155,7 +1150,7 @@ def agcurve():
 
         try:
             # Entrada
-            Vmax_Titrant = float(input_Titrant_Vol.get())
+            Vmax_Titrant = float(input_Titrant_Vol.get()) / 1000
         except ValueError:
             error_non_numeric()
 
@@ -1216,9 +1211,9 @@ def about():
     about.geometry('400x200')
     about.resizable(False,False)
     # Textos e imagens
-    name1 = Label(about, text=Versioner['AppName'],font={"bold",16})
-    version = Label(about, text="Version {} {}".format(Versioner['version'],Versioner['version_channel']))
-    author = Label(about, text="Developed By {}".format(Versioner['Author']))
+    name1 = Label(about, text=Versioner['name'],font={"bold",16})
+    version = Label(about, text="Version {} {}".format(Versioner['version'],Versioner['status']))
+    author = Label(about, text="by João Marcelo Coelho Pacheco")
 
     name1.pack()
     version.pack()
@@ -1233,7 +1228,7 @@ def about():
 
 ######################################### Main Window #################################################################
 app = Tk()
-app.title("{} {} {} version".format(Versioner['AppName'],Versioner['version'],Versioner['version_channel']))
+app.title("{} {} {}".format(Versioner['name'],Versioner['version'],Versioner['status']))
 app.geometry('700x600')
 
 # Add tabs
