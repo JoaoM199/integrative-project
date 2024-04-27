@@ -1207,7 +1207,7 @@ def Nulo():
 ######################################### About Page ##################################################################
 def about():
     about = Tk()
-    about.title(Versioner["AppName"])
+    about.title(Versioner["name"])
     about.geometry('400x200')
     about.resizable(False,False)
     # Textos e imagens
