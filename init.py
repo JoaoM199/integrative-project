@@ -237,7 +237,10 @@ def phc():
             else:
                 pH = pH
                 pOH = pOH
-
+            # Volume em excesso
+            if n_Ac < n_B:
+                pH = pH + qn
+                pOH = 14 - pH
             # Imprimindo valores
             Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
             Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=190,width=450,height=20)
@@ -1120,7 +1123,7 @@ def agcurve():
     input_V_Analyte = Entry(tab_agcurve)
     input_V_Analyte.place(x=10,y=50,width=50,height=20)
 
-    Label(tab_agcurve, text="Enter the analityte concentration (mols/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+    Label(tab_agcurve, text="Enter the analityte concentration (mols/mL): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
     input_C_Analyte = Entry(tab_agcurve)
     input_C_Analyte.place(x=10,y=90,width=50,height=20)
 
@@ -1203,10 +1206,9 @@ def Nulo():
     print("")
 ######################################### About Page ##################################################################
 def about():
-    global img
     about = Tk()
-    about.title("About")
-    about.geometry('300x400')
+    about.title(Versioner["AppName"])
+    about.geometry('400x200')
     about.resizable(False,False)
     # Textos e imagens
     name1 = Label(about, text=Versioner['name'],font={"bold",16})
@@ -1228,8 +1230,6 @@ def about():
 app = Tk()
 app.title("{} {} {}".format(Versioner['name'],Versioner['version'],Versioner['status']))
 app.geometry('700x600')
-
-#app.iconbitmap(r'icon.ico')
 
 # Add tabs
 tabs = ttk.Notebook(app)
