@@ -29,7 +29,7 @@ This software is registered under <a href='https://www.gnu.org/licenses/gpl-3.0.
 
 ## How to install
 ### Microsoft Windows
-1. Download the installer on packages section
+1. Download the file "aqcalc-0.1-win-beta.zip" on releases section
 2. Extract the files to desired folder
 3. Double click on init.exe
 
@@ -56,6 +56,6 @@ Este software está sob licença <a href='https://www.gnu.org/licenses/gpl-3.0.e
 * Modo escuro
 ## Como instalar
 ### Microsoft Windows
-1.	Baixar o arquivo de instalação na seção packages
+1.	Baixar o arquivo "aqcalc-0.1-win-beta.zip" na seção releases
 2.	Extrair os arquivos para a pasta desejada
 3.	Dê um dublo clique no arquivo init.exe
