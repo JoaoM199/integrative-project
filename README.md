@@ -1,3 +1,11 @@
+<head>
+    <style>
+        h5 {
+            color:yellow
+        }
+    </style>
+</head>
+
 ![Icon](Icon.png)
 # AQCALC
 Version 0.1 beta
@@ -5,12 +13,6 @@ Version 0.1 beta
 This page is available in the following languages:<br/>
 [English](#what-is-aqcalc)
 [Português](#o-que-é-aqcalc)
-
-<style>
-    h5 {
-        color:yellow
-    }
-</style>
 
 ## What is Aqcalc?
 Aqcalc is a specific calculator for carrying out specific scientific calculations for quantitative analytical chemistry, with several specific features such as calculating descriptive measurements, calculating pH and pOH, acid-base titration curves and argentinometry.
@@ -58,7 +60,7 @@ In the top corner, there are several tabs, where all the features that this appl
 
 Among these features we have:
 * Descriptive measures
-     * <b>Mean (arithmetic mean):</b> <br>Calculates the arithmetic mean of the values entered.
+     * <b>Arithmetic mean:</b> <br>Calculates the arithmetic mean of the values entered.
      * <b>Deviation of a Measument:</b><br/>Calculates the deviation from the average of the values entered. Returns the individual deviation of each value and the average between the deviations highlighted in blue.
      * <b>Standard deviation:</b><br>Returns the standard deviation and relative standard deviation of the entered values
      * <b>Trust threshold:</b><br/>Calculates the trust threshold. Two parameters are used:
