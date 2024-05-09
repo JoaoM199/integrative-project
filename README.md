@@ -35,6 +35,13 @@ This software is registered under <a href='https://www.gnu.org/licenses/gpl-3.0.
 * Portuguese language translation
 * Dark mode
 
+## Minimum Requirements
+* Operationg system:
+    * Windows 10 or later
+    * Ubuntu 18.04 or later
+* 4gb RAM
+* 2 cores processor
+
 ## How to install
 ### Microsoft Windows
 1. Download the file "aqcalc-0.1-win-beta.zip" on releases section
@@ -144,6 +151,14 @@ Este software está sob licença <a href='https://www.gnu.org/licenses/gpl-3.0.e
 ### Pendente
 * Tradução para o idioma português
 * Modo escuro
+
+## Requisitos mínimos
+* Sistema operacional:
+    * Windows 10 ou superior
+    * Ubuntu 18.04 ou superior
+* 4 gb de memória RAM
+* Processador de 2 núcleos
+
 ## Como instalar
 ### Microsoft Windows
 1.	Baixar o arquivo "aqcalc-0.1-win-beta.zip" na seção releases
