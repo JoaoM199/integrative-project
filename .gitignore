@@ -4,3 +4,6 @@ testes
 Icon.kra~
 .vscode
 build
+.vscode
+dist
+venv

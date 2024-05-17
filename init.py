@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 
 Versioner = {
-    "name":"aqcalc",
-    "version":"0.1",
+    "name":"AQCalc",
+    "version":"0.2",
     "status":"beta"
 }
 
@@ -1201,6 +1201,43 @@ def agcurve():
     calculate = Button(tab_agcurve, text="Calculate", command=agcalc)
     calculate.place(x=100,y=130,width=300, height=20)
 
+def calc_fa():
+    def error_non_numeric():
+        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    Label(tab_fa, text="Enter the PM volume: ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
+    input_PM = Entry(tab_fa)
+    input_PM.place(x=10,y=50,width=50,height=20)
+
+    Label(tab_fa, text="Enter the M value", anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
+    input_M = Entry(tab_fa)
+    input_M.place(x=300,y=50,width=50,height=20)
+
+    def agcalc():
+        # Recebendo valores
+        try:
+            PM = float(input_PM.get()) / 1000 # Peso molecular
+            print("PM = {}".format(PM))
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        try:
+            M = float(input_M.get()) / 1000 # Molaridade
+            print("M = {}".format(M))
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        # Calculando o valor de FA
+        Fa = (PM * M)/1000 # Fator analítico
+        print("FA = {}".format(Fa))
+        # Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=280,width=450,height=20)
+        resp = Label(tab_fa, text="FA = {}".format(Fa), anchor=W, foreground='#00a')
+        resp.place(x=100,y=100,width=300, height=20)
+    # Botão
+    calculate = Button(tab_fa, text="Calculate", command=agcalc)
+    calculate.place(x=100,y=130,width=300, height=20)
+
 # Apagar esta função quando finalizar
 def Nulo():
     print("")
@@ -1254,6 +1291,11 @@ tab_agcurve = Frame(tabs, width=600, height=600)
 tab_agcurve.pack(fill='both',expand=1)
 agcurve()
 tabs.add(tab_agcurve, text="Argetometric Titration curve")
+
+tab_fa = Frame(tabs, width=500, height=500)
+tab_fa.pack(fill='both',expand=1)
+calc_fa()
+tabs.add(tab_fa, text="Analitical Factor")
 
 # Menubar
 menubar = Menu(app)
