@@ -1251,8 +1251,8 @@ def Nulo():
 ##### Volume #######
 def volume_window():
     volc_win = Tk()
-    volc_win.title("Volume unit")
-    volc_win.geometry('230x280')
+    volc_win.title("Convert volume")
+    volc_win.geometry('260x280')
     def error_non_numeric():
         Label(volc_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
     def volume_ml():
@@ -1319,6 +1319,42 @@ def volume_window():
 
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0])
+##### Molaridade #######
+def molarity_window():
+    mol_win = Tk()
+    mol_win.title("Volume unit")
+    mol_win.geometry('260x280')
+    def error_non_numeric():
+        Label(mol_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def molarity():
+        Label(mol_win, text="Enter number of mols: ", anchor=W).pack()# L volume
+        input_Mol = Entry(mol_win)
+        input_Mol.pack()
+        Label(mol_win, text="Enter volume (L): ", anchor=W).pack()# L volume
+        input_Vol = Entry(mol_win)
+        input_Vol.pack()
+        def calc_molarity():
+            # Recebendo valores
+            try:
+                Vol = float(input_Vol.get())
+            except ValueError:
+            # Erro
+                error_non_numeric()
+            try:
+                Mol = float(input_Mol.get())
+            except ValueError:
+            # Erro
+                error_non_numeric()
+
+            # Calcular molaridade
+            M = Mol/Vol
+            values = Label(mol_win, text = "n° of mols = {} \n Volume = {}L".format(Vol,Mol), anchor=W)
+            resp = Label(mol_win, text = "M = {}mols/L".format(M), anchor=W, foreground='#00a')
+            values.pack()
+            resp.pack()
+        calculate = Button(mol_win, text="Calculate", command=calc_molarity)
+        calculate.pack()
+    molarity()
 ######################################### About Page ##################################################################
 def about():
     about = Tk()
@@ -1389,8 +1425,9 @@ mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
 
 tools = Menu(menubar, tearoff=0)
-tools.add_command(label='volume', command=volume_window)
-menubar.add_cascade(label='Unit converter', menu=tools)
+tools.add_command(label='convert volume', command=volume_window)
+tools.add_command(label="molarity", command=molarity_window)
+menubar.add_cascade(label='Tools', menu=tools)
 
 '''
 settings = Menu(menubar, tearoff=0)
