@@ -1205,11 +1205,11 @@ def agcurve():
 def calc_fa():
     def error_non_numeric():
         Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
-    Label(tab_fa, text="Enter the PM volume: ", anchor=W).pack()# Base volume
+    Label(tab_fa, text="Enter the PM value (g/mol): ", anchor=W).pack()# Base volume
     input_PM = Entry(tab_fa)
     input_PM.pack()
 
-    Label(tab_fa, text="Enter the M value", anchor=W).pack() # Base concentration
+    Label(tab_fa, text="Enter the M value (mol/L)", anchor=W).pack() # Base concentration
     input_M = Entry(tab_fa)
     input_M.pack()
 
@@ -1248,15 +1248,16 @@ def Nulo():
     print("")
 
 ######################################### Unit Converter ##############################################################
-def unitc_window():
-    unitc = Tk()
-    unitc.title("Unit converter")
-    unitc.geometry('230x280')
+##### Volume #######
+def volume_window():
+    volc_win = Tk()
+    volc_win.title("Volume unit")
+    volc_win.geometry('230x280')
     def error_non_numeric():
-        Label(unitc, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
-    def volume():
-        Label(unitc, text="Enter volume in milliters (mL): ", anchor=W).pack()# Base volume
-        input_mL = Entry(unitc)
+        Label(volc_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def volume_ml():
+        Label(volc_win, text="Enter volume in milliters (mL): ", anchor=W).pack()# mL volume
+        input_mL = Entry(volc_win)
         input_mL.pack()
 
         def calc_volume():
@@ -1270,11 +1271,54 @@ def unitc_window():
             # mL to L
             L = mL / 1000
             print(L)
-            resp = Label(unitc, text = "The volume in Liters is {}L".format(L), anchor=W, foreground='#00a')
+            resp = Label(volc_win, text = "The volume in Liters is {}L".format(L), anchor=W, foreground='#00a')
             resp.pack()
-        calculate = Button(unitc, text="Calculate", command=calc_volume)
+        calculate = Button(volc_win, text="Calculate", command=calc_volume)
         calculate.pack()
-    volume()
+    def volume_L():
+        Label(volc_win, text="Enter volume in Liters (L): ", anchor=W).pack()# L volume
+        input_L = Entry(volc_win)
+        input_L.pack()
+
+        def calc_volume():
+            # Recebendo valores
+            try:
+                L = float(input_L.get())
+                print("L volume = {}".format(L))
+            except ValueError:
+                # Erro
+                error_non_numeric()
+            # mL to L
+            mL = L * 1000
+            print(L)
+            resp = Label(volc_win, text = "The volume in Liters is {}L".format(mL), anchor=W, foreground='#00a')
+            resp.pack()
+        calculate = Button(volc_win, text="Calculate", command=calc_volume)
+        calculate.pack()
+    # Tipo de conversão
+    Options_frame = Frame(volc_win)
+    Options_frame.pack()
+    Options_list = [
+        "mL to L",
+        "L to mL"
+    ]
+    SelOption = StringVar()
+    Options = OptionMenu(Options_frame,SelOption,*Options_list)
+    Options.pack()
+
+    def clear_volc_win():
+        for widget in volc_win.winfo_children():
+            if widget != Options_frame:
+                widget.destroy()
+    def option_changed(*args):
+        clear_volc_win()
+        if SelOption.get() == "mL to L":
+            volume_ml()
+        elif SelOption.get() == "L to mL":
+            volume_L()
+
+    SelOption.trace("w", option_changed)
+    SelOption.set(Options_list[0])
 ######################################### About Page ##################################################################
 def about():
     about = Tk()
@@ -1284,7 +1328,7 @@ def about():
     # Elementos da página
     name1 = Label(about, text=Versioner['name'],font={"bold",16})
     version = Label(about, text="Version {} {}".format(Versioner['version'],Versioner['status']))
-    author = Label(about, text="(c) 2024 João Marcelo Coelho Pacheco all rights reserved")
+    author = Label(about, text="(c) 2024 João Marcelo Coelho Pacheco, all rights reserved")
 
     name1.pack()
     version.pack()
@@ -1345,8 +1389,8 @@ mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
 
 tools = Menu(menubar, tearoff=0)
-tools.add_command(label='Unit converter', command=unitc_window)
-menubar.add_cascade(label='tools', menu=tools)
+tools.add_command(label='volume', command=volume_window)
+menubar.add_cascade(label='Unit converter', menu=tools)
 
 '''
 settings = Menu(menubar, tearoff=0)
