@@ -5,6 +5,7 @@
     RGM: 23163054
     Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
 '''
+import threading
 import webbrowser as web
 from tkinter import *
 from tkinter import ttk
@@ -1204,15 +1205,15 @@ def agcurve():
 def calc_fa():
     def error_non_numeric():
         Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
-    Label(tab_fa, text="Enter the PM volume: ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
+    Label(tab_fa, text="Enter the PM volume: ", anchor=W).pack()# Base volume
     input_PM = Entry(tab_fa)
-    input_PM.place(x=10,y=50,width=50,height=20)
+    input_PM.pack()
 
-    Label(tab_fa, text="Enter the M value", anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
+    Label(tab_fa, text="Enter the M value", anchor=W).pack() # Base concentration
     input_M = Entry(tab_fa)
-    input_M.place(x=300,y=50,width=50,height=20)
+    input_M.pack()
 
-    def agcalc():
+    def fa():
         # Recebendo valores
         try:
             PM = float(input_PM.get()) / 1000 # Peso molecular
@@ -1230,27 +1231,60 @@ def calc_fa():
 
         # Calculando o valor de FA
         Fa = (PM * M)/1000 # Fator analítico
+        print("PM = {}".format(PM))
+        print("M = {}".format(M))
         print("FA = {}".format(Fa))
         # Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=280,width=450,height=20)
+        values = Label(tab_fa, text="PM = {}\n M = {}".format(PM,M).format(Fa), anchor=W)
         resp = Label(tab_fa, text="FA = {}".format(Fa), anchor=W, foreground='#00a')
-        resp.place(x=100,y=100,width=300, height=20)
+        values.pack()
+        resp.pack()
     # Botão
-    calculate = Button(tab_fa, text="Calculate", command=agcalc)
-    calculate.place(x=100,y=130,width=300, height=20)
+    calculate = Button(tab_fa, text="Calculate", command=fa)
+    calculate.pack()
 
 # Apagar esta função quando finalizar
 def Nulo():
     print("")
+
+######################################### Unit Converter ##############################################################
+def unitc_window():
+    unitc = Tk()
+    unitc.title("Unit converter")
+    unitc.geometry('230x280')
+    def error_non_numeric():
+        Label(unitc, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def volume():
+        Label(unitc, text="Enter volume in milliters (mL): ", anchor=W).pack()# Base volume
+        input_mL = Entry(unitc)
+        input_mL.pack()
+
+        def calc_volume():
+            # Recebendo valores
+            try:
+                mL = float(input_mL.get())
+                print("mL volume = {}".format(mL))
+            except ValueError:
+                # Erro
+                error_non_numeric()
+            # mL to L
+            L = mL / 1000
+            print(L)
+            resp = Label(unitc, text = "The volume in Liters is {}L".format(L), anchor=W, foreground='#00a')
+            resp.pack()
+        calculate = Button(unitc, text="Calculate", command=calc_volume)
+        calculate.pack()
+    volume()
 ######################################### About Page ##################################################################
 def about():
     about = Tk()
-    about.title(Versioner["AppName"])
-    about.geometry('400x200')
+    about.title(Versioner['name'])
+    about.geometry('400x300')
     about.resizable(False,False)
-    # Textos e imagens
+    # Elementos da página
     name1 = Label(about, text=Versioner['name'],font={"bold",16})
     version = Label(about, text="Version {} {}".format(Versioner['version'],Versioner['status']))
-    author = Label(about, text="by João Marcelo Coelho Pacheco")
+    author = Label(about, text="(c) 2024 João Marcelo Coelho Pacheco all rights reserved")
 
     name1.pack()
     version.pack()
@@ -1309,6 +1343,10 @@ mfile.add_separator()
 '''
 mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
+
+tools = Menu(menubar, tearoff=0)
+tools.add_command(label='Unit converter', command=unitc_window)
+menubar.add_cascade(label='tools', menu=tools)
 
 '''
 settings = Menu(menubar, tearoff=0)
