@@ -5,7 +5,6 @@
     RGM: 23163054
     Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
 '''
-import threading
 import webbrowser as web
 from tkinter import *
 from tkinter import ttk
@@ -1414,13 +1413,6 @@ tabs.add(tab_fa, text="Analitical Factor")
 # Menubar
 menubar = Menu(app)
 mfile = Menu(menubar, tearoff=0)
-'''
-mfile.add_command(label='Save as', command=Nulo)
-mfile.add_command(label='print', command=Nulo)
-mfile.add_command(label='print', command=Nulo)
-mfile.add_command(label='clear', command=Nulo)
-mfile.add_separator()
-'''
 mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
 
