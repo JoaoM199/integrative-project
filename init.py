@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 
 Versioner = {
-    "name":"aqcalc",
-    "version":"0.1",
+    "name":"AQCalc",
+    "version":"0.2",
     "status":"beta"
 }
 
@@ -673,11 +673,11 @@ def tcurve():
         input_Ac_vol = Entry(tab_tcurve)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
                 
@@ -765,11 +765,11 @@ def tcurve():
         input_Ac_vol = Entry(tab_tcurve)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
         def generate_tcurve_sb():
@@ -864,11 +864,11 @@ def tcurve():
         input_Ka_exponent = Entry(tab_tcurve)
         input_Ka_exponent.place(x=400,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
@@ -979,11 +979,11 @@ def tcurve():
         input_Kb_exponent = Entry(tab_tcurve)
         input_Kb_exponent.place(x=400,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
@@ -1201,19 +1201,211 @@ def agcurve():
     calculate = Button(tab_agcurve, text="Calculate", command=agcalc)
     calculate.place(x=100,y=130,width=300, height=20)
 
+def calc_fa():
+    def error_non_numeric():
+        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    Label(tab_fa, text="Enter the PM value (g/mol): ", anchor=W).pack()# Base volume
+    input_PM = Entry(tab_fa)
+    input_PM.pack()
+
+    Label(tab_fa, text="Enter the M value (mol/L)", anchor=W).pack() # Base concentration
+    input_M = Entry(tab_fa)
+    input_M.pack()
+
+    def fa():
+        # Recebendo valores
+        try:
+            PM = float(input_PM.get()) / 1000 # Peso molecular
+            print("PM = {}".format(PM))
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        try:
+            M = float(input_M.get()) / 1000 # Molaridade
+            print("M = {}".format(M))
+        except ValueError:
+            # Erro
+            error_non_numeric()
+
+        # Calculando o valor de FA
+        Fa = (PM * M)/1000 # Fator analítico
+        print("PM = {}".format(PM))
+        print("M = {}".format(M))
+        print("FA = {}".format(Fa))
+        # Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=280,width=450,height=20)
+        values = Label(tab_fa, text="PM = {}\n M = {}".format(PM,M).format(Fa), anchor=W)
+        resp = Label(tab_fa, text="FA = {}".format(Fa), anchor=W, foreground='#00a')
+        values.pack()
+        resp.pack()
+    # Botão
+    calculate = Button(tab_fa, text="Calculate", command=fa)
+    calculate.pack()
+
 # Apagar esta função quando finalizar
 def Nulo():
     print("")
+
+######################################### Unit Converter ##############################################################
+##### Volume #######
+def volume_window():
+    volc_win = Tk()
+    volc_win.title("Convert volume")
+    volc_win.geometry('260x280')
+    def error_non_numeric():
+        Label(volc_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def volume_ml():
+        Label(volc_win, text="Enter volume in milliters (mL): ", anchor=W).pack()# mL volume
+        input_mL = Entry(volc_win)
+        input_mL.pack()
+
+        def calc_volume():
+            # Recebendo valores
+            try:
+                mL = float(input_mL.get())
+                print("mL volume = {}".format(mL))
+            except ValueError:
+                # Erro
+                error_non_numeric()
+            # mL to L
+            L = mL / 1000
+            print(L)
+            resp = Label(volc_win, text = "The volume in Liters is {}L".format(L), anchor=W, foreground='#00a')
+            resp.pack()
+        calculate = Button(volc_win, text="Calculate", command=calc_volume)
+        calculate.pack()
+    def volume_L():
+        Label(volc_win, text="Enter volume in Liters (L): ", anchor=W).pack()# L volume
+        input_L = Entry(volc_win)
+        input_L.pack()
+
+        def calc_volume():
+            # Recebendo valores
+            try:
+                L = float(input_L.get())
+                print("L volume = {}".format(L))
+            except ValueError:
+                # Erro
+                error_non_numeric()
+            # mL to L
+            mL = L * 1000
+            print(L)
+            resp = Label(volc_win, text = "The volume in Liters is {}L".format(mL), anchor=W, foreground='#00a')
+            resp.pack()
+        calculate = Button(volc_win, text="Calculate", command=calc_volume)
+        calculate.pack()
+    # Tipo de conversão
+    Options_frame = Frame(volc_win)
+    Options_frame.pack()
+    Options_list = [
+        "mL to L",
+        "L to mL"
+    ]
+    SelOption = StringVar()
+    Options = OptionMenu(Options_frame,SelOption,*Options_list)
+    Options.pack()
+
+    def clear_volc_win():
+        for widget in volc_win.winfo_children():
+            if widget != Options_frame:
+                widget.destroy()
+    def option_changed(*args):
+        clear_volc_win()
+        if SelOption.get() == "mL to L":
+            volume_ml()
+        elif SelOption.get() == "L to mL":
+            volume_L()
+
+    SelOption.trace("w", option_changed)
+    SelOption.set(Options_list[0])
+##### Molaridade #######
+def molarity_window():
+    mol_win = Tk()
+    mol_win.title("Volume unit")
+    mol_win.geometry('260x280')
+    def error_non_numeric():
+        Label(mol_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def molarity():
+        Label(mol_win, text="Enter number of mols: ", anchor=W).pack()# L volume
+        input_Mol = Entry(mol_win)
+        input_Mol.pack()
+        Label(mol_win, text="Enter volume (L): ", anchor=W).pack()# L volume
+        input_Vol = Entry(mol_win)
+        input_Vol.pack()
+        def calc_molarity():
+            # Recebendo valores
+            try:
+                Vol = float(input_Vol.get())
+            except ValueError:
+            # Erro
+                error_non_numeric()
+            try:
+                Mol = float(input_Mol.get())
+            except ValueError:
+            # Erro
+                error_non_numeric()
+
+            # Calcular molaridade
+            M = Mol/Vol
+            values = Label(mol_win, text = "n° of mols = {} \n Volume = {}L".format(Vol,Mol), anchor=W)
+            resp = Label(mol_win, text = "M = {}mols/L".format(M), anchor=W, foreground='#00a')
+            values.pack()
+            resp.pack()
+        calculate = Button(mol_win, text="Calculate", command=calc_molarity)
+        calculate.pack()
+    molarity()
+##### Converter g/L para mols/L #######
+def gm():
+    gm_win = Tk()
+    gm_win.title("Volume unit")
+    gm_win.geometry('260x280')
+    def error_non_numeric():
+        Label(gm_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def gm_op():
+        Label(gm_win, text="Enter the mass of sample (g/L): ", anchor=W).pack()
+        input_mass = Entry(gm_win)
+        input_mass.pack()
+        Label(gm_win, text="Enter the molar mass of particle (g): ", anchor=W).pack()
+        input_M = Entry(gm_win)
+        input_M.pack()
+        Label(gm_win, text="Enter Number of mols: ", anchor=W).pack()
+        input_mols = Entry(gm_win)
+        input_mols.pack()
+        def calc_gm():
+            # Recebendo valores
+            try:
+                mass = float(input_mass.get())
+            except ValueError:
+            # Erro
+                error_non_numeric()
+            try:
+                M = float(input_M.get())
+            except ValueError:
+                error_non_numeric()
+            try:
+                mol = float(input_mols.get())
+            except ValueError:
+                error_non_numeric()
+            # Calcular molaridade
+            res = (mass/M) * mol
+            # Fórmula
+            values = Label(gm_win, text = "{}g/L in mols/L is equals to ".format(mass), anchor=W)
+            resp = Label(gm_win, text = "{}mols/L".format(res), anchor=W, foreground='#00a')
+            values.pack()
+            resp.pack()
+        calculate = Button(gm_win, text="Calculate", command=calc_gm)
+        calculate.pack()
+    gm_op()
 ######################################### About Page ##################################################################
 def about():
     about = Tk()
-    about.title(Versioner["name"])
-    about.geometry('400x200')
+    about.title(Versioner['name'])
+    about.geometry('400x300')
     about.resizable(False,False)
-    # Textos e imagens
+    # Elementos da página
     name1 = Label(about, text=Versioner['name'],font={"bold",16})
     version = Label(about, text="Version {} {}".format(Versioner['version'],Versioner['status']))
-    author = Label(about, text="by João Marcelo Coelho Pacheco")
+    author = Label(about, text="(c) 2024 João Marcelo Coelho Pacheco, all rights reserved")
 
     name1.pack()
     version.pack()
@@ -1255,18 +1447,22 @@ tab_agcurve.pack(fill='both',expand=1)
 agcurve()
 tabs.add(tab_agcurve, text="Argetometric Titration curve")
 
+tab_fa = Frame(tabs, width=500, height=500)
+tab_fa.pack(fill='both',expand=1)
+calc_fa()
+tabs.add(tab_fa, text="Analitical Factor")
+
 # Menubar
 menubar = Menu(app)
 mfile = Menu(menubar, tearoff=0)
-'''
-mfile.add_command(label='Save as', command=Nulo)
-mfile.add_command(label='print', command=Nulo)
-mfile.add_command(label='print', command=Nulo)
-mfile.add_command(label='clear', command=Nulo)
-mfile.add_separator()
-'''
 mfile.add_command(label='exit', command=app.quit)
 menubar.add_cascade(label="File",menu=mfile)
+
+tools = Menu(menubar, tearoff=0)
+tools.add_command(label='convert volume', command=volume_window)
+tools.add_command(label="molarity", command=molarity_window)
+tools.add_command(label="convert g/L to mol/L", command=gm)
+menubar.add_cascade(label='Tools', menu=tools)
 
 '''
 settings = Menu(menubar, tearoff=0)

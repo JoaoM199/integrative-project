@@ -4,5 +4,6 @@ testes
 Icon.kra~
 .vscode
 build
-init.spec
+.vscode
 dist
+venv
