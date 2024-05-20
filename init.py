@@ -1354,6 +1354,48 @@ def molarity_window():
         calculate = Button(mol_win, text="Calculate", command=calc_molarity)
         calculate.pack()
     molarity()
+##### Converter g/L para mols/L #######
+def gm():
+    gm_win = Tk()
+    gm_win.title("Volume unit")
+    gm_win.geometry('260x280')
+    def error_non_numeric():
+        Label(gm_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    def gm_op():
+        Label(gm_win, text="Enter the mass of sample (g/L): ", anchor=W).pack()
+        input_mass = Entry(gm_win)
+        input_mass.pack()
+        Label(gm_win, text="Enter the molar mass of particle (g): ", anchor=W).pack()
+        input_M = Entry(gm_win)
+        input_M.pack()
+        Label(gm_win, text="Enter Number of mols: ", anchor=W).pack()
+        input_mols = Entry(gm_win)
+        input_mols.pack()
+        def calc_gm():
+            # Recebendo valores
+            try:
+                mass = float(input_mass.get())
+            except ValueError:
+            # Erro
+                error_non_numeric()
+            try:
+                M = float(input_M.get())
+            except ValueError:
+                error_non_numeric()
+            try:
+                mol = float(input_mols.get())
+            except ValueError:
+                error_non_numeric()
+            # Calcular molaridade
+            res = (mass/M) * mol
+            # Fórmula
+            values = Label(gm_win, text = "{}g/L in mols/L is equals to ".format(mass), anchor=W)
+            resp = Label(gm_win, text = "{}mols/L".format(res), anchor=W, foreground='#00a')
+            values.pack()
+            resp.pack()
+        calculate = Button(gm_win, text="Calculate", command=calc_gm)
+        calculate.pack()
+    gm_op()
 ######################################### About Page ##################################################################
 def about():
     about = Tk()
@@ -1419,6 +1461,7 @@ menubar.add_cascade(label="File",menu=mfile)
 tools = Menu(menubar, tearoff=0)
 tools.add_command(label='convert volume', command=volume_window)
 tools.add_command(label="molarity", command=molarity_window)
+tools.add_command(label="convert g/L to mol/L", command=gm)
 menubar.add_cascade(label='Tools', menu=tools)
 
 '''
