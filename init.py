@@ -673,11 +673,11 @@ def tcurve():
         input_Ac_vol = Entry(tab_tcurve)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
                 
@@ -765,11 +765,11 @@ def tcurve():
         input_Ac_vol = Entry(tab_tcurve)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
         def generate_tcurve_sb():
@@ -864,11 +864,11 @@ def tcurve():
         input_Ka_exponent = Entry(tab_tcurve)
         input_Ka_exponent.place(x=400,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
@@ -979,11 +979,11 @@ def tcurve():
         input_Kb_exponent = Entry(tab_tcurve)
         input_Kb_exponent.place(x=400,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (N): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (N)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
 

@@ -4,6 +4,7 @@
     * Volume
 * Calculate molarity
 * Calculate Analitical Factor
+* In the Titration Curve section, the unit of concentration of acid and base was fixed
 ## Version 0.1 beta
 * Mean
 * Deviation from an average
