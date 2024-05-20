@@ -1,7 +1,9 @@
 # Changelog
 ## Version 0.2 beta
+* The "tools" option in menubar was added
 * Unit converter
     * Volume
+    * g/L to mols/L
 * Calculate molarity
 * Calculate Analitical Factor
 * In the Titration Curve section, the unit of concentration of acid and base was fixed
