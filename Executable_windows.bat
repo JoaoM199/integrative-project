@@ -1,1 +1,0 @@
-pyinstaller -w --icon=icon.ico --hidden-import=PIL._tkinter_finder init.py

@@ -18,7 +18,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfic
 
 Versioner = {
     "name":"AQCalc",
-    "version":"0.2",
+    "version":"0.3",
     "status":"beta"
 }
 
@@ -1115,7 +1115,6 @@ def tcurve():
 
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0])
-
 def agcurve():
     def error_non_numeric():
         Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
@@ -1200,7 +1199,6 @@ def agcurve():
     # Botão para calcular
     calculate = Button(tab_agcurve, text="Calculate", command=agcalc)
     calculate.place(x=100,y=130,width=300, height=20)
-
 def calc_fa():
     def error_non_numeric():
         Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
@@ -1241,11 +1239,6 @@ def calc_fa():
     # Botão
     calculate = Button(tab_fa, text="Calculate", command=fa)
     calculate.pack()
-
-# Apagar esta função quando finalizar
-def Nulo():
-    print("")
-
 ######################################### Unit Converter ##############################################################
 ##### Volume #######
 def volume_window():
@@ -1466,8 +1459,8 @@ menubar.add_cascade(label='Tools', menu=tools)
 
 '''
 settings = Menu(menubar, tearoff=0)
-settings.add_command(label='Preferences', command=Nulo)
-menubar.add_cascade(label='settings', menu=settings)
+settings.add_command(label='Acid & Base constaints', command=wab_constaints)
+menubar.add_cascade(label='Compare', menu=settings)
 '''
 
 help = Menu(menubar, tearoff=0)

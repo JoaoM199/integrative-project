@@ -1,0 +1,4 @@
+Windows:
+    pyinstaller --onefile -w --icon=icon.ico --hidden-import=PIL._tkinter_finder -n "aqcalc-0.3-beta" init.py
+Linux:
+    pyinstaller --onefile -w --icon=icon.ico --hidden-import=PIL._tkinter_finder -n "aqcalc-0.3-beta" init.py
