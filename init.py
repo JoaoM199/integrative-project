@@ -15,6 +15,7 @@ import scipy as scp
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
+import json
 
 Versioner = {
     "name":"AQCalc",
@@ -1410,7 +1411,37 @@ def about():
     doc_page = Button(about, text="Documentation", command=web_doc)
     doc_page.pack(anchor="s")
     about.mainloop()
+######################################### Acid-Base constaint database ################################################
+def wab_constaints():
+    def create_table(parent, dados):
+        table = ttk.Treeview(parent,columns=("Acid/Base","Molecular Formula","Ka/Kb","pH"),show="headings")
+        table.heading("Acid/Base", text="Acid/Base")
+        table.heading("Molecular Formula", text="Molecular Formula")
+        table.heading("Ka/Kb", text="Ka/Kb")
+        table.heading("pH", text="pH")
 
+        for item in dados:
+            table.insert('', 'end', values=item)
+        
+        return table
+    def main():
+        # Fonte: http://educa.fc.up.pt/ficheiros/fichas/855/Constantes%20de%20acidez%20e%20de%20basicidade%20a%2025%BAC.pdf
+        Fonte = "http://educa.fc.up.pt/ficheiros/fichas/855/Constantes%20de%20acidez%20e%20de%20basicidade%20a%2025%BAC.pdf"
+        # Importando arquivos json
+        with open('acid_base_constaints.json','r', encoding='utf-8') as f:
+            database = json.load(f)
+        
+        wabc_window = Tk()
+        wabc_window.title("Acid-base constaints")
+        wabc_window.geometry('700x300')
+        table = create_table(wabc_window,database)
+        ref = Label(wabc_window, text=Fonte)
+
+        table.pack()
+        ref.pack()
+        wabc_window.mainloop()
+    if __name__ == "__main__":
+        main()
 ######################################### Main Window #################################################################
 app = Tk()
 app.title("{} {} {}".format(Versioner['name'],Versioner['version'],Versioner['status']))
@@ -1457,11 +1488,9 @@ tools.add_command(label="molarity", command=molarity_window)
 tools.add_command(label="convert g/L to mol/L", command=gm)
 menubar.add_cascade(label='Tools', menu=tools)
 
-'''
 settings = Menu(menubar, tearoff=0)
 settings.add_command(label='Acid & Base constaints', command=wab_constaints)
 menubar.add_cascade(label='Compare', menu=settings)
-'''
 
 help = Menu(menubar, tearoff=0)
 help.add_command(label='about', command=about)
