@@ -1,0 +1,4 @@
+Windows:
+    pyinstaller --onefile -w --icon=icon.ico --hidden-import=PIL._tkinter_finder --add-data 'acid_base_constaints.json;.' -n "aqcalc-0.2.1-beta" init.py
+Linux:
+    pyinstaller --onefile -w --icon=icon.ico --hidden-import=PIL._tkinter_finder --add-data 'acid_base_constaints.json:.' -n "aqcalc-0.2.1-beta" init.py
