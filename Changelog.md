@@ -1,5 +1,5 @@
 # Changelog
-## Version 0.3 beta
+## Version 0.2.1 beta
 * Acid-base constaint database window
 ## Version 0.2 beta
 * The "tools" option in menubar was added
