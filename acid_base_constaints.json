@@ -2,7 +2,7 @@
     ["Ácido Perclórico","HClO4","muito elevado","ácido"],
     ["Ácido Clórico","HClO3","muito elevado","ácido"],
     ["Ácido Nítrico","HNO3","muito elevado","ácido"],
-    ["Ácido Clorídrico","HCl","muito elevaodo","ácido"],
+    ["Ácido Clorídrico","HCl","muito elevado","ácido"],
     ["Ácido Sulfúrico","H2SO4","muito elevado","ácido"],
     ["Ácido Sulfúroso","H2SO3",1.7e-2,"ácido"],
     ["Ião hidrogenossulfato","HSO4-",1.3e-2,"ácido"],
