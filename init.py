@@ -19,7 +19,7 @@ import json
 
 Versioner = {
     "name":"AQCalc",
-    "version":"0.3",
+    "version":"0.2.1",
     "status":"beta"
 }
 
