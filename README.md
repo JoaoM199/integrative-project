@@ -33,6 +33,7 @@ This software is registered under <a href='https://www.gnu.org/licenses/gpl-3.0.
 * Unit converter
 * Calculate molarity
 * Calculate Analitical Factor
+* A table with acid and base constants values
 
 ### Pending
 * Portuguese language translation
@@ -153,6 +154,7 @@ Este software está sob licença <a href='https://www.gnu.org/licenses/gpl-3.0.e
 * Conversor de unidades
 * Calcular molaridade
 * Calcular fator analítico
+* Uma tabela com os valores das constantes de ácidos e bases
 
 ### Pendente
 * Tradução para o idioma português
