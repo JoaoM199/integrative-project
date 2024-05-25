@@ -19,9 +19,13 @@ import json
 
 Versioner = {
     "name":"AQCalc",
-    "version":"0.2.1",
+    "version":"0.2.2",
     "status":"beta"
 }
+with open('lang_pack.json','r', encoding='utf-8') as f:
+    lang = json.load(f)
+with open('lang_select.json','r', encoding='utf-8') as f:
+    lang_selected = json.load(f)
 
 def descritive():
     def cmean():
@@ -1433,7 +1437,7 @@ def wab_constaints():
         
         wabc_window = Tk()
         wabc_window.title("Acid-base constaints")
-        wabc_window.geometry('700x300')
+        wabc_window.geometry('820x300')
         table = create_table(wabc_window,database)
         ref = Label(wabc_window, text=Fonte)
 
