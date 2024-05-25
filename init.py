@@ -16,16 +16,32 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 import json
+from markdown import markdown
 
 Versioner = {
     "name":"AQCalc",
     "version":"0.2.2",
     "status":"beta"
 }
+######################### Erro ################################
+def win_error(nerror):
+    error_window = Tk()
+    error_window.title('An erro has occurred')
+    error_window.geometry('300x100')
+    lab_error = Label(text=nerror)
+    lab_error.pack()
+
 with open('lang_pack.json','r', encoding='utf-8') as f:
     lang = json.load(f)
 with open('lang_select.json','r', encoding='utf-8') as f:
-    lang_selected = json.load(f)
+    lang_selected = json.load(f)["language"]
+    match lang_selected:
+        case 0:
+            slang = "english"
+        case 1:
+            slang = "portuguese"
+        case _:
+            win_error(nerror="No Language Found")
 
 def descritive():
     def cmean():
@@ -1412,7 +1428,7 @@ def about():
     def web_doc():
         web.open("https://github.com/JoaoM199/integrative-project")
 
-    doc_page = Button(about, text="Documentation", command=web_doc)
+    doc_page = Button(about, text="Github Page", command=web_doc)
     doc_page.pack(anchor="s")
     about.mainloop()
 ######################################### Acid-Base constaint database ################################################

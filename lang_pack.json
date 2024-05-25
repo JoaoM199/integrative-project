@@ -1,5 +1,5 @@
 {"Language":{
-    "English":{
+    "english":{
         "Descriptive measures":"Descriptive measures",
         "Titration curve":"Titration curve",
         "Argetometric Titration curve":"Argetometric Titration curve",
@@ -35,9 +35,30 @@
         "Strong acid & strong base":"Strong acid & strong base",
         "Weak acid & strong base":"Weak acid & strong base",
         "Strong acid & weak base":"Strong acid & weak base",
-        "Weak acid & weak base":"Weak acid & weak base"
+        "Weak acid & weak base":"Weak acid & weak base",
+        "Enter the ananlyte volume":"Enter the ananlyte volume",
+        "Enter the analityte concentration":"Enter the analityte concentration",
+        "Enter the maximum volume of titrant used":"Enter the maximum volume of titrant used",
+        "Enter concentration of titrant":"Enter concentration of titrant",
+        "Volume of analyte":"Volume of analyte:",
+        "Concentration of analyte":"Concentration of analyte",
+        "Maximum volume of titrant":"Maximum volume of titrant",
+        "Concentration of titrant":"Concentration of titrant",
+        "Enter the PM value":"Enter the PM value",
+        "Enter the M value":"Enter the M value",
+        "Enter volume in milliters":"Enter volume in milliters",
+        "The volume in Liters is":"The volume in Liters is",
+        "Enter volume in Liters":"Enter volume in Liters",
+        "mL to L":"mL to L",
+        "L to mL":"L to mL",
+        "Enter number of mols":"Enter number of mols",
+        "Enter volume":"Enter volume",
+        "Enter the mass of sample":"Enter the mass of sample",
+        "Enter the molar mass of particle":"Enter the molar mass of particle",
+        "Enter Number of mols":"Enter Number of mols",
+        "g/L in mols/L is equals to":"g/L in mols/L is equals to"
     },
-    "Portuguese":{
+    "portuguese":{
         "Descriptive measures":"Medidas descritivas",
         "Titration curve":"Curva de titulação",
         "Argetometric Titration curve":"Curva de titulação argentométrica",
@@ -73,5 +94,26 @@
         "Strong acid & strong base":"Ácido forte e base forte",
         "Weak acid & strong base":"Ácido fraco e base forte",
         "Strong acid & weak base":"Ácido forte e base fraca",
-        "Weak acid & weak base":"Ácido fraco e base fraca"
+        "Weak acid & weak base":"Ácido fraco e base fraca",
+        "Enter the ananlyte volume":"Insira o volume do analito",
+        "Enter the analityte concentration":"Insira a concentração do analito",
+        "Enter the maximum volume of titrant used":"Insira o volume máximo do titulante utilizado",
+        "Enter concentration of titrant":"Insira a concentação do titulante",
+        "Volume of analyte":"Volume do analito",
+        "Concentration of analyte":"Concentraçãoo do analito",
+        "Maximum volume of titrant":"Volume máximo do titulante",
+        "Concentration of titrant":"Concentração do titulante",
+        "Enter the PM value":"Insira o valor de PM",
+        "Enter the M value":"Insira o valor de M",
+        "Enter volume in milliters":"Insira o volume em mililitros",
+        "The volume in Liters is":"O volume em litros é",
+        "Enter volume in Liters":"Insira o volume em litros",
+        "mL to L":"mL para L",
+        "L to mL":"L para mL",
+        "Enter number of mols":"Insira o número de mols",
+        "Enter volume":"Inserir volume",
+        "Enter the mass of sample":"Insira a massa da amostra",
+        "Enter the molar mass of particle":"Insira a massa molar da partícula",
+        "Enter Number of mols":"Insira o número de mols",
+        "g/L in mols/L is equals to":"g/L em mols/L é igual a "
     }}}
