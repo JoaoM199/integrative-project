@@ -17,7 +17,6 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Plotar gráfico dentro de uma janela
 import json
-from markdown import markdown
 
 Versioner = {
     "name":"AQCalc",
