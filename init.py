@@ -5,6 +5,7 @@
     RGM: 23163054
     Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
 '''
+from tkinter import messagebox
 import webbrowser as web
 from tkinter import *
 from tkinter import ttk
@@ -19,13 +20,26 @@ import json
 
 Versioner = {
     "name":"AQCalc",
-    "version":"0.2.1",
+    "version":"0.2.2",
     "status":"beta"
 }
+######################### Erro ################################
+# Ler arquivos json
+with open('lang_pack.json','r', encoding='utf-8') as f:
+    translation = json.load(f)
+with open('lang_select.json','r', encoding='utf-8') as f:
+    lang_selected = json.load(f)
+    match lang_selected['language']:
+        case 0:
+            language = "english"
+        case 1:
+            language = "portuguese"
+        case _:
+            raise ValueError("No Language Found")
 
 def descritive():
     def cmean():
-        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
+        Label(tab_desc, text = "{} (','): ".format(translation['language'][language]["Enter comma-separated values"]), anchor=W).place(x=10,y=30, width=300, height=20)
         uentry = Entry(tab_desc)
         uentry.place(x=10,y=50,width=300, height=20)
 
@@ -47,7 +61,7 @@ def descritive():
         calculate = Button(tab_desc, text="Calculate", command=calc_mean)
         calculate.place(x=10,y=130,width=300, height=20)
     def cdev():        
-        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
+        Label(tab_desc, text = "{} (','): ".format(translation['language'][language]["Enter comma-separated values"]), anchor=W).place(x=10,y=30, width=300, height=20)
         uentry = Entry(tab_desc)
         uentry.place(x=10,y=50,width=300, height=20)
 
@@ -67,7 +81,7 @@ def descritive():
         calculate = Button(tab_desc, text="Calculate", command=calc_devitation)
         calculate.place(x=10,y=90,width=300, height=20)
     def csd():
-        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20)
+        Label(tab_desc, text = "{} (','): ".format(translation['language'][language]["Enter comma-separated values"]), anchor=W).place(x=10,y=30, width=300, height=20)
         uentry = Entry(tab_desc)
         uentry.place(x=10,y=50,width=300, height=20)
 
@@ -96,13 +110,13 @@ def descritive():
         calculate = Button(tab_desc, text="Calculate", command=calc_sd)
         calculate.place(x=10,y=70,width=300, height=20)
     def ttr():
-        Label(tab_desc, text = "Enter comma-separated values (','): ", anchor=W).place(x=10,y=30, width=300, height=20) # Valores inseridos pelo usuário
+        Label(tab_desc, text = "{} (','): ".format(translation['language'][language]["Enter comma-separated values"]), anchor=W).place(x=10,y=30, width=300, height=20) # Valores inseridos pelo usuário
         uentry = Entry(tab_desc)
         uentry.place(x=10,y=60,width=300, height=20)
 
-        Label(tab_desc, text="Enter the probability percentage (%): ", anchor=W).place(x=10,y=90, width=300, height=20) # Parâmetro t do limite de confiança
+        Label(tab_desc, text= "{} (%): ".format(translation['language'][language]["Enter the probability percentage"]), anchor=W).place(x=10,y=90,width=300,height=20) # Parâmetro t do limite de confiança
         tinput = Entry(tab_desc)
-        tinput.place(x=10,y=90,width=50,height=20)
+        tinput.place(x=250,y=90,width=50,height=20)
 
         def calc_ttr():
             rval = uentry.get()
@@ -127,10 +141,10 @@ def descritive():
     Options_frame = Frame(tab_desc)
     Options_frame.pack()
     Options_list = [
-        "Mean",
-        "Devitation of a Measument",
-        "Standard deviation",
-        "trust threshold"
+        translation['language'][language]["Mean"],
+        translation['language'][language]["Devitation of a Measument"],
+        translation['language'][language]["Standard deviation"],
+        translation['language'][language]["trust threshold"]
     ]
     SelOption = StringVar()
     Options = OptionMenu(Options_frame,SelOption,*Options_list)
@@ -142,34 +156,34 @@ def descritive():
                 widget.destroy()
     def option_changed(*args):
         clear_tab_descrive()
-        if SelOption.get() == "Mean":
+        if SelOption.get() == translation['language'][language]["Mean"]:
             cmean()
-        if SelOption.get() == "Devitation of a Measument":
+        if SelOption.get() == translation['language'][language]["Devitation of a Measument"]:
             cdev()
-        elif SelOption.get() == "Standard deviation":
+        elif SelOption.get() == translation['language'][language]["Standard deviation"]:
             csd()
-        elif SelOption.get() == "trust threshold":
+        elif SelOption.get() == translation['language'][language]["trust threshold"]:
             ttr()
 
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0])
 def phc():
     def error_non_numeric():
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+        Label(tab_ph, text = translation["language"][language]["ERROR: Non numeric value"], anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
     def phc_strong():
-        Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the acid volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_Ac_vol = Entry(tab_ph)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base volume (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the Base volume"]), anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="{} (mol/L): ".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
                 
@@ -243,34 +257,34 @@ def phc():
                 pH = pH + qn
                 pOH = 14 - pH
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=190,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=210,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=230,width=450,height=20)
+            Label(tab_ph, text='{}: {} mL'.format(translation["language"][language]["Volume of acid"],Ac_vol*1000), anchor=W).place(x=100,y=170,width=450,height=20)
+            Label(tab_ph, text='{}: {} mL'.format(translation["language"][language]["Volume of base"],B_vol*1000), anchor=W).place(x=100,y=190,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of acid"],Ac_con), anchor=W).place(x=100,y=210,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of acid"],B_con), anchor=W).place(x=100,y=230,width=450,height=20)
             # Resultado
             Label(tab_ph, text = 'pH = {:.1f}'.format(pH), anchor=W, foreground='#00a').place(x=100,y=250,width=450,height=20)
             Label(tab_ph, text = 'pOH = {:.1f}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=270,width=450,height=20)
         # Botão
-        calculate = Button(tab_ph, text="Calculate", command=calc_ph)
+        calculate = Button(tab_ph, text=translation["language"][language]["Calculate"], command=calc_ph)
         calculate.place(x=100,y=130,width=300, height=20)
     def phc_weak_acid():
-        Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the acid volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_Ac_vol = Entry(tab_ph)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base volume (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the Base volume"]), anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="{}n (mol/L)".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter acid constaint (Ka):", anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
+        Label(tab_ph, text="{} (Ka)".format(translation["language"][language]["Enter acid constaint"]), anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
         Label(tab_ph, text=" * 10^ -", anchor=W).place(x=150,y=130, width=300, height=20)
         input_ka_significant_digits = Entry(tab_ph)
         input_ka_significant_digits.place(x=100,y=130,width=50,height=20)
@@ -370,32 +384,32 @@ def phc():
             Label(tab_ph, text = 'pOH = {:.1f}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {} ml'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {} ml'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
+            Label(tab_ph, text='{}: {} ml'.format(translation["language"][language]["Volume of acid"], Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
+            Label(tab_ph, text='{}: {} ml'.format(translation["language"][language]["Volume of base"], B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of acid"], Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of acid"], B_con), anchor=W).place(x=100,y=260,width=450,height=20)
             Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=280,width=450,height=20)
 
-        calculate = Button(tab_ph, text="Calculate", command=calc_ph_wac)
+        calculate = Button(tab_ph, text=translation["language"][language]["Calculate"], command=calc_ph_wac)
         calculate.place(x=100,y=170,width=300, height=20)
     def phc_weak_base():
-        Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the acid volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_Ac_vol = Entry(tab_ph)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base volume (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the Base volume"]), anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="{} (mol/L)".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter base constaint (Kb):", anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
+        Label(tab_ph, text="{} (Kb)".format(translation["language"][language]["Enter base constaint"]), anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
         Label(tab_ph, text=" * 10^ -", anchor=W).place(x=150,y=130, width=300, height=20)
         input_kb_significant_digits = Entry(tab_ph)
         input_kb_significant_digits.place(x=100,y=130,width=50,height=20)
@@ -488,40 +502,40 @@ def phc():
             Label(tab_ph, text = 'pOH = {:.1f}'.format(pOH), anchor=W, foreground='#00a').place(x=100,y=320,width=450,height=20)
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=260,width=450,height=20)
+            Label(tab_ph, text='{}: {} mL'.format(translation["language"][language]["Volume of acid"], Ac_vol*1000), anchor=W).place(x=100,y=200,width=450,height=20)
+            Label(tab_ph, text='{}: {} mL'.format(translation["language"][language]["Volume of base"], B_vol*1000), anchor=W).place(x=100,y=220,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of acid"], Ac_con), anchor=W).place(x=100,y=240,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of base"], B_con), anchor=W).place(x=100,y=260,width=450,height=20)
             Label(tab_ph, text='Kb: {}'.format(kb), anchor=W).place(x=100,y=280,width=450,height=20)
 
-        calculate = Button(tab_ph, text="Calculate", command=calc_ph_wb)
+        calculate = Button(tab_ph, text=translation["language"][language]["Calculate"], command=calc_ph_wb)
         calculate.place(x=100,y=170,width=300, height=20)
     def phc_wab():
         # Ácido fraco e base fraca
-        Label(tab_ph, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the acid volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_Ac_vol = Entry(tab_ph)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base volume (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
+        Label(tab_ph, text="{} (mL)".format(translation["language"][language]["Enter the Base volume"]), anchor=W).place(x=300,y=30, width=300, height=20) # Basic volume
         input_B_vol = Entry(tab_ph)
         input_B_vol.place(x=300,y=50,width=50,height=20)
 
-        Label(tab_ph, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_ph, text="{} (mol/L)".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_ph)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
+        Label(tab_ph, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Basic concentration
         input_B_con = Entry(tab_ph)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
-        Label(tab_ph, text="Enter acid constaint (Ka):", anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
+        Label(tab_ph, text="{} (Ka)".format(translation["language"][language]["Enter acid constaint"]), anchor=W).place(x=100,y=110, width=300, height=20) # Constante do ácido
         Label(tab_ph, text=" * 10^ -", anchor=W).place(x=150,y=130, width=300, height=20)
         input_ka_significant_digits = Entry(tab_ph)
         input_ka_significant_digits.place(x=100,y=130,width=50,height=20)
         input_ka_exponent = Entry(tab_ph)
         input_ka_exponent.place(x=210,y=130,width=50,height=20)
 
-        Label(tab_ph, text="Enter base constaint (Kb):", anchor=W).place(x=100,y=150, width=300, height=20) # Constante do ácido
+        Label(tab_ph, text="{} (Kb)".format(translation["language"][language]["Enter base constaint"]), anchor=W).place(x=100,y=150, width=300, height=20) # Constante do ácido
         Label(tab_ph, text=" * 10^ -", anchor=W).place(x=150,y=170, width=300, height=20)
         input_kb_significant_digits = Entry(tab_ph)
         input_kb_significant_digits.place(x=100,y=170,width=50,height=20)
@@ -625,24 +639,24 @@ def phc():
             Label(tab_ph, text = 'pOH = {:.1f}'.format(round(pOH), 2), anchor=W, foreground='#00a').place(x=100,y=370,width=450,height=20)
 
             # Imprimindo valores
-            Label(tab_ph, text='Volume of acid: {} mL'.format(Ac_vol*1000), anchor=W).place(x=100,y=230,width=450,height=20)
-            Label(tab_ph, text='Volume of base: {} mL'.format(B_vol*1000), anchor=W).place(x=100,y=250,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(Ac_con), anchor=W).place(x=100,y=270,width=450,height=20)
-            Label(tab_ph, text='Concentration of acid: {} mol/L'.format(B_con), anchor=W).place(x=100,y=290,width=450,height=20)
+            Label(tab_ph, text='{}: {} mL'.format(translation["language"][language]["Volume of acid"], Ac_vol*1000), anchor=W).place(x=100,y=230,width=450,height=20)
+            Label(tab_ph, text='{}: {} mL'.format(translation["language"][language]["Volume of base"], B_vol*1000), anchor=W).place(x=100,y=250,width=450,height=20)
+            Label(tab_ph, text=': {} mol/L'.format(translation["language"][language]["Concentration of acid"], Ac_con), anchor=W).place(x=100,y=270,width=450,height=20)
+            Label(tab_ph, text='{}: {} mol/L'.format(translation["language"][language]["Concentration of base"] ,B_con), anchor=W).place(x=100,y=290,width=450,height=20)
             Label(tab_ph, text='Ka: {}'.format(ka), anchor=W).place(x=100,y=310,width=450,height=20)
             Label(tab_ph, text='Kb: {}'.format(kb), anchor=W).place(x=100,y=330,width=450,height=20)
 
-        calculate = Button(tab_ph, text="Calculate", command=calc_ph_wab)
+        calculate = Button(tab_ph, text=translation["language"][language]["Calculate"], command=calc_ph_wab)
         calculate.place(x=100,y=210,width=300, height=20)
         
     # Opções
     Options_frame = Frame(tab_ph)
     Options_frame.place(x=10,y=10, width=300, height=20, anchor=W)
     Options_list = [
-        "Strong acid & strong base",
-        "Weak acid & strong base",
-        "Strong acid & weak base",
-        "Weak acid & weak base"
+        translation["language"][language]["Strong acid & strong base"],
+        translation["language"][language]["Weak acid & strong base"],
+        translation["language"][language]["Strong acid & weak base"],
+        translation["language"][language]["Weak acid & weak base"]
     ]
     SelOption = StringVar()
 
@@ -654,13 +668,13 @@ def phc():
                 widget.destroy()
     def option_changed(*args):
         clear_tab_ph()
-        if SelOption.get() == "Strong acid & strong base":
+        if SelOption.get() == translation["language"][language]["Strong acid & strong base"]:
             phc_strong()
-        elif SelOption.get() == "Weak acid & strong base":
+        elif SelOption.get() == translation["language"][language]["Weak acid & strong base"]:
             phc_weak_acid()
-        elif SelOption.get() == "Strong acid & weak base":
+        elif SelOption.get() == translation["language"][language]["Strong acid & weak base"]:
             phc_weak_base()
-        elif SelOption.get() == "Weak acid & weak base":
+        elif SelOption.get() == translation["language"][language]["Weak acid & weak base"]:
             phc_wab()
 
     SelOption.trace("w", option_changed)
@@ -668,17 +682,17 @@ def phc():
 def tcurve():
     # Ácido forte e base forte
     def error_non_numeric():
-        Label(tab_tcurve, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+        Label(tab_tcurve, text = translation["language"][language]["ERROR: Non numeric value"], anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
     def tcurve_sa():
-        Label(tab_tcurve, text="Enter the acid volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_tcurve, text="{} (mL): ".format(translation["language"][language]["Enter the acid volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_Ac_vol = Entry(tab_tcurve)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="{} (mol/L): ".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
                 
@@ -728,9 +742,9 @@ def tcurve():
                     pH.append(14 - pOH)
 
             # Imprimindo valores inseridos
-            Label(tab_tcurve, text='Concentration of acid: {}'.format(C_Acid), anchor=W).place(x=100,y=170,width=450,height=20)
-            Label(tab_tcurve, text='Concentration of base: {}'.format(C_base), anchor=W).place(x=100,y=190,width=450,height=20)
-            Label(tab_tcurve, text='Volume of acid: {}mL'.format(V_acid), anchor=W).place(x=100,y=210,width=450,height=20)
+            Label(tab_tcurve, text='{}: {}'.format(translation["language"][language]["Concentration of acid"],C_Acid), anchor=W).place(x=100,y=170,width=450,height=20)
+            Label(tab_tcurve, text='{}: {}'.format(translation["language"][language]["Concentration of base"],C_base), anchor=W).place(x=100,y=190,width=450,height=20)
+            Label(tab_tcurve, text='{}: {}mL'.format(translation["language"][language]["Volume of acid"],V_acid), anchor=W).place(x=100,y=210,width=450,height=20)
 
             # Gerando gráfico
             def show_graph():
@@ -756,21 +770,21 @@ def tcurve():
             graph.draw()
             graph.get_tk_widget().place(x=10,y=250, width=600, height=250)
             # Botão para mostrar gráfico mais detalhado
-            showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+            showmore = Button(tab_tcurve, text=translation["language"][language]["Show more"], command=show_graph)
             showmore.place(x=300,y=210,width=100, height=20)
         # Botão para calcular
-        calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_sa)
+        calculate = Button(tab_tcurve, text=translation["language"][language]["Calculate"], command=generate_tcurve_sa)
         calculate.place(x=100,y=130,width=300, height=20)
     def tcurve_sb():
-        Label(tab_tcurve, text="Enter the base volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
+        Label(tab_tcurve, text="{} (mL): ".format(translation["language"][language]["Enter the base volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
         input_Ac_vol = Entry(tab_tcurve)
         input_Ac_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="{} (mol/L): ".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
         def generate_tcurve_sb():
@@ -819,9 +833,9 @@ def tcurve():
                     pH.append(pOH)
 
             # Imprimindo valores inseridos
-            Label(tab_tcurve, text='Concentration of acid: {}'.format(C_Acid), anchor=W).place(x=100,y=170,width=450,height=20)
-            Label(tab_tcurve, text='Concentration of base: {}'.format(C_base), anchor=W).place(x=100,y=190,width=450,height=20)
-            Label(tab_tcurve, text='Volume of acid: {}mL'.format(V_Base), anchor=W).place(x=100,y=210,width=450,height=20)
+            Label(tab_tcurve, text='{}: {}'.format(translation["language"][language]["Concentration of acid"],C_Acid), anchor=W).place(x=100,y=170,width=450,height=20)
+            Label(tab_tcurve, text='{}: {}'.format(translation["language"][language]["Concentration of base"], C_base), anchor=W).place(x=100,y=190,width=450,height=20)
+            Label(tab_tcurve, text='{}: {}mL'.format(translation["language"][language]["Volume of acid"],V_Base), anchor=W).place(x=100,y=210,width=450,height=20)
 
             # Gerando gráfico
             def show_graph():
@@ -847,33 +861,33 @@ def tcurve():
             graph.draw()
             graph.get_tk_widget().place(x=10,y=250, width=600, height=250)
             # Botão para mostrar gráfico mais detalhado
-            showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+            showmore = Button(tab_tcurve, text=translation["language"][language]["Show more"], command=show_graph)
             showmore.place(x=300,y=210,width=100, height=20)
         # Botão para calcular
-        calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_sb)
+        calculate = Button(tab_tcurve, text=translation["language"][language]["Calculate"], command=generate_tcurve_sb)
         calculate.place(x=100,y=130,width=300, height=20)
     def tcurve_wasb():
         # Titulação de ácido fraco
-        Label(tab_tcurve, text="Enter the initial volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_tcurve, text="{} (mL): ".format(translation["language"][language]["Enter the initial volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_in_vol = Entry(tab_tcurve)
         input_in_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid constant dossolution (mL): ", anchor=W).place(x=300,y=30, width=300, height=20) # Constante de dissolução do ácido fraco
+        Label(tab_tcurve, text="{} (mL): ".format(translation["language"][language]["Enter the acid constant dossolution"]), anchor=W).place(x=300,y=30, width=300, height=20) # Constante de dissolução do ácido fraco
         Label(tab_tcurve, text=" * 10^- ", anchor=W).place(x=350,y=50,width=50,height=20)
         input_Ka_significant_digits = Entry(tab_tcurve)
         input_Ka_significant_digits.place(x=300,y=50,width=50,height=20)
         input_Ka_exponent = Entry(tab_tcurve)
         input_Ka_exponent.place(x=400,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="{} (mol/L)".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Number of acid valence: ", anchor=W).place(x=10,y=110, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text=translation["language"][language]["Number of acid valence"], anchor=W).place(x=10,y=110, width=300, height=20) # Acid concentration
         input_Ac_val = Entry(tab_tcurve)
         input_Ac_val.place(x=10,y=130,width=50,height=20)
                 
@@ -962,33 +976,33 @@ def tcurve():
             graph.draw()
             graph.get_tk_widget().place(x=10,y=250, width=600, height=250)
             # Botão para mostrar gráfico mais detalhado
-            showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+            showmore = Button(tab_tcurve, text=translation["language"[language]]["Show more"], command=show_graph)
             showmore.place(x=300,y=210,width=100, height=20)
         # Botão para calcular
-        calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_wasb)
+        calculate = Button(tab_tcurve, text=translation["language"][language]["Calculate"], command=generate_tcurve_wasb)
         calculate.place(x=100,y=150,width=300, height=20)
     def tcurve_wbsa():
         # Titulação de base fraca
-        Label(tab_tcurve, text="Enter the initial volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
+        Label(tab_tcurve, text="{} (mL): ".format(translation["language"][language]["Enter the initial volume"]), anchor=W).place(x=10,y=30, width=300, height=20) # Acid volume
         input_in_vol = Entry(tab_tcurve)
         input_in_vol.place(x=10,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the base constant dossolution (mL): ", anchor=W).place(x=300,y=30, width=300, height=20) # Constante de dissolução do ácido fraco
+        Label(tab_tcurve, text="{} (mL)".format(translation["language"][language]["Enter the base constant dossolution"]), anchor=W).place(x=300,y=30, width=300, height=20) # Constante de dissolução do ácido fraco
         Label(tab_tcurve, text=" * 10^- ", anchor=W).place(x=350,y=50,width=50,height=20)
         input_Kb_significant_digits = Entry(tab_tcurve)
         input_Kb_significant_digits.place(x=300,y=50,width=50,height=20)
         input_Kb_exponent = Entry(tab_tcurve)
         input_Kb_exponent.place(x=400,y=50,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the acid concentration (mol/L): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text="{} (mol/L)".format(translation["language"][language]["Enter the acid concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
         input_Ac_con = Entry(tab_tcurve)
         input_Ac_con.place(x=10,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Enter the Base concentration (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+        Label(tab_tcurve, text="{} (mol/L)".format(translation["language"][language]["Enter the Base concentration"]), anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
         input_B_con = Entry(tab_tcurve)
         input_B_con.place(x=300,y=90,width=50,height=20)
 
-        Label(tab_tcurve, text="Number of acid valence: ", anchor=W).place(x=10,y=110, width=300, height=20) # Acid concentration
+        Label(tab_tcurve, text=translation["language"][language]["Number of acid valence"], anchor=W).place(x=10,y=110, width=300, height=20) # Acid concentration
         input_Ac_val = Entry(tab_tcurve)
         input_Ac_val.place(x=10,y=130,width=50,height=20)
                 
@@ -1079,10 +1093,10 @@ def tcurve():
             graph.draw()
             graph.get_tk_widget().place(x=10,y=250, width=600, height=250)
             # Botão para mostrar gráfico mais detalhado
-            showmore = Button(tab_tcurve, text="Show more", command=show_graph)
+            showmore = Button(tab_tcurve, text=translation["language"][language]["Show more"], command=show_graph)
             showmore.place(x=300,y=210,width=100, height=20)
         # Botão para calcular
-        calculate = Button(tab_tcurve, text="Calculate", command=generate_tcurve_wasb)
+        calculate = Button(tab_tcurve, text=translation["language"][language]["Calculate"], command=generate_tcurve_wasb)
         calculate.place(x=100,y=150,width=300, height=20)
 
     
@@ -1090,10 +1104,10 @@ def tcurve():
     Options_frame = Frame(tab_tcurve)
     Options_frame.pack()
     Options_list = [
-        "titration of strong acid",
-        "titration of strong base",
-        "titration of weak acid to strong base",
-        "titration of weak base to strong acid",
+        translation["language"][language]["titration of strong acid"],
+        translation["language"][language]["titration of strong base"],
+        translation["language"][language]["titration of weak acid with strong base"],
+        translation["language"][language]["titration of weak base with strong acid"],
     ]
     SelOption = StringVar()
     Options = OptionMenu(Options_frame,SelOption,*Options_list)
@@ -1105,33 +1119,33 @@ def tcurve():
                 widget.destroy()
     def option_changed(*args):
         clear_tab_tcurve()
-        if SelOption.get() == "titration of strong acid":
+        if SelOption.get() == translation["language"][language]["titration of strong acid"]:
             tcurve_sa()
-        if SelOption.get() == "titration of strong base":
+        if SelOption.get() == translation["language"][language]["titration of strong base"]:
             tcurve_sb()
-        elif SelOption.get() == "titration of weak acid to strong base":
+        elif SelOption.get() == translation["language"][language]["titration of weak acid with strong base"]:
             tcurve_wasb()
-        elif SelOption.get() == "titration of weak base to strong acid":
+        elif SelOption.get() == translation["language"][language]["titration of weak base with strong acid"]:
             tcurve_wbsa()
 
     SelOption.trace("w", option_changed)
     SelOption.set(Options_list[0])
 def agcurve():
     def error_non_numeric():
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+        Label(tab_ph, text = translation["language"][language]["ERROR: Non numeric value"], anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
     Label(tab_agcurve, text="Enter the ananlyte volume (mL): ", anchor=W).place(x=10,y=30, width=300, height=20) # Base volume
     input_V_Analyte = Entry(tab_agcurve)
     input_V_Analyte.place(x=10,y=50,width=50,height=20)
 
-    Label(tab_agcurve, text="Enter the analityte concentration (mols/mL): ", anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
+    Label(tab_agcurve, text="{} (mols/mL): ".format(translation["language"][language]["Enter the analityte concentration"]), anchor=W).place(x=10,y=70, width=300, height=20) # Acid concentration
     input_C_Analyte = Entry(tab_agcurve)
     input_C_Analyte.place(x=10,y=90,width=50,height=20)
 
-    Label(tab_agcurve, text="Enter the maximum volume of titrant used (mL)", anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
+    Label(tab_agcurve, text="{} (mL)".format(translation["language"][language]["Enter the maximum volume of titrant used"]), anchor=W).place(x=300,y=30, width=300, height=20) # Base concentration
     input_Titrant_Vol = Entry(tab_agcurve)
     input_Titrant_Vol.place(x=300,y=50,width=50,height=20)
 
-    Label(tab_agcurve, text="Enter concentration of titrant (mol/L)", anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
+    Label(tab_agcurve, text="{} (mol/L)".format(translation["language"][language]["Enter concentration of titrant"]), anchor=W).place(x=300,y=70, width=300, height=20) # Base concentration
     input_Titrant_Con = Entry(tab_agcurve)
     input_Titrant_Con.place(x=300,y=90,width=50,height=20)
     def agcalc():
@@ -1161,10 +1175,10 @@ def agcurve():
             error_non_numeric()
 
         # Imprimindo valores inseridos
-        Label(tab_agcurve, text='Volume of analyte: {} L'.format(V_Analyte), anchor=W).place(x=100,y=170,width=450,height=20)
-        Label(tab_agcurve, text='Concentration of analyte: {} mols/L'.format(C_Analyte), anchor=W).place(x=100,y=190,width=450,height=20)
-        Label(tab_agcurve, text='Maximum volume of titrant: {} L'.format(Vmax_Titrant), anchor=W).place(x=100,y=210,width=450,height=20)
-        Label(tab_agcurve, text="Concentration of titrant: {} mols/L".format(C_Titrant), anchor=W).place(x=100,y=230,width=450,height=20)
+        Label(tab_agcurve, text='{}: {} L'.format(translation["language"][language]["Volume of analyte"], V_Analyte), anchor=W).place(x=100,y=170,width=450,height=20)
+        Label(tab_agcurve, text='{}: {} mols/L'.format(translation["language"][language]["Concentration of analyte"], C_Analyte), anchor=W).place(x=100,y=190,width=450,height=20)
+        Label(tab_agcurve, text='{}: {} L'.format(translation["language"][language]["Maximum volume of titrant"], Vmax_Titrant), anchor=W).place(x=100,y=210,width=450,height=20)
+        Label(tab_agcurve, text="{}: {} mols/L".format(translation["language"][language]["Concentration of titrant"], C_Titrant), anchor=W).place(x=100,y=230,width=450,height=20)
 
         # Calcular o pAg e gerar gráfico
         def calc_pAg(concentration, volume):
@@ -1195,19 +1209,19 @@ def agcurve():
         graph.draw()
         graph.get_tk_widget().place(x=10,y=270, width=600, height=250)
         # Botão para mostrar gráfico mais detalhado
-        showmore = Button(tab_agcurve, text="Show more", command=show_graph)
+        showmore = Button(tab_agcurve, text=translation["language"][language]["Show more"], command=show_graph)
         showmore.place(x=500,y=210,width=100, height=20)
     # Botão para calcular
-    calculate = Button(tab_agcurve, text="Calculate", command=agcalc)
+    calculate = Button(tab_agcurve, text=translation["language"][language]["Calculate"], command=agcalc)
     calculate.place(x=100,y=130,width=300, height=20)
 def calc_fa():
     def error_non_numeric():
-        Label(tab_ph, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
-    Label(tab_fa, text="Enter the PM value (g/mol): ", anchor=W).pack()# Base volume
+        Label(tab_ph, text = translation["language"][language]["ERROR: Non numeric value"], anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+    Label(tab_fa, text="{} (g/mol): ".format(translation["language"][language]["Enter the PM value"]), anchor=W).pack()# Base volume
     input_PM = Entry(tab_fa)
     input_PM.pack()
 
-    Label(tab_fa, text="Enter the M value (mol/L)", anchor=W).pack() # Base concentration
+    Label(tab_fa, text="{} (mol/L)".format(translation["language"][language]["Enter the M value"]), anchor=W).pack() # Base concentration
     input_M = Entry(tab_fa)
     input_M.pack()
 
@@ -1238,7 +1252,7 @@ def calc_fa():
         values.pack()
         resp.pack()
     # Botão
-    calculate = Button(tab_fa, text="Calculate", command=fa)
+    calculate = Button(tab_fa, text=translation["language"][language]["Calculate"], command=fa)
     calculate.pack()
 ######################################### Unit Converter ##############################################################
 ##### Volume #######
@@ -1247,9 +1261,9 @@ def volume_window():
     volc_win.title("Convert volume")
     volc_win.geometry('260x280')
     def error_non_numeric():
-        Label(volc_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+        Label(volc_win, text = translation["language"][language]["ERROR: Non numeric value"], anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
     def volume_ml():
-        Label(volc_win, text="Enter volume in milliters (mL): ", anchor=W).pack()# mL volume
+        Label(volc_win, text="{} (mL): ".format(translation["language"][language]["Enter volume in milliters"]), anchor=W).pack()# mL volume
         input_mL = Entry(volc_win)
         input_mL.pack()
 
@@ -1264,12 +1278,12 @@ def volume_window():
             # mL to L
             L = mL / 1000
             print(L)
-            resp = Label(volc_win, text = "The volume in Liters is {}L".format(L), anchor=W, foreground='#00a')
+            resp = Label(volc_win, text = "{} {}L".format(translation["language"][language]["The volume in Liters is"], L), anchor=W, foreground='#00a')
             resp.pack()
-        calculate = Button(volc_win, text="Calculate", command=calc_volume)
+        calculate = Button(volc_win, text=translation["language"][language]["Calculate"], command=calc_volume)
         calculate.pack()
     def volume_L():
-        Label(volc_win, text="Enter volume in Liters (L): ", anchor=W).pack()# L volume
+        Label(volc_win, text="{} (L): ".format(translation["language"][language]["Enter volume in Liters"]), anchor=W).pack()# L volume
         input_L = Entry(volc_win)
         input_L.pack()
 
@@ -1277,16 +1291,15 @@ def volume_window():
             # Recebendo valores
             try:
                 L = float(input_L.get())
-                print("L volume = {}".format(L))
             except ValueError:
                 # Erro
                 error_non_numeric()
             # mL to L
             mL = L * 1000
             print(L)
-            resp = Label(volc_win, text = "The volume in Liters is {}L".format(mL), anchor=W, foreground='#00a')
+            resp = Label(volc_win, text = "{} {}L".format(translation['language'][language]["The volume in Liters is"],mL), anchor=W, foreground='#00a')
             resp.pack()
-        calculate = Button(volc_win, text="Calculate", command=calc_volume)
+        calculate = Button(volc_win, text=translation["language"][language]["Calculate"], command=calc_volume)
         calculate.pack()
     # Tipo de conversão
     Options_frame = Frame(volc_win)
@@ -1315,7 +1328,7 @@ def volume_window():
 ##### Molaridade #######
 def molarity_window():
     mol_win = Tk()
-    mol_win.title("Volume unit")
+    mol_win.title("Molarity")
     mol_win.geometry('260x280')
     def error_non_numeric():
         Label(mol_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
@@ -1354,15 +1367,15 @@ def gm():
     gm_win.title("Volume unit")
     gm_win.geometry('260x280')
     def error_non_numeric():
-        Label(gm_win, text = "ERROR: Non numeric value", anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
+        Label(gm_win, text = translation['language'][language]["ERROR: Non numeric value"], anchor=W, foreground='#a00').place(x=100,y=170,width=450,height=20)
     def gm_op():
-        Label(gm_win, text="Enter the mass of sample (g/L): ", anchor=W).pack()
+        Label(gm_win, text="{} (g/L): ".format(translation['language'][language]["Enter the mass of sample"]), anchor=W).pack()
         input_mass = Entry(gm_win)
         input_mass.pack()
-        Label(gm_win, text="Enter the molar mass of particle (g): ", anchor=W).pack()
+        Label(gm_win, text="{} (g): ".format(translation['language'][language]["Enter the molar mass of particle"]), anchor=W).pack()
         input_M = Entry(gm_win)
         input_M.pack()
-        Label(gm_win, text="Enter Number of mols: ", anchor=W).pack()
+        Label(gm_win, text= translation['language'][language]["Enter number of mols"], anchor=W).pack()
         input_mols = Entry(gm_win)
         input_mols.pack()
         def calc_gm():
@@ -1387,7 +1400,7 @@ def gm():
             resp = Label(gm_win, text = "{}mols/L".format(res), anchor=W, foreground='#00a')
             values.pack()
             resp.pack()
-        calculate = Button(gm_win, text="Calculate", command=calc_gm)
+        calculate = Button(gm_win, text=translation['language'][language]["Calculate"], command=calc_gm)
         calculate.pack()
     gm_op()
 ######################################### About Page ##################################################################
@@ -1408,7 +1421,7 @@ def about():
     def web_doc():
         web.open("https://github.com/JoaoM199/integrative-project")
 
-    doc_page = Button(about, text="Documentation", command=web_doc)
+    doc_page = Button(about, text="Github Page", command=web_doc)
     doc_page.pack(anchor="s")
     about.mainloop()
 ######################################### Acid-Base constaint database ################################################
@@ -1433,7 +1446,7 @@ def wab_constaints():
         
         wabc_window = Tk()
         wabc_window.title("Acid-base constaints")
-        wabc_window.geometry('700x300')
+        wabc_window.geometry('820x300')
         table = create_table(wabc_window,database)
         ref = Label(wabc_window, text=Fonte)
 
@@ -1454,7 +1467,7 @@ tabs.pack()
 tab_desc = Frame(tabs, width=500, height=300)
 tab_desc.pack()
 descritive()
-tabs.add(tab_desc, text="Descriptive measures")
+tabs.add(tab_desc, text=translation['language'][language]["Descriptive measures"])
 
 tab_ph = Frame(tabs, width=600, height=600)
 tab_ph.pack(fill='both', expand=1)
@@ -1464,37 +1477,51 @@ tabs.add(tab_ph, text="pH & pOH")
 tab_tcurve = Frame(tabs, width=700, height=900)
 tab_tcurve.pack(fill="both",expand=1)
 tcurve()
-tabs.add(tab_tcurve, text="Titration curve")
+tabs.add(tab_tcurve, text=translation['language'][language]["Titration curve"])
 
 tab_agcurve = Frame(tabs, width=600, height=600)
 tab_agcurve.pack(fill='both',expand=1)
 agcurve()
-tabs.add(tab_agcurve, text="Argetometric Titration curve")
+tabs.add(tab_agcurve, text=translation['language'][language]["Argetometric Titration curve"])
 
 tab_fa = Frame(tabs, width=500, height=500)
 tab_fa.pack(fill='both',expand=1)
 calc_fa()
-tabs.add(tab_fa, text="Analitical Factor")
+tabs.add(tab_fa, text=translation['language'][language]["Analitical Factor"])
 
 # Menubar
 menubar = Menu(app)
 mfile = Menu(menubar, tearoff=0)
-mfile.add_command(label='exit', command=app.quit)
-menubar.add_cascade(label="File",menu=mfile)
+mfile.add_command(label=translation['language'][language]['exit'], command=app.quit)
+menubar.add_cascade(label=translation['language'][language]["File"],menu=mfile)
 
 tools = Menu(menubar, tearoff=0)
-tools.add_command(label='convert volume', command=volume_window)
-tools.add_command(label="molarity", command=molarity_window)
-tools.add_command(label="convert g/L to mol/L", command=gm)
-menubar.add_cascade(label='Tools', menu=tools)
+tools.add_command(label=translation['language'][language]['convert volume'], command=volume_window)
+tools.add_command(label=translation['language'][language]["molarity"], command=molarity_window)
+tools.add_command(label=translation['language'][language]["convert g/L to mol/L"], command=gm)
+menubar.add_cascade(label=translation['language'][language]['Tools'], menu=tools)
 
-settings = Menu(menubar, tearoff=0)
-settings.add_command(label='Acid & Base constaints', command=wab_constaints)
-menubar.add_cascade(label='Compare', menu=settings)
+def update_language(language):
+    lang_selected['language'] = 0 if language == "english" else 1
+    with open('lang_select.json', 'w') as f:
+        json.dump(lang_selected, f)
+    messagebox.showinfo(title=translation["language"][language]["Language updated"], message=translation["language"][language]["Please restart the program for the language changes to take effect"])
+
+settings = Menu(menubar,tearoff=0)
+language_menu = Menu(settings, tearoff=0)
+language_menu.add_command(label="English", command=lambda: update_language("english"))
+language_menu.add_command(label="Português", command=lambda: update_language("portuguese"))
+
+settings.add_cascade(label=translation['language'][language]["select language"], menu=language_menu)
+menubar.add_cascade(label=translation['language'][language]["settings"], menu=settings)
+
+compare = Menu(menubar, tearoff=0)
+compare.add_command(label=translation['language'][language]['Acid & Base constaints'], command=wab_constaints)
+menubar.add_cascade(label=translation['language'][language]['Compare'], menu=compare)
 
 help = Menu(menubar, tearoff=0)
-help.add_command(label='about', command=about)
-menubar.add_cascade(label='help', menu=help)
+help.add_command(label=translation['language'][language]['about'], command=about)
+menubar.add_cascade(label=translation['language'][language]["help"], menu=help)
 
 app.config(menu=menubar)
 app.mainloop()

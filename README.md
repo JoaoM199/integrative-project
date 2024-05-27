@@ -34,9 +34,9 @@ This software is registered under <a href='https://www.gnu.org/licenses/gpl-3.0.
 * Calculate molarity
 * Calculate Analitical Factor
 * A table with acid and base constants values
+* Brazillian portuguese translation
 
 ### Pending
-* Portuguese language translation
 * Dark mode
 
 ## Minimum Requirements
@@ -63,11 +63,21 @@ When opening Aqcalc you will come across the following window:</br>
 ![Img](interface.png)<br>
 In the top bar, there are only two options:</br>
 * File:
-     * close: Closes the program
+     * Exit: Closes the program
+* Tools
+     * Convert volume: Converts volume from mL to L or vice versa
+     * Molarity: Calculates molarity, being the division between the number of moles and the volume.
+     * Convert grams per liter to grams per mole
+* Settings
+     * Select language: Selects the application language, changing the value of the lang_select.json file:
+         <h5>In this file, the language values are:<br/>
+         0 = English <br/>
+         1 = Portuguese
+         </h5>
+* Compare
+     * Constant of acids and bases: A list of the values of the constants of various acids and bases (which can be updated over time)
 * Help:
      * About: Information about the program and an access link to this documentation
-
-In the top corner, there are several tabs, where all the features that this application is capable of are listed.
 
 Among these features we have:
 * Descriptive measures
@@ -155,9 +165,9 @@ Este software está sob licença <a href='https://www.gnu.org/licenses/gpl-3.0.e
 * Calcular molaridade
 * Calcular fator analítico
 * Uma tabela com os valores das constantes de ácidos e bases
+* Tradução para o português brasileiro
 
 ### Pendente
-* Tradução para o idioma português
 * Modo escuro
 
 ## Requisitos mínimos
@@ -186,6 +196,18 @@ Ao abrir o Aqcalc você irá se deparar com a seguinte janela:</br>
 Na barra superior, existem apenas duas opções:</br>
 * File(Arquivo):
     * Exit (fechar): Encerra o programa
+* Tools (Ferramentas)
+    * Convert volume (converter volume): Converte o volume de mL para L ou vice-versa
+    * Molarity (Molaridade): Calcula a molaridade, sendo a divisão entre o número de mols e o volume.
+    * Converter gramas por litro para gramas por mol
+* Settings (configurações)
+    * Select language: Seleciona o idioma da aplicação, alterando o valor do arquivo lang_select.json:
+        <h5>Neste arquivo, os valores de idioma são:<br/>
+        0 = inglês <br/>
+        1 = português
+        </h5>
+* Compare (Comparar)
+    * Constante de ácidos e bases: Uma lista com os valores das constantes de vários ácidos e bases (que pode ser atualizada ao longo do tempo)
 * Help (Ajuda):
     * About (sobre): Informações sobre o programa e um link de acesso para esta documentação
 
