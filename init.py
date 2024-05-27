@@ -5,6 +5,7 @@
     RGM: 23163054
     Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
 '''
+from tkinter import messagebox
 import webbrowser as web
 from tkinter import *
 from tkinter import ttk
@@ -1501,9 +1502,23 @@ tools.add_command(label=translation['language'][language]["molarity"], command=m
 tools.add_command(label=translation['language'][language]["convert g/L to mol/L"], command=gm)
 menubar.add_cascade(label=translation['language'][language]['Tools'], menu=tools)
 
-settings = Menu(menubar, tearoff=0)
-settings.add_command(label=translation['language'][language]['Acid & Base constaints'], command=wab_constaints)
-menubar.add_cascade(label=translation['language'][language]['Compare'], menu=settings)
+def update_language(language):
+    lang_selected['language'] = 0 if language == "english" else 1
+    with open('lang_select.json', 'w') as f:
+        json.dump(lang_selected, f)
+    messagebox.showinfo(title=translation["language"][language]["Language updated"], message=translation["language"][language]["Please restart the program for the language changes to take effect"])
+
+settings = Menu(menubar,tearoff=0)
+language_menu = Menu(settings, tearoff=0)
+language_menu.add_command(label="English", command=lambda: update_language("english"))
+language_menu.add_command(label="Português", command=lambda: update_language("portuguese"))
+
+settings.add_cascade(label=translation['language'][language]["select language"], menu=language_menu)
+menubar.add_cascade(label=translation['language'][language]["settings"], menu=settings)
+
+compare = Menu(menubar, tearoff=0)
+compare.add_command(label=translation['language'][language]['Acid & Base constaints'], command=wab_constaints)
+menubar.add_cascade(label=translation['language'][language]['Compare'], menu=compare)
 
 help = Menu(menubar, tearoff=0)
 help.add_command(label=translation['language'][language]['about'], command=about)

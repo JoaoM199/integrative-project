@@ -68,7 +68,11 @@
         "Enter the acid constant dossolution":"Enter the acid constant dossolution",
         "Enter the base constant dossolution":"Enter the base constant dossolution",
         "Number of acid valence":"Number of acid valence",
-        "Number of base valence":"Number of base valence"
+        "Number of base valence":"Number of base valence",
+        "select language":"select language",
+        "settings":"settings",
+        "Language updated":"Language updated",
+        "Please restart the program for the language changes to take effect":"Please restart the program for the language changes to take effect"
     },
     "portuguese":{
         "Descriptive measures":"Medidas descritivas",
@@ -139,5 +143,9 @@
         "Enter the acid constant dossolution":"Insira a constante de dissolução do ácido",
         "Enter the base constant dossolution":"Insira a constante de dissolução da base",
         "Number of acid valence":"Número da valência do ácido",
-        "Number of base valence":"Número da valência da base"
+        "Number of base valence":"Número da valência da base",
+        "select language":"selecionar idioma",
+        "settings":"configurações",
+        "Language updated":"Idioma atualizado",
+        "Please restart the program for the language changes to take effect":"Por favor, reinicie o programa para que as alterações de idioma tenham efeito"
     }}}
