@@ -1,4 +1,6 @@
 # Changelog
+## Version 0.2.2 beta
+* Brazillian portuguese translation
 ## Version 0.2.1 beta
 * Acid-base constaint database window
 ## Version 0.2 beta
