@@ -95,6 +95,86 @@ def descriptive():
                            critical_value=critical_value, 
                            error_margin=error_margin, 
                            u=u)
+@app.route('/phcalc', methods=['GET', 'POST'])
+def phcalc():
+        # iniciando variáveis para evitar erros
+    calculation_type = None
+    acid_vol_str = None
+    base_vol_str = None
+    acid_con_str = None
+    base_con_str = None
+    acid_vol = None
+    base_vol = None
+    acid_con = None
+    base_con = None
+    n_Ac = None
+    n_B = None
+    pH = None
+    pOH = None
+    
+    if request.method == 'POST':
+        calculation_type = request.form.get('calculation_type')
+
+        # verificando se as entradas existem
+        acid_vol_str = request.form.get('acid_vol')
+        base_vol_str = request.form.get('base_vol')
+        acid_con_str = request.form.get('acid_con')
+        base_con_str = request.form.get('base_con')
+        
+
+
+        print(f"calculation_type: {calculation_type}")
+        if calculation_type == 'phc_strong':
+            if acid_vol_str and base_vol_str and acid_con_str and base_con_str:
+                try:
+                    # passando valores para as variáveis
+                    acid_vol = float(acid_vol_str)
+                    base_vol = float(base_vol_str)
+                    acid_con = float(acid_con_str)
+                    base_con = float(base_con_str)
+                except ValueError:
+                    print("Erro na conversão dos valores para float")
+                    return render_template('phcalc.html', calculation_type=calculation_type, pH=pH, pOH=pOH)
+            
+            if calculation_type == 'phc_strong' and acid_vol and base_vol and acid_con and base_con:
+                # Converter para litros
+                acid_vol = acid_vol/1000
+                base_vol = base_vol/1000
+                # Quantidade de substância
+                n_Ac = acid_vol * acid_con
+                n_B = base_vol * base_con
+                # calcular substância em excesso
+                if n_Ac > n_B:
+                    qn = n_Ac - n_B
+                else:
+                    qn = n_B - n_Ac
+                # concentração da espécie em excesso
+                n_con = qn/(acid_vol + base_vol)
+                # calcular pH e pOH
+                if n_Ac > n_B:
+                    pH = -np.log10(n_con)
+                else:
+                    pOH = -np.log10(n_con)
+                # calcular pH a partir do pOH ou vice-versa
+                if n_Ac > n_B:
+                    pOH = 14 - pH
+                else:
+                    pH = 14 - pOH
+                # volumes em equilíbrio
+                if n_Ac == n_B:
+                    pH = 7
+                    pOH = 7
+                else:
+                    pH = pH
+                    pOH = pOH
+                if n_Ac < n_B:
+                    pH = pH + qn
+                    pOH = 14 - pH
+
+    return render_template('phcalc.html', 
+                               calculation_type=calculation_type, 
+                               pH=pH, 
+                               pOH=pOH)
 
 
 @app.route('/about')
