@@ -16,6 +16,11 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 import json
 
+# Funções
+from .functions.deviation import calculate_deviation, calculate_deviation_mean
+from .functions.sd import calc_sd, calc_rsd
+from .functions.confidence import calc_critical_value, calc_error_margin, calc_confidence_interval, calc_u
+
 app = Flask(__name__)
 
 # Definir rotas
@@ -30,15 +35,14 @@ def descriptive():
     values = None
     mean = None
     deviation_values= None
-    n = None
     sd = None
     rsd = None
     t_value = None
-    dof = None
     critical_value = None
     error_margin = None
     u = None
     confidence_interval = None
+    mean_deviation = None
     
     if request.method == 'POST':
         calculation_type = request.form.get('calculation_type')
@@ -53,64 +57,65 @@ def descriptive():
                 result = np.mean(values)
                 print(f"result:{result}")
             elif calculation_type == 'deviation':
-                mean = np.mean(values)
-                deviation_values= np.abs(values - mean).tolist()
-                result = np.mean(deviation_values)
-                print(f"mean: {mean}")
-                print(f"deviation_values: {deviation_values}")
-                print(f"result: {result}")
+                deviation_values = calculate_deviation(values)
+                result = calculate_deviation_mean(deviation_values)
             elif calculation_type == "sd":
-                mean = np.mean(values)
-                # standard deviation
-                sd = np.std(values)
-                # relative standard deviation
-                rsd = (sd/mean) * 100
-                print(f"mean: {mean}")
-                print(f"sd: {sd}")
-                print(f"rsd: {sd}")
+                sd = calc_sd(values)
+                rsd = calc_rsd(values)
             elif calculation_type == "confidence":
                 t_value = float(request.form.get('trust'))
-                mean = np.mean(values)
-                sd = np.std(values, ddof=1)
-                n = len(values)
-                dof = n - 1
-
-                critical_value = stats.t.ppf((1 + t_value / 100) / 2.0, dof)
-                error_margin = critical_value * (sd/np.sqrt(n))
-                confidence_interval  = (mean - error_margin, mean + error_margin)
-                u = float(confidence_interval[0]), float(confidence_interval[1])
-
-                print(f"critical_value: {critical_value}")
-                print(f"error_margin: {error_margin}")
-                print(f"u: {u}")
+                print(t_value)
+                critical_value = calc_critical_value(values, t_value) 
+                error_margin = calc_error_margin(values, critical_value)
+                confidence_interval = calc_confidence_interval(values, error_margin)
+                u = calc_u(confidence_interval)
+                
 
     return render_template('descriptive.html', 
                            calculation_type=calculation_type, 
-                           result=result, values=values, 
+                           result=result, 
+                           values=values, 
                            deviation_values=deviation_values, 
+                           mean_deviation=mean_deviation,
                            sd=sd, 
                            rsd=rsd, 
                            mean=mean, 
                            t_value=t_value, 
                            critical_value=critical_value, 
                            error_margin=error_margin, 
+                           confidence_interval=confidence_interval,
                            u=u)
+'''
 @app.route('/phcalc', methods=['GET', 'POST'])
 def phcalc():
-        # iniciando variáveis para evitar erros
+    # iniciando variáveis para evitar erros
     calculation_type = None
     acid_vol_str = None
     base_vol_str = None
     acid_con_str = None
     base_con_str = None
+    input_ka_significant_digits_str = None
+    input_ka_exponent_str = None
     acid_vol = None
     base_vol = None
     acid_con = None
     base_con = None
+    input_ka_significant_digits = None
+    input_ka_exponent = None
     n_Ac = None
     n_B = None
     pH = None
     pOH = None
+    ka = None
+    init_acid = None
+    init_base = None
+    final_acid = None
+    final_base = None
+    final_volume = None
+    final_acid_con = None
+    final_base_con = None
+    H_con = None
+    OH_con = None
     
     if request.method == 'POST':
         calculation_type = request.form.get('calculation_type')
@@ -120,18 +125,20 @@ def phcalc():
         base_vol_str = request.form.get('base_vol')
         acid_con_str = request.form.get('acid_con')
         base_con_str = request.form.get('base_con')
-        
-
+        input_ka_significant_digits_str = request.form.get('input_ka_significant_digits')
+        input_ka_exponent_str = request.form.get('input_ka_exponent')
 
         print(f"calculation_type: {calculation_type}")
         if calculation_type == 'phc_strong':
-            if acid_vol_str and base_vol_str and acid_con_str and base_con_str:
+            if acid_vol_str and base_vol_str and acid_con_str and base_con_str and input_ka_significant_digits_str and input_ka_exponent_str:
                 try:
                     # passando valores para as variáveis
                     acid_vol = float(acid_vol_str)
                     base_vol = float(base_vol_str)
                     acid_con = float(acid_con_str)
                     base_con = float(base_con_str)
+                    input_ka_significant_digits = float(input_ka_significant_digits_str)
+                    input_ka_exponent = float(input_ka_exponent_str)
                 except ValueError:
                     print("Erro na conversão dos valores para float")
                     return render_template('phcalc.html', calculation_type=calculation_type, pH=pH, pOH=pOH)
@@ -171,12 +178,61 @@ def phcalc():
                     pH = pH + qn
                     pOH = 14 - pH
 
-    return render_template('phcalc.html', 
+            return render_template('phcalc.html', 
                                calculation_type=calculation_type, 
                                pH=pH, 
                                pOH=pOH)
+        
+        if calculation_type == "phc_weak_acid":
+            if acid_vol_str and base_vol_str and acid_con_str and base_con_str and input_ka_significant_digits_str and input_ka_exponent_str:
+                try:
+                    # passando valores para as variáveis
+                    acid_vol = float(acid_vol_str)
+                    base_vol = float(base_vol_str)
+                    acid_con = float(acid_con_str)
+                    base_con = float(base_con_str)
+                    input_ka_significant_digits = float(input_ka_significant_digits_str)
+                    input_ka_exponent = float(input_ka_exponent_str)
+                except ValueError:
+                    print("Erro na conversão dos valores para float")
+                    return render_template('phcalc.html', calculation_type=calculation_type, pH=pH, pOH=pOH)
+            
+            if calculation_type == "phc_weak_acid" and acid_vol and base_vol and acid_con and base_con and input_ka_exponent and input_ka_exponent:
+                # calcular a constante do ácido
+                ka = input_ka_significant_digits * np.pow(10,input_ka_exponent)
+                # converter volumes para litros
+                acid_vol = acid_vol/1000
+                base_vol = base_vol/1000
+                # calcular número de moles inicial
+                init_acid = acid_con * acid_vol
+                init_base = base_con * base_vol
+                # Calcular número de moles final
+                final_acid = max(0, init_acid - init_base)
+                final_base = max(0, init_base - init_acid)
+                # volume finaç
+                final_volume = acid_vol + base_vol
+                # concentrações finais de H+
+                final_acid_con = final_acid / final_volume
+                final_base_con = final_base / final_volume
+                # concentração de H+
+                H_con = np.sqrt(ka * final_acid_con)
+                H_con = max(1e-14, H_con)
 
-
+                if base_vol == acid_vol:
+                    pH = 7
+                    pOH = 7
+                elif base_vol > acid_vol:
+                    OH_con = (base_con * base_vol - acid_con * acid_vol)/(acid_vol + base_vol)
+                    pOH = -np.log10(OH_con)
+                    pH = 14 - pOH
+                else:
+                    pH = -np.log10(H_con)
+                    pOH = 14 - pH
+                return render_template('phcalc.html', 
+                               calculation_type=calculation_type, 
+                               pH=pH, 
+                               pOH=pOH)
+'''
 @app.route('/about')
 def about():
     return render_template('about.html')

@@ -9,12 +9,12 @@
         <select name="calculation_type" id="calculation_type" onchange="this.form.submit()">
             <option value="" disabled selected>Select</option>
             <option value="phc_strong" {% if calculation_type == 'phc_strong' %}selected{% endif %}>Strong acid and strong base</option>
-            <option value="deviation" {% if calculation_type == 'deviation' %}selected{% endif %}>Deviation from an average</option>
+            <option value="phc_weak_acid" {% if calculation_type == 'phc_weak_acid' %}selected{% endif %}>Weak acid and strong base</option>
             <option value="sd" {% if calculation_type == 'sd' %}selected{% endif %}>Standard deviation</option>
             <option value="confidence" {% if calculation_type == 'confidence' %}selected{% endif %}>Confidence Threshold</option>
         </select>
     </form>
-    <!--    Opção mean  -->
+    <!--    Strong acid strong base  -->
     {% if calculation_type == "phc_strong" %}
     <form method="POST">
         <input type="hidden" name="calculation_type" value="{{ calculation_type }}">
@@ -27,7 +27,41 @@
         <input type="number" id="acid_con" name="acid_con" placeholder="1" required step="any"> <br/>
         
         <!--    Volume da base  -->
-        <label for="base_vol">Enter acid volume (mL): </label>
+        <label for="base_vol">Enter base volume (mL): </label>
+        <input type="number" id="base_vol" name="base_vol" placeholder="1" required step="any"> <br/>
+
+        <!--    Concentração da base   -->
+        <label for="acid_con">Enter base concentration (mol/L): </label>
+        <input type="number" id="base_con" name="base_con" placeholder="1" required step="any"> <br/>
+
+        <button type="submit">Calculate</button>
+    </form>
+    {% if pH and pOH %}
+    <div class="response">
+        <p class="awnser">pH =  {{ pH }}</p>
+        <p class="awnser">pOH = {{ pOH }}</p>
+    </div>
+    {% endif %}
+    <!--    Weak acid strong base   -->
+    {% if calculation_type == "phc_weak_acid" %}
+    <form method="POST">
+        <input type="hidden" name="calculation_type" value="{{ calculation_type }}">
+        <!--    Volume do ácido     -->
+        <label for="acid_vol">Enter acid volume (mL): </label>
+        <input type="number" id="acid_vol" name="acid_vol" placeholder="1" required step="any"> <br/>
+
+        <!--    Concentração do ácido   -->
+        <label for="acid_con">Enter acid concentration (mol/L): </label>
+        <input type="number" id="acid_con" name="acid_con" placeholder="1" required step="any"> <br/>
+        
+        <!--    Constante do ácido  -->
+        <label for="input_ka_significant_digits">Enter acid constaint: </label>
+        <input type="number" id="input_ka_significant_digits" name="input_ka_significant_digits" placeholder="1" required step="any">
+        <label for="input_ka_exponent"> x 10^ </label>
+        <input type="number" id="input_ka_exponent" name="input_ka_exponent" placeholder="1" required step="any"> <br/>
+
+        <!--    Volume da base  -->
+        <label for="base_vol">Enter base volume (mL): </label>
         <input type="number" id="base_vol" name="base_vol" placeholder="1" required step="any"> <br/>
 
         <!--    Concentração da base   -->
