@@ -1,0 +1,28 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="main_window">
+    <h2>Acid-base constaints</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Formula molecular</th>
+                <th>Constante</th>
+                <th>pH</th>
+            </tr>
+            <tbody>
+                {% for item in constaints %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+    <p>sources: <br/> http://educa.fc.up.pt/ficheiros/fichas/855/Constantes%20de%20acidez%20e%20de%20basicidade%20a%2025%BAC.pdf</p>
+</div>
+
+{% endblock %}
