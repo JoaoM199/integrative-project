@@ -112,10 +112,20 @@ def phcalc():
         input_kb_significant_digits = request.form.get('input_kb_significant_digits')
         input_kb_exponent = request.form.get('input_kb_exponent')
         if calculation_type == "phc_strong_acid_base":
-            pH, pOH = phc_strong_acid_base(acid_vol, acid_con, base_vol, base_con, input_ka_significant_digits, input_ka_exponent, input_kb_significant_digits, input_kb_exponent)
-
+            if acid_vol and acid_con and base_vol and base_con:
+                try:
+                    # Converter os valores inseridos para float
+                    acid_vol = float(acid_vol)
+                    acid_con = float(acid_con)
+                    base_vol = float(base_vol)
+                    base_con = float(base_con)
+                    # Executando cálculo
+                    pH, pOH = phc_strong_acid_base(acid_vol, acid_con, base_vol, base_con)
+                except ValueError:
+                    pH = pOH = None
     return render_template('phcalc.html', calculation_type=calculation_type,
-                           pH=pH, pOH=pOH)
+                           pH=pH, 
+                           pOH=pOH)
 
 @app.route('/constaints')
 def constaints():
