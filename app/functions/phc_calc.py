@@ -68,13 +68,18 @@ def phc_weak_acid(acid_vol, acid_con, base_vol, base_con, input_ka_significant_d
         pH = 7
         pOH = 7
     elif base_vol > acid_vol:
-        OH_con = (base_con * base_vol - acid_con * acid_vol)/(acid_vol + base_vol)
+        H_con = (acid_con * acid_vol - base_con * base_vol)/(acid_vol + base_vol)
+        H_con = max(1e-14, H_con)
         pOH = -np.log10(OH_con)
         pH = 14 - pOH
     else:
+        OH_con = np.sqrt(ka * final_base_con)
+        OH_con = max(1e-14, OH_con)
         pH = -np.log10(H_con)
         pOH = 14 - pH
-
+    # Limitar os valores entre 0 e 14
+    pH = max(0, min(14, pH))
+    pOH = max(0, min(14, pOH))
     print(f"pH = {pH}")
     print(f"pOH = {pOH}")
 
@@ -107,11 +112,18 @@ def phc_weak_base(acid_vol, acid_con, base_vol, base_con, input_kb_significant_d
         pOH = 7
     elif base_vol > acid_vol:
         OH_con = (base_con * base_vol - acid_con * acid_vol)/(acid_vol + base_vol)
+        OH_con = max(1e-14, OH_con)
         pOH = -np.log10(OH_con)
         pH = 14 - pOH
     else:
+        H_con = (acid_con * acid_vol - base_con * base_vol)/(acid_vol + base_vol)
+        H_con = max(1e-14, H_con)
         pH = -np.log10(H_con)
         pOH = 14 - pH
+
+    # Limitar valores entre 0 e 14
+    pH = max(0, min(14, pH))
+    pOH = max(0, min(14, pOH))
 
     print(f"pH = {pH}")
     print(f"pOH = {pOH}")
