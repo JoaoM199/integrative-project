@@ -188,43 +188,42 @@ def acid_base3():
 
 @app.route('/phcalc/acid_base4', methods=['GET', 'POST'])
 def acid_base4():
-    def acid_base4():
-        acid_vol = None 
-        acid_con = None 
-        base_vol = None 
-        base_con = None
-        pH = None
-        pOH = None
-        input_ka_significant_digits = None 
-        input_ka_exponent = None 
-        input_kb_significant_digits = None 
-        input_kb_exponent = None 
-        if request.method == 'POST':
-            acid_vol = request.form.get('acid_vol')
-            acid_con = request.form.get('acid_con') 
-            base_vol = request.form.get('base_vol') 
-            base_con = request.form.get('base_con')
-            input_ka_significant_digits = request.form.get('input_ka_significant_digits')
-            input_ka_exponent = request.form.get('input_ka_exponent')
-            input_kb_significant_digits = request.form.get('input_kb_significant_digits')
-            input_kb_exponent = request.form.get('input_kb_exponent')
-            if acid_vol and acid_con and base_vol and base_con:
-                try:
-                    # Converter os valores inseridos para float
-                    acid_vol = float(acid_vol)
-                    acid_con = float(acid_con)
-                    base_vol = float(base_vol)
-                    base_con = float(base_con)
-                    input_ka_significant_digits = float(input_ka_significant_digits)
-                    input_ka_exponent = float(input_ka_exponent)
-                    input_kb_significant_digits = float(input_kb_significant_digits)
-                    input_kb_exponent = float(input_kb_exponent)
-                    # Executando cálculos
-                    pH, pOH = phc_weak_acid_base(acid_vol, acid_con, base_vol, base_con, input_ka_significant_digits, input_ka_exponent, input_kb_significant_digits, input_kb_exponent)
-                except ValueError:
-                    pH = pOH = None
-                print(f"{YELLOW}pH = {pH}\npOH = {pOH} {RESET}")
-        return render_template('acid_base4.html', pH=pH, pOH=pOH)
+    acid_vol = None 
+    acid_con = None 
+    base_vol = None 
+    base_con = None
+    pH = None
+    pOH = None
+    input_ka_significant_digits = None 
+    input_ka_exponent = None 
+    input_kb_significant_digits = None 
+    input_kb_exponent = None 
+    if request.method == 'POST':
+        acid_vol = request.form.get('acid_vol')
+        acid_con = request.form.get('acid_con') 
+        base_vol = request.form.get('base_vol') 
+        base_con = request.form.get('base_con')
+        input_ka_significant_digits = request.form.get('input_ka_significant_digits')
+        input_ka_exponent = request.form.get('input_ka_exponent')
+        input_kb_significant_digits = request.form.get('input_kb_significant_digits')
+        input_kb_exponent = request.form.get('input_kb_exponent')
+        if acid_vol and acid_con and base_vol and base_con:
+            try:
+                # Converter os valores inseridos para float
+                acid_vol = float(acid_vol)
+                acid_con = float(acid_con)
+                base_vol = float(base_vol)
+                base_con = float(base_con)
+                input_ka_significant_digits = float(input_ka_significant_digits)
+                input_ka_exponent = float(input_ka_exponent)
+                input_kb_significant_digits = float(input_kb_significant_digits)
+                input_kb_exponent = float(input_kb_exponent)
+                # Executando cálculos
+                pH, pOH = phc_weak_acid_base(acid_vol, acid_con, base_vol, base_con, input_ka_significant_digits, input_ka_exponent, input_kb_significant_digits, input_kb_exponent)
+            except ValueError:
+                pH = pOH = None
+            print(f"{YELLOW}pH = {pH}\npOH = {pOH} {RESET}")
+    return render_template('acid_base4.html', pH=pH, pOH=pOH)
 
 @app.route('/constaints')
 def constaints():

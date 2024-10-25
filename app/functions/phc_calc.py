@@ -158,7 +158,11 @@ def phc_weak_acid_base(acid_vol, acid_con, base_vol, base_con, input_ka_signific
         return [eq1, eq2]
     H, OH = fsolve(eq, (1e-7, 1e-7), xtol=1e-8, maxfev=2000)
     pH = -np.log10(H)
-    pOH = -np.log(OH)
+    pOH = -np.log10(OH)
+
+    # valores entre 0 e 14
+    pH = max(0, min(14, pH))
+    pOH = max(0, min(14, pOH))
 
     print(f"pH = {pH}")
     print(f"pOH = {pOH}")
