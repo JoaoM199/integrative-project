@@ -21,6 +21,7 @@ from .functions.deviation import calculate_deviation, calculate_deviation_mean
 from .functions.sd import calc_sd, calc_rsd
 from .functions.confidence import calc_critical_value, calc_error_margin, calc_confidence_interval, calc_u
 from .functions.phc_calc import phc_strong_acid_base, phc_weak_acid, phc_weak_base, phc_weak_acid_base
+from .functions.phc_curves import tcurve_strong_acid, tcurve_strong_base, tcurve_weak_acid, tcurve_weak_base
 
 app = Flask(__name__)
 
@@ -32,6 +33,7 @@ RESET = "\033[0m"
 @app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/descriptive', methods=['GET', 'POST'])
 def descriptive():
     # iniciando variáveis para evitar erros
@@ -222,8 +224,114 @@ def acid_base4():
                 pH, pOH = phc_weak_acid_base(acid_vol, acid_con, base_vol, base_con, input_ka_significant_digits, input_ka_exponent, input_kb_significant_digits, input_kb_exponent)
             except ValueError:
                 pH = pOH = None
-            print(f"{YELLOW}pH = {pH}\npOH = {pOH} {RESET}")
     return render_template('acid_base4.html', pH=pH, pOH=pOH)
+
+@app.route('/phcurve')
+def phcurve():
+    return render_template('phcurve.html')
+
+@app.route('/phcurve/curve_acid_base1', methods=["GET", "POST"])
+def curve_acid_base1():
+    acid_vol = None
+    acid_con = None
+    base_con = None
+    img_base64 = None
+    if request.method == 'POST':
+        acid_vol = request.form.get('acid_vol')
+        acid_con = request.form.get('acid_con')
+        base_con = request.form.get('base_con')
+        if acid_vol and acid_con and base_con:
+            try:
+                acid_vol = float(acid_vol)
+                acid_con = float(acid_con)
+                base_con = float(base_con)
+                # realizando cálculos
+                img_base64 = tcurve_strong_acid(acid_vol, acid_con, base_con)
+            except ValueError:
+                img_base64 = None
+    return render_template('curve_acid_base1.html', img_base64=img_base64)
+
+@app.route('/phcurve/curve_acid_base2', methods=["GET", "POST"])
+def curve_acid_base2():
+    base_vol = None
+    base_con = None
+    acid_con = None
+    img_base64 = None
+    if request.method == 'POST':
+        base_vol = request.form.get('base_vol')
+        base_con = request.form.get('base_con')
+        acid_con = request.form.get('acid_con')
+        if base_vol and base_con and acid_con:
+            try:
+                base_vol = float(base_vol)
+                base_con = float(base_con)
+                acid_con = float(acid_con)
+                # realizando cálculos
+                img_base64 = tcurve_strong_base(base_vol, base_con, acid_con)
+            except ValueError:
+                img_base64 = None
+    return render_template('curve_acid_base2.html', img_base64=img_base64)
+
+@app.route('/phcurve/curve_acid_base3', methods=["GET", "POST"])
+def curve_acid_base3():
+    acid_vol = None
+    acid_con = None
+    base_con = None
+    img_base64 = None
+    acid_valence = None
+    input_ka_significant_digits = None
+    input_ka_exponent = None
+    if request.method == 'POST':
+        acid_vol = request.form.get('acid_vol')
+        acid_con = request.form.get('acid_con')
+        base_con = request.form.get('base_con')
+        acid_valence = request.form.get('acid_valence')
+        input_ka_significant_digits = request.form.get('input_ka_significant_digits')
+        input_ka_exponent = request.form.get('input_ka_exponent')
+        if acid_vol and acid_con and base_con:
+            try:
+                acid_vol = float(acid_vol)
+                acid_con = float(acid_con)
+                base_con = float(base_con)
+                acid_valence = float(acid_valence)
+                input_ka_significant_digits = float(input_ka_significant_digits)
+                input_ka_exponent = float(input_ka_exponent)
+                # realizando cálculos
+                img_base64 = tcurve_weak_acid(acid_vol, acid_con, base_con, input_ka_significant_digits, input_ka_significant_digits, acid_valence)
+            except ValueError as e:
+                print(f"{YELLOW}Erro de valor: {e} {RESET}")
+                img_base64 = None
+    return render_template('curve_acid_base3.html', img_base64=img_base64)
+
+@app.route('/phcurve/curve_acid_base4', methods=["GET", "POST"])
+def curve_acid_base4():
+    acid_vol = None
+    acid_con = None
+    base_con = None
+    img_base64 = None
+    base_valence = None
+    input_kb_significant_digits = None
+    input_kb_exponent = None
+    if request.method == 'POST':
+        acid_vol = request.form.get('base_vol')
+        acid_con = request.form.get('base_con')
+        base_con = request.form.get('acid_con')
+        base_valence = request.form.get('base_valence')
+        input_kb_significant_digits = request.form.get('input_kb_significant_digits')
+        input_kb_exponent = request.form.get('input_kb_exponent')
+        if acid_vol and acid_con and base_con:
+            try:
+                acid_vol = float(acid_vol)
+                acid_con = float(acid_con)
+                base_con = float(base_con)
+                base_valence = float(base_valence)
+                input_kb_significant_digits = float(input_kb_significant_digits)
+                input_kb_exponent = float(input_kb_exponent)
+                # realizando cálculos
+                img_base64 = tcurve_weak_base(acid_vol, acid_con, base_con, input_kb_significant_digits, input_kb_significant_digits, base_valence)
+            except ValueError:
+                img_base64 = None
+    return render_template('curve_acid_base4.html', img_base64=img_base64)
 
 @app.route('/constaints')
 def constaints():

@@ -79,3 +79,13 @@ th, td {
     padding: 8px;
     text-align: left;
 }
+.graph-container {
+    width: 600px;
+    text-align: center;
+}
+.graph-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}

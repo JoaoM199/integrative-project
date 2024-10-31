@@ -1,0 +1,39 @@
+{% extends 'header.html' %}
+{% block content %}
+    <div class="main_window">
+        <h2>pH tritation</h2>
+        <h3>Weak acid tritation</h3>
+
+        <!-- Formulário para curva de titulação de um ácido forte -->
+        <form method="POST">
+            <label for="acid_vol">Enter acid volume (mL): </label>
+            <input type="number" id="acid_vol" name="acid_vol" step="any"> <br/>
+
+            <label for="acid_con">Enter acid concentration (mol/L): </label>
+            <input type="number" id="acid_con" name="acid_con" step="any"> <br/>
+
+            <label for="base_con">Enter base concentration (mol/L): </label>
+            <input type="number" id="base_con" name="base_con" step="any"> <br/>
+
+            <label for="acid_valence">Enter acid valence: </label>
+            <input type="number" id="acid_valence" name="acid_valence" step="any"> <br/>
+
+            <label for="base_con">Enter acid constaint: </label>
+            <input type="number" id="input_ka_significant_digits" name="input_ka_significant_digits" step="any" placeholder="1.7" required>
+            <label for="base_con"> * 10 ^ -</label>
+            <input type="number" id="input_ka_exponent" name="input_ka_exponent" step="any" placeholder="5" required> <br/>
+            
+            <button type="submit">Calculate</button>
+        </form>
+        <a href="/phcurve">Return to pH calculator page</a>
+        
+        <!--    Plotagem do gráfico  -->
+        {% if img_base64 %}
+        <div class="graph-container">
+            <img src="data:image/png;base64,{{ img_base64 }}" alt="Gráfico" width="500px" height="400px">
+        </div>
+        {% endif %}
+        
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}
