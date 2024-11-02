@@ -22,6 +22,7 @@ from .functions.sd import calc_sd, calc_rsd
 from .functions.confidence import calc_critical_value, calc_error_margin, calc_confidence_interval, calc_u
 from .functions.phc_calc import phc_strong_acid_base, phc_weak_acid, phc_weak_base, phc_weak_acid_base
 from .functions.phc_curves import tcurve_strong_acid, tcurve_strong_base, tcurve_weak_acid, tcurve_weak_base
+from .functions.argentometric import agcurve
 
 app = Flask(__name__)
 
@@ -332,6 +333,31 @@ def curve_acid_base4():
             except ValueError:
                 img_base64 = None
     return render_template('curve_acid_base4.html', img_base64=img_base64)
+
+@app.route('/argentometric_curve', methods=['GET','POST'])
+def argentometric():
+    analyte_vol = None
+    analyte_con = None
+    titrant_max_vol = None
+    titrant_con = None
+    img_base64 = None
+    if request.method == 'POST':
+        analyte_vol = request.form.get('analyte_vol')
+        analyte_con = request.form.get('analyte_con')
+        titrant_max_vol = request.form.get('titrant_max_vol')
+        titrant_con = request.form.get('titrant_con')
+        if analyte_vol and analyte_con and titrant_max_vol and titrant_con:
+            try:
+                analyte_vol = float(analyte_vol) / 1000
+                analyte_con = float(analyte_con)
+                titrant_max_vol = float(titrant_max_vol) / 1000
+                titrant_con = float(titrant_con)
+                img_base64 = agcurve(analyte_vol, analyte_con, titrant_max_vol, titrant_con)
+            except ValueError:
+                img_base64 = None
+                balance_point = None
+
+    return render_template('argentometric.html', img_base64=img_base64)
 
 @app.route('/constaints')
 def constaints():
