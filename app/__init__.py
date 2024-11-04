@@ -355,9 +355,12 @@ def argentometric():
                 img_base64 = agcurve(analyte_vol, analyte_con, titrant_max_vol, titrant_con)
             except ValueError:
                 img_base64 = None
-                balance_point = None
 
     return render_template('argentometric.html', img_base64=img_base64)
+
+@app.route('/analytical_factor', methods=['GET','POST'])
+def analytical_factor():
+    return render_template('analytical.html')
 
 @app.route('/constaints')
 def constaints():
