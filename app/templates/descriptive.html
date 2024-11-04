@@ -1,0 +1,80 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="main_window">
+    <h2>Descriptive measures</h2>
+    <h3>Choose what you want to calculate</h3>
+    <form method="POST">
+        <label for="calculation_type">Calculate: </label>
+        <select name="calculation_type" id="calculation_type" onchange="this.form.submit()">
+            <option value="" disabled selected>Select</option>
+            <option value="mean" {% if calculation_type == 'mean' %}selected{% endif %}>Arithimethic mean</option>
+            <option value="deviation" {% if calculation_type == 'deviation' %}selected{% endif %}>Deviation from an average</option>
+            <option value="sd" {% if calculation_type == 'sd' %}selected{% endif %}>Standard deviation</option>
+            <option value="confidence" {% if calculation_type == 'confidence' %}selected{% endif %}>Confidence Threshold</option>
+        </select>
+    </form>
+    <!--    Opção mean  -->
+    {% if calculation_type == "mean" %}
+    <form method="POST">
+        <input type="hidden" name="calculation_type" value="{{ calculation_type }}">
+        <label for="values">Enter comma separated values (,):</label> <br/>
+        <input type="text" id="values" name="values" pattern="\d+(\.\d+)?(\s*,\s*\d+(\.\d+)?)*" placeholder="2, 2.3, 2.5, 2.7, 3" required>
+        <button type="submit">Calculate</button>
+    </form>
+    {% if result %}
+        <div class="response">
+            <p>x = {{ values }}</p>
+            <p class="awnser">Mean: {{ result }}</p>
+        </div>
+    {% endif %}
+    <!--    Opção deviation  -->
+    {% elif calculation_type == "deviation" %}
+    <form method="POST">
+        <input type="hidden" name="calculation_type" value="{{ calculation_type }}">
+        <label for="values">Enter comma separated values (,):</label> <br/>
+        <input type="text" id="values" name="values" pattern="\d+(\.\d+)?(\s*,\s*\d+(\.\d+)?)*" placeholder="2, 2.3, 2.5, 2.7, 3" required>
+        <button type="submit">Calculate</button>
+    </form>
+        {% if result and deviation_values %}
+        <div class="response">
+            <p>d = {{ deviation_values}}</p>
+            <p>mean of d = {{ result }}</p>
+        </div>
+    {% endif %}
+    <!--    Opção sd    -->
+    {% elif calculation_type == "sd" %}
+    <form method="POST">
+        <input type="hidden" name="calculation_type" value="{{ calculation_type }}">
+        <label for="values">Enter comma separated values (,):</label> <br/>
+        <input type="text" id="values" name="values" pattern="\d+(\.\d+)?(\s*,\s*\d+(\.\d+)?)*" placeholder="2, 2.3, 2.5, 2.7, 3" required>
+        <button type="submit">Calculate</button>
+    </form>
+        {% if sd and rsd %}
+        <div class="response">
+            <p class="awnser">sd = {{ sd }}</p>
+            <p class="awnser">rsd = {{ rsd }}</p>
+        </div>
+    {% endif %}
+    <!--    Opção confidence   -->
+    {% elif calculation_type == "confidence" %}
+    <form method="POST">
+        <input type="hidden" name="calculation_type" value="{{ calculation_type }}">
+        <label for="values">Enter comma separated values (,):</label> <br/>
+        <input type="text" id="values" name="values" pattern="\d+(\.\d+)?(\s*,\s*\d+(\.\d+)?)*" placeholder="2, 2.3, 2.5, 2.7, 3" required> <br/>
+        <label for="values">Enter the probability percentage (%): </label> <br/>
+        <input type="number" id="values" name="trust" placeholder="95" required>
+        <button type="submit">Calculate</button>
+    </form>
+        {% if t_value and critical_value and error_margin and confidence_interval and u %}
+        <div class="response">
+            <p>values = {{ values }}</p>
+            <p>t = {{ t_value }}%</p>
+            <p>critical value = {{ critical_value }}</p>
+            <p>error margin = {{ error_margin }}</p>
+            <p class="awnser">u = {{ u }}</p>
+        </div>
+    {% endif %}
+    {% endif %}
+</div>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'header.html' %}
+{% block content %}
+    <div class="main_window">
+        <h2>pH tritation</h2>
+        <h3>Strong acid tritation</h3>
+
+        <!-- Formulário para curva de titulação de um ácido forte -->
+        <form method="POST">
+            <label for="analyte_vol">Enter analyte volume (mL): </label>
+            <input type="number" id="analyte_vol" name="analyte_vol" step="any"> <br/>
+
+            <label for="analyte_con">Enter acid concentration (mol/L): </label>
+            <input type="number" id="analyte_con" name="analyte_con" step="any"> <br/>
+
+            <label for="titrant_max_vol">Enter maximum volume of titrant used (mL): </label>
+            <input type="number" id="titrant_max_vol" name="titrant_max_vol" step="any"> <br/>
+
+            <label for="titrant_con">Enter concentration of titrant (mol/L): </label>
+            <input type="number" id="titrant_con" name="titrant_con" step="any"> <br/>
+            
+            <button type="submit">Calculate</button>
+        </form>
+        
+        <!--    Plotagem do gráfico  -->
+        {% if img_base64 %}
+        <div class="graph-container">
+            <img src="data:image/png;base64,{{ img_base64 }}" alt="Gráfico" width="500px" height="400px">
+        </div>
+        {% endif %}
+        
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}

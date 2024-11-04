@@ -1,0 +1,43 @@
+{% extends 'header.html' %}
+
+{% block content %}
+<div class="main_window">
+    <h2>Welcome to Aqcalc</h2>
+    <p>Aqcalc is a specific calculator for carrying out specific scientific calculations for quantitative analytical chemistry, with several specific features such as calculating descriptive measurements, calculating pH and pOH, acid-base titration curves, argentinometry and much more. </p>
+    <h2>What would you like to calculate?</h2>
+    <ul>
+        <li>
+            <a href="/descriptive">Descriptive measures</a> <br/>
+        </li>
+        <li>
+            <a href="/phcalc">Calculate pH and pOH</a>
+        </li>
+        <li>
+            <a href="/phcurve">Calculate pH tritation curve</a>
+        </li>
+        <li>
+            <a href="/argentometric_curve">Argentometric tritation curve</a>
+        </li>
+    </ul>
+
+    <h2>More information</h2>
+    <ul>
+        <li>
+            <a href="/constaints">Acid-base constaints</a>
+        </li>
+        <li>
+            <a href="">Documentation</a> <br/>
+        </li>
+        <li>
+            <a href="https://github.com/JoaoM199/integrative-project">Github page</a> <br/>
+        </li>
+        <li>
+            <a href="">Download old versions</a> <br/>
+        </li>
+        <li>
+            <a href="/about">About</a>
+        </li>
+    </ul>
+</div>
+
+{% endblock %}

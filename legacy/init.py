@@ -3,11 +3,7 @@
     Nome do projeto: AQCALC
     Aluno: João Marcelo Coelho Pacheco
     RGM: 23163054
-    Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura, Vagner da Silva
-    Universidade: Cruzeiro do Sul Virtual
-
-    Descrição
-    Uma calculadora científica para cálculos epecíficos da Química Analítica
+    Tutores: Thyago Alves Sobreira, Leonardo Akira Teixeira Dantas Kamimura
 '''
 from tkinter import messagebox
 import webbrowser as web

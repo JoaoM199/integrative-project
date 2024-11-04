@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqcalc</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <a href="/">
+            <img src="{{ url_for('static', filename='img/icon.png') }}" alt="logo" width="60px" height="80px">
+            <h1 class="title">Aqcalc</h1>
+        </a>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+    
+    <div class="footer">
+        (c) Joao M Pacheco, 2024
+    </div>
+
+</body>
+</html>

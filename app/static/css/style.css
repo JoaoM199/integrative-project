@@ -1,0 +1,97 @@
+/*
+    Colors
+        GUI
+            #d1d1d2
+            #9fcfff
+            #ffc79f
+            #a7ff9f
+        Text
+            Default =   #ffffff
+            Error =     #ff0000
+            Response =  #0000ff
+            Links =     #00ff00
+*/
+body {
+    font-size: 16px;
+    text-indent: 10px;
+    text-align: justify;
+    line-height: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #9fcfff;
+}
+.main_window {
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    margin: 0 auto;
+}
+form {
+    text-align: center;
+
+}
+h1 {
+    font-size: 32px;
+}
+.title {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.header, .footer {
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffc79f;
+
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    margin: 0 auto;
+}
+ul, ol {
+    list-style-type: none;
+}
+a, a:visited {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover {
+    color: #00ff00;
+}
+.response {
+    background-color: #a7ff9f;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    font-family:'Courier New', Courier, monospace;
+}
+.awnser {
+    color: #0000ff;
+    font-weight: bold;
+}
+table {
+    width: 50%;
+    border-collapse: collapse;
+    align-items: center;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+.graph-container {
+    width: 600px;
+    text-align: center;
+}
+.graph-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
