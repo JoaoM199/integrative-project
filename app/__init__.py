@@ -23,6 +23,7 @@ from .functions.confidence import calc_critical_value, calc_error_margin, calc_c
 from .functions.phc_calc import phc_strong_acid_base, phc_weak_acid, phc_weak_base, phc_weak_acid_base
 from .functions.phc_curves import tcurve_strong_acid, tcurve_strong_base, tcurve_weak_acid, tcurve_weak_base
 from .functions.argentometric import agcurve
+from .functions.analytical import conv_volume_L, conv_volume_mL, analitical_factor
 
 app = Flask(__name__)
 
@@ -360,7 +361,20 @@ def argentometric():
 
 @app.route('/analytical_factor', methods=['GET','POST'])
 def analytical_factor():
-    return render_template('analytical.html')
+    PM_value = None
+    M_value = None
+    FA = None
+    if request.method == 'POST':
+        PM_value = request.form.get('PM_value')
+        M_value = request.form.get('M_value')
+        if PM_value and M_value:
+            try:
+                PM_value = float(PM_value)
+                M_value = float(M_value)
+                FA = analitical_factor(PM_value, M_value)
+            except ValueError:
+                FA = None
+    return render_template('analytical.html', FA=FA)
 
 @app.route('/constaints')
 def constaints():
